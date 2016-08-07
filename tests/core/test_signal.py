@@ -29,6 +29,22 @@ class MyTestCase(unittest.TestCase):
         signal.emit(1, 2, 3)
         self.assertTrue(executed[0])
 
+    def test_connect_with(self):
+        signal = quite.SignalSender()
+        executed = [False]
+
+        @quite.connect_with(signal, 1, 2)
+        def slot(a: int, b: int, c: int):
+            self.assertEqual(a, 1)
+            self.assertEqual(b, 2)
+            self.assertEqual(c, 3)
+            executed[0] = True
+
+        signal.emit(3)
+        self.assertTrue(executed[0])
+
+        slot(1, 2, 3)
+
 
 if __name__ == '__main__':
     unittest.main()
