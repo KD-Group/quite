@@ -41,6 +41,6 @@ User Friendly Widget Classes
 
 And you will get that:
 
-.. image:: docs/images/1.widget.png
+.. image:: docs/images/1.simple.widget.png
     :align: center
     :alt: Simple Widget
