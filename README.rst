@@ -1,5 +1,5 @@
-quite: QT UI Extension
-======================
+quite: QT UI Extension for Python3
+==================================
 
 A simple extension for PySide.
 
@@ -26,3 +26,21 @@ Powerful Signal-Slot
 
     signal.emit(1, 2, 3)
     self.assertTrue(executed[0])
+
+
+============================
+User Friendly Widget Classes
+============================
+
+.. code-block:: python
+
+    import quite
+
+    w = quite.Widget()
+    w.exec()
+
+And you will get that:
+
+.. image:: docs/images/1.widget.png
+    :align: center
+    :alt: Simple Widget

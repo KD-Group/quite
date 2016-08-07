@@ -36,5 +36,6 @@ setup(
     ],
 
     keywords='qt ui',
-    packages=find_packages(exclude=['docs', 'tests'], include=['PySide', 'st'])
+    packages=find_packages(exclude=['docs', 'tests']),
+    install_requires=['PySide', 'st']
 )
