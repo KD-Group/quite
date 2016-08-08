@@ -7,7 +7,6 @@ if __name__ == '__main__':
     ui_file_path = os.path.join(current_path, 'res', 'easy.list.ui')
 
     w = quite.load_ui(ui_file_path)
-    assert 'string_edit' in dir(w)
     assert isinstance(w.string_edit, quite.LineEdit)
     assert isinstance(w.string_list, quite.ListWidget)
     assert isinstance(w.add_button, quite.PushButton)
@@ -32,5 +31,5 @@ if __name__ == '__main__':
     def print_current_index_of_list(index):
         print('current index is', index)
 
-    w.string_edit.setFocus()
+    w.string_edit.set_focus()
     w.exec()
