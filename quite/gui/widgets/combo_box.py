@@ -3,68 +3,50 @@ from .. import *
 
 
 @ui_extension
-class ComboBox(QComboBox):
-    def __init__(self, parent=None, *args):
-        super().__init__(parent, *args)
+class ComboBox(QComboBox, StringPropertyInterface, IndexPropertyInterface, ItemsPropertyInterface):
+    # string property methods overriding
+    def get_string_value(self):
+        return self.currentText()
 
-        self.text = ComboBoxText(self)
-        self.index = ComboBoxIndex(self)
-        self.items = ComboBoxItems(self)
-
-
-# noinspection PyUnresolvedReferences
-class ComboBoxText(ValueModel):
-    def __init__(self, parent: ComboBox):
-        super().__init__(parent)
-        self.parent = parent
-        self.parent.currentIndexChanged[str].connect(self.changed.emit)
-
-    def get_value(self):
-        return self.parent.currentText()
-
-    def set_value(self, value=None):
-        texts = self.parent.items.value
+    def set_string_value(self, value=None):
+        texts = self.items.value
         assert isinstance(texts, list)
         if value in texts:
-            self.parent.setCurrentIndex(texts.index(value))
+            self.setCurrentIndex(texts.index(value))
         else:
-            self.parent.items.add(value)
-            self.parent.setCurrentIndex(self.parent.items.count - 1)
+            self.items.add(value)
+            self.setCurrentIndex(self.items.count - 1)
 
+    def set_string_changed_connection(self):
+        # noinspection PyUnresolvedReferences
+        self.currentIndexChanged[str].connect(self.string.changed.emit)
 
-# noinspection PyUnresolvedReferences
-class ComboBoxIndex(ValueModel):
-    def __init__(self, parent: ComboBox):
-        super().__init__(parent)
-        self.parent = parent
-        self.parent.currentIndexChanged[int].connect(self.changed.emit)
+    # index property methods overriding
+    def get_index_value(self):
+        return self.currentIndex()
 
-    def get_value(self):
-        return self.parent.currentIndex()
+    def set_index_value(self, value=None):
+        self.setCurrentIndex(value)
 
-    def set_value(self, value=None):
-        self.parent.setCurrentIndex(value)
+    def set_index_changed_connection(self):
+        self.currentIndexChanged[int].connect(self.index.changed.emit)
 
+    def get_items_value(self):
+        return st.foreach(self.itemText, range(self.items.count))
 
-class ComboBoxItems(ValueModel):
-    def __init__(self, parent: ComboBox):
-        super().__init__(parent)
-        self.parent = parent
-
-    @property
-    def count(self):
-        return self.parent.count()
-
-    def add(self, *items):
-        self.parent.addItems(items)
-        self.changed.emit(self.value)
-
-    def get_value(self):
-        return st.foreach(self.parent.itemText, range(self.count))
-
-    def set_value(self, value=None):
+    def set_items_value(self, value=None):
         value = [] if value is None else value
 
-        self.parent.clear()
-        self.parent.addItems(value)
-        self.changed.emit(value)
+        self.clear()
+        self.addItems(value)
+        self.items.changed.emit(value)
+
+    def get_items_count(self):
+        return self.count()
+
+    def set_items_add(self, *items):
+        self.addItems(items)
+        self.items.changed.emit(self.items.value)
+
+    def set_items_changed_connection(self):
+        pass

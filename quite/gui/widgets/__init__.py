@@ -7,4 +7,5 @@ from .combo_box import ComboBox
 from .list_widget import ListWidget
 
 from .action import Action
+from .short_cut import Shortcut
 from .push_button import PushButton

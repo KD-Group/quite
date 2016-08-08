@@ -10,7 +10,7 @@ class MyTestCase(unittest.TestCase):
             combo_box.show()
             times = []
 
-            @quite.connect_with(combo_box.text.changed)
+            @quite.connect_with(combo_box.string.changed)
             def text_changed(text):
                 if len(times) == 0:
                     self.assertEqual(text, '0')
@@ -44,7 +44,7 @@ class MyTestCase(unittest.TestCase):
             combo_box.show()
             times = []
 
-            @quite.connect_with(combo_box.text.changed)
+            @quite.connect_with(combo_box.string.changed)
             def text_changed(text):
                 if len(times) == 0:
                     self.assertEqual(text, 'first')
@@ -56,9 +56,9 @@ class MyTestCase(unittest.TestCase):
                     self.assertEqual(text, '')
                 times.append(len(times))
 
-            combo_box.text.set_value('first')
-            combo_box.text.set_value('second')
-            combo_box.text.set_value('first')
+            combo_box.string.set_value('first')
+            combo_box.string.set_value('second')
+            combo_box.string.set_value('first')
             self.assertEqual(len(times), 3)
             self.assertEqual(combo_box.items.count, 2)
 

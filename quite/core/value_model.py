@@ -2,8 +2,7 @@ from . import SignalSender
 
 
 class ValueModel:
-    def __init__(self, parent=None):
-        self.parent = parent
+    def __init__(self):
         self.changed = SignalSender()
 
     @property

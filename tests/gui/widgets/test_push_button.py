@@ -9,7 +9,7 @@ class MyTestCase(unittest.TestCase):
             push_button.show()
             times = []
 
-            @quite.connect_with(push_button.text.changed)
+            @quite.connect_with(push_button.string.changed)
             def text_changed(text):
                 if len(times) == 0:
                     self.assertEqual(text, 'first')
@@ -17,8 +17,8 @@ class MyTestCase(unittest.TestCase):
                     self.assertEqual(text, 'second')
                 times.append(len(times))
 
-            push_button.text.value = 'first'
-            push_button.text.value = 'second'
+            push_button.string.value = 'first'
+            push_button.string.value = 'second'
             self.assertEqual(len(times), 2)
 
     def test_push_button_triggered(self):
@@ -27,17 +27,17 @@ class MyTestCase(unittest.TestCase):
             push_button.show()
             times = []
 
-            @quite.connect_with(push_button.triggered)
+            @quite.connect_with(push_button.excited)
             def button_clicked():
                 if len(times) == 0:
-                    self.assertEqual(push_button.text.value, 'first')
+                    self.assertEqual(push_button.string.value, 'first')
                 elif len(times) == 1:
-                    self.assertEqual(push_button.text.value, 'second')
+                    self.assertEqual(push_button.string.value, 'second')
                 times.append(len(times))
 
-            push_button.text.value = 'first'
+            push_button.string.value = 'first'
             push_button.click()
-            push_button.text.value = 'second'
+            push_button.string.value = 'second'
             push_button.click()
             self.assertEqual(len(times), 2)
 

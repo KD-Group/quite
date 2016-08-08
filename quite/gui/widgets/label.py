@@ -2,20 +2,13 @@ from .. import *
 
 
 @ui_extension
-class Label(QLabel):
-    def __init__(self, parent=None, *args):
-        super().__init__(parent, *args)
+class Label(QLabel, StringPropertyInterface):
+    def get_string_value(self):
+        return self.text()
 
-        self.text = LabelText(self)
+    def set_string_value(self, value=None):
+        self.setText(value or '')
+        self.string.changed.emit(self.string.value)
 
-
-class LabelText(ValueModel):
-    def __init__(self, parent: Label):
-        super().__init__(parent)
-
-    def get_value(self):
-        return self.parent.text()
-
-    def set_value(self, value=None):
-        self.parent.setText(value or '')
-        self.changed.emit(self.value)
+    def set_string_changed_connection(self):
+        pass

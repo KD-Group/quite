@@ -9,7 +9,7 @@ class MyTestCase(unittest.TestCase):
             line_edit.show()
             times = []
 
-            @quite.connect_with(line_edit.text.changed)
+            @quite.connect_with(line_edit.string.changed)
             def text_changed(text):
                 if len(times) == 0:
                     self.assertEqual(text, 'first')
@@ -17,8 +17,8 @@ class MyTestCase(unittest.TestCase):
                     self.assertEqual(text, 'second')
                 times.append(len(times))
 
-            line_edit.text.value = 'first'
-            line_edit.text.value = 'second'
+            line_edit.string.value = 'first'
+            line_edit.string.value = 'second'
             self.assertEqual(len(times), 2)
 
 

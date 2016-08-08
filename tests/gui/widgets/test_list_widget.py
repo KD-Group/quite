@@ -10,7 +10,7 @@ class MyTestCase(unittest.TestCase):
             list_widget.show()
             executed = [False]
 
-            @quite.connect_with(list_widget.text.changed)
+            @quite.connect_with(list_widget.string.changed)
             def text_changed(text):
                 self.assertEqual(text, '1')
                 executed[0] = True
@@ -40,27 +40,24 @@ class MyTestCase(unittest.TestCase):
             list_widget.show()
             times = []
 
-            @quite.connect_with(list_widget.text.changed)
-            def text_changed(text):
+            @quite.connect_with(list_widget.string.changed)
+            def text_changed(string):
                 if len(times) == 0:
-                    self.assertEqual(text, 'first')
+                    self.assertEqual(string, 'first')
                 elif len(times) == 1:
-                    self.assertEqual(text, 'second')
+                    self.assertEqual(string, 'second')
                 elif len(times) == 2:
-                    self.assertEqual(text, 'first')
+                    self.assertEqual(string, 'first')
                 elif len(times) == 3:
-                    self.assertEqual(text, '')
+                    self.assertEqual(string, '')
                 times.append(len(times))
 
-            list_widget.text.set_value('first')
-            list_widget.text.set_value('second')
-            list_widget.text.set_value('first')
+            list_widget.string.set_value('first')
+            list_widget.string.set_value('second')
+            list_widget.string.set_value('first')
             self.assertEqual(len(times), 3)
             self.assertEqual(list_widget.items.count, 2)
 
-            list_widget.items.clear()
-            self.assertEqual(len(times), 4)
-            self.assertEqual(list_widget.items.count, 0)
 
 if __name__ == '__main__':
     unittest.main()

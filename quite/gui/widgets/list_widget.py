@@ -3,66 +3,56 @@ from .. import *
 
 
 @ui_extension
-class ListWidget(QListWidget):
-    def __init__(self, parent=None):
-        super().__init__(parent)
+class ListWidget(QListWidget, StringPropertyInterface, IndexPropertyInterface, ItemsPropertyInterface):
+    # string property methods overriding
+    def get_string_value(self):
+        return self.currentItem().value()
 
-        self.text = ListWidgetText(self)
-        self.index = ListWidgetIndex(self)
-        self.items = ListWidgetItems(self)
-
-
-# noinspection PyUnresolvedReferences
-class ListWidgetIndex(ValueModel):
-    def __init__(self, parent: ListWidget):
-        super().__init__(parent)
-        self.parent = parent
-        self.parent.currentRowChanged.connect(self.changed.emit)
-
-    def get_value(self):
-        return self.parent.currentRow()
-
-    def set_value(self, value=None):
-        self.parent.setCurrentRow(value)
-
-
-# noinspection PyUnresolvedReferences
-class ListWidgetText(ValueModel):
-    def __init__(self, parent: ListWidget):
-        super().__init__(parent)
-        self.parent.currentTextChanged.connect(self.changed.emit)
-
-    def get_value(self):
-        return self.parent.currentItem().value()
-
-    def set_value(self, value=None):
-        texts = self.parent.items.value
+    def set_string_value(self, value=None):
+        texts = self.items.value
         assert isinstance(texts, list)
         if value in texts:
-            self.parent.setCurrentRow(texts.index(value))
+            self.setCurrentRow(texts.index(value))
         else:
-            self.parent.items.add(value)
-            self.parent.setCurrentRow(self.parent.items.count - 1)
+            self.items.add(value)
+            self.setCurrentRow(self.items.count - 1)
 
+    def set_string_changed_connection(self):
+        # noinspection PyUnresolvedReferences
+        self.currentTextChanged.connect(self.string.changed.emit)
 
-class ListWidgetItems(ValueModel):
-    def __init__(self, parent: ListWidget):
-        super().__init__(parent)
+    # index property methods overriding
+    def get_index_value(self):
+        return self.currentRow()
+
+    def set_index_value(self, value=None):
+        self.setCurrentRow(value)
+
+    def set_index_changed_connection(self):
+        # noinspection PyUnresolvedReferences
+        self.currentRowChanged.connect(self.index.changed.emit)
+
+    # items property methods overriding
+    def get_items_value(self):
+        return st.foreach(lambda i, s=self: s.item(i).text(), range(self.items.count))
+
+    def set_items_value(self, value=None):
+        value = value or []
+
+        self.clear()
+        self.addItems(value)
+        self.items.changed.emit(value)
+
+    def set_items_changed_connection(self):
+        pass
+
+    def get_items_count(self):
+        return self.count()
+
+    def set_items_add(self, *items):
+        self.addItems(items)
+        self.items.changed.emit(self.items.value)
 
     @property
-    def count(self):
-        return self.parent.count()
-
-    def add(self, *items):
-        self.parent.addItems(items)
-        self.changed.emit(self.value)
-
-    def get_value(self):
-        return st.foreach(lambda i, s=self: s.parent.item(i).text(), range(self.parent.count()))
-
-    def set_value(self, value=None):
-        value = [] if value is None else value
-
-        self.parent.clear()
-        self.parent.addItems(value)
-        self.changed.emit(value)
+    def items(self):
+        return self.get_items_object()

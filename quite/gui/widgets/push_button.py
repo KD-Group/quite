@@ -2,26 +2,17 @@ from .. import *
 
 
 @ui_extension
-class PushButton(QPushButton):
-    def __init__(self, *args):
-        super().__init__(*args)
-
-        self.plain_text = self.text
-        self.text = PushButtonText(self)
-
-        self.changed = SignalSender()
+class PushButton(QPushButton, ExcitedSignalInterface, StringPropertyInterface):
+    def set_excited_signal_connection(self):
         # noinspection PyUnresolvedReferences
-        self.clicked.connect(self.changed.emit)
-        self.triggered = self.changed
+        self.clicked.connect(self.excited.emit)
 
+    def get_string_value(self):
+        return self.text()
 
-class PushButtonText(ValueModel):
-    def __init__(self, parent: PushButton):
-        super().__init__(parent)
+    def set_string_value(self, value=None):
+        self.setText(value or '')
+        self.string.changed.emit(self.string.value)
 
-    def get_value(self):
-        return self.parent.plain_text()
-
-    def set_value(self, value=None):
-        self.parent.setText(value or '')
-        self.changed.emit(self.value)
+    def set_string_changed_connection(self):
+        pass

@@ -2,21 +2,13 @@ from .. import *
 
 
 @ui_extension
-class LineEdit(QLineEdit):
-    def __init__(self, parent=None, *args):
-        super().__init__(parent, *args)
+class LineEdit(QLineEdit, StringPropertyInterface):
+    def get_string_value(self):
+        return self.text()
 
-        self.plain_text = self.text
-        self.text = LineEditText(self)
+    def set_string_value(self, value=None):
+        self.setText(value or '')
 
-
-class LineEditText(ValueModel):
-    def __init__(self, parent: LineEdit):
-        super().__init__(parent)
-        self.parent.textChanged.connect(self.changed.emit)
-
-    def get_value(self):
-        return self.parent.plain_text()
-
-    def set_value(self, value=None):
-        self.parent.setText(value or '')
+    def set_string_changed_connection(self):
+        # noinspection PyUnresolvedReferences
+        self.textChanged.connect(self.string.changed.emit)
