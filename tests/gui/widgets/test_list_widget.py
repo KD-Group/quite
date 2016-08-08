@@ -7,7 +7,6 @@ class MyTestCase(unittest.TestCase):
     def test_list_widget_row(self):
         with quite.EventLoop(0.1) as event:
             list_widget = quite.ListWidget()
-            list_widget.closed.connect(event.quit)
             list_widget.show()
             executed = [False]
 
@@ -23,7 +22,6 @@ class MyTestCase(unittest.TestCase):
     def test_list_widget_items(self):
         with quite.EventLoop(0.1) as event:
             list_widget = quite.ListWidget()
-            list_widget.closed.connect(event.quit)
             list_widget.show()
             executed = [False]
             items = st.foreach(str, range(10))

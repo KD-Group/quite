@@ -11,11 +11,6 @@ class ListWidget(QListWidget):
         self.index = ListWidgetIndex(self)
         self.items = ListWidgetItems(self)
 
-        self.closed = SignalSender()
-
-    def closeEvent(self, *_):
-        self.closed.emit()
-
 
 # noinspection PyUnresolvedReferences
 class ListWidgetIndex(ValueModel):

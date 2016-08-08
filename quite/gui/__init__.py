@@ -5,4 +5,4 @@ from .ui_extension import ext_classes, ui_extension
 from .widgets import Widget, Dialog
 from .widgets import Label, LineEdit
 from .widgets import ListWidget, ComboBox
-from .widgets import Action
+from .widgets import Action, PushButton

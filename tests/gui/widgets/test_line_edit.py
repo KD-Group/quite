@@ -20,3 +20,7 @@ class MyTestCase(unittest.TestCase):
             line_edit.text.value = 'first'
             line_edit.text.value = 'second'
             self.assertEqual(len(times), 2)
+
+
+if __name__ == '__main__':
+    unittest.main()
