@@ -13,7 +13,7 @@ class ValueModel:
     def value(self, value):
         self.set_value(value)
 
-    def get_value(self):
+    def get_value(self) -> str:
         pass
 
     def set_value(self, value=None):
