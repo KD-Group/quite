@@ -6,7 +6,7 @@ from .. import *
 class ListWidget(QListWidget, StringPropertyInterface, IndexPropertyInterface, ItemsPropertyInterface):
     # string property methods overriding
     def get_string_value(self):
-        return self.currentItem().value()
+        return self.currentItem().text()
 
     def set_string_value(self, value=None):
         texts = self.items.value

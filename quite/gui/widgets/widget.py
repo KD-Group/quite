@@ -2,7 +2,7 @@ from .. import *
 
 
 @ui_extension
-class Widget(QWidget, ClosedSignalInterface, ClassExecInterface):
+class Widget(QWidget, ClosedSignalInterface, ClassExecInterface, ContainerAbilityInterface):
     def closeEvent(self, event: QCloseEvent):
         self.closed.emit()
         event.accept()

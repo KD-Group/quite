@@ -10,3 +10,5 @@ from .items_property_interface import ItemsPropertyInterface
 
 from .integer_property_interface import IntegerPropertyInterface
 from .double_property_interface import DoublePropertyInterface
+
+from .ability_interfaces import ContainerAbilityInterface

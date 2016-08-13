@@ -8,16 +8,22 @@ class WidgetController:
         self.w = load_ui(ui_file, parent)
 
     def label(self, name=None) -> Label:
-        return getattr(self.w, 'label_' + name)
+        return self.__get_widget__('label', name)
 
     def button(self, name=None) -> PushButton:
-        return getattr(self.w, 'button_' + name)
+        return self.__get_widget__('button', name)
 
     def edit(self, name=None) -> LineEdit:
-        return getattr(self.w, 'edit_' + name)
+        return self.__get_widget__('edit', name)
 
     def list(self, name=None) -> ListWidget:
-        return getattr(self.w, 'list_' + name)
+        return self.__get_widget__('list', name)
 
     def combo(self, name=None) -> ComboBox:
-        return getattr(self.w, 'combo_' + name)
+        return self.__get_widget__('combo', name)
+
+    def container(self, name=None) -> ContainerAbilityInterface:
+        return self.__get_widget__('container', name)
+
+    def __get_widget__(self, type_name, obj_name):
+        return getattr(self.w, type_name + '_' + obj_name, None) or getattr(self.w, obj_name + '_' + type_name)
