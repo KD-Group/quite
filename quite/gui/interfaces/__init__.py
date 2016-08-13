@@ -7,3 +7,6 @@ from .excited_signal_interface import ExcitedSignalInterface
 from .string_property_interface import StringPropertyInterface
 from .index_property_interface import IndexPropertyInterface
 from .items_property_interface import ItemsPropertyInterface
+
+from .integer_property_interface import IntegerPropertyInterface
+from .double_property_interface import DoublePropertyInterface
