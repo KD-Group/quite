@@ -1,6 +1,7 @@
 from .. import *
 
 
+@ui_extension
 class SpinBox(QSpinBox, IntegerPropertyInterface, StringPropertyInterface):
     # integer property methods overriding
     def get_integer_value(self):

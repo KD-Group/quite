@@ -1,7 +1,49 @@
 from .. import *
 
 
-class DoubleSpinBox(QDoubleSpinBox, DoublePropertyInterface, StringPropertyInterface):
+@ui_extension
+class DoubleSpinBox(QDoubleSpinBox, ShowedSignalInterface, DoublePropertyInterface, StringPropertyInterface):
+    const_base = 100000000000
+
+    def __init__(self, *args):
+        super().__init__(*args)
+        self.setDecimals(233)
+
+    def show(self):
+        super().show()
+        self.showed.emit()
+
+    def paintEvent(self, *args):
+        super().paintEvent(*args)
+        self.showed.emit()
+
+    def validate(self, text: str, pos: int):
+        if text == '' or text == '-' or text == '.':
+            return QValidator.Intermediate
+
+        try:
+            float(text)
+            return QValidator.Acceptable
+        except ValueError as e:
+            return QValidator.Invalid
+
+    def textFromValue(self, value):
+        value = round(value * self.const_base) / self.const_base
+        text = str(value)
+
+        if self.showed.has_emitted:
+            self.string.changed.emit(text)
+            self.double.changed.emit(value)
+        return text
+
+    def valueFromText(self, text):
+        value = float(text)
+
+        if self.showed.has_emitted:
+            self.string.changed.emit(text)
+            self.double.changed.emit(value)
+        return value
+
     # double property methods overriding
     def get_double_value(self):
         return self.value()
@@ -10,16 +52,14 @@ class DoubleSpinBox(QDoubleSpinBox, DoublePropertyInterface, StringPropertyInter
         self.setValue(value)
 
     def set_double_changed_connection(self):
-        # noinspection PyUnresolvedReferences
-        self.valueChanged[float].connect(self.double.changed.emit)
+        pass
 
     # string property methods overriding
     def get_string_value(self):
-        return str(self.double.value)
+        return self.lineEdit().text()
 
     def set_string_value(self, value=None):
         self.double.value = float(value)
 
     def set_string_changed_connection(self):
-        # noinspection PyUnresolvedReferences
-        self.valueChanged[str].connect(self.string.changed.emit)
+        pass
