@@ -1,6 +1,7 @@
 from .base_interface import BaseInterface
 from .class_exec_interface import ClassExecInterface
 from .closed_signal_interface import ClosedSignalInterface
+from .showed_signal_interface import ShowedSignalInterface
 from .changed_signal_interface import ChangedSignalInterface
 from .excited_signal_interface import ExcitedSignalInterface
 
