@@ -22,3 +22,7 @@ class SignalSender:
         self.signal.signal.connect(slot_func)
         if self.last_emit is not None:
             slot_func(self.last_emit)
+
+    @property
+    def has_emitted(self):
+        return self.last_emit is not None
