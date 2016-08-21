@@ -4,7 +4,7 @@ from ..gui import *
 
 class DialogController(WidgetController):
     def __init__(self, parent=None, ui_file=None):
-        super().__init__(parent, ui_file)
+        super().__init__(parent, ui_file, widget_to_dialog=True)
 
         Shortcut('ctrl+w', self.w).excited.connect(self.w.close)
 

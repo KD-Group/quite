@@ -12,8 +12,17 @@ def get_ui_content(filename):
     return text
 
 
-def load_ui(filename, parent=None):
-    return UiLoader().load(get_ui_content(filename), parent)
+def load_ui(filename, parent=None, widget_to_dialog=False) -> Widget:
+    ui_content = get_ui_content(filename)
+    if widget_to_dialog is True:
+        assert isinstance(ui_content, str)
+
+        first_class_pos = ui_content.index('class="')
+        first_class = ui_content[first_class_pos + 7:ui_content.index('"', first_class_pos + 7)]
+
+        if first_class == 'Widget':
+            ui_content = ui_content.replace('class="Widget"', 'class="Dialog"', 1)
+    return UiLoader().load(ui_content, parent)
 
 
 @st.singleton

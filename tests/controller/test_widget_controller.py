@@ -10,7 +10,7 @@ class MyTestCase(unittest.TestCase):
 
         with quite.EventLoop(timeout=.10):
             c = quite.WidgetController(None, ui_file_path)
-            c.w.show()
+            c.show()
             self.assertTrue(isinstance(c.w, quite.Widget))
 
             self.assertTrue(isinstance(c.button('add'), quite.PushButton))
