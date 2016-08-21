@@ -1,0 +1,3 @@
+qt resource file
+reading test~
+正常

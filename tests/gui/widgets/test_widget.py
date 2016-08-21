@@ -11,9 +11,7 @@ class MyTestCase(unittest.TestCase):
         def is_closed():
             executed[0] = True
 
-        t = quite.Timer()
-        t.timeout.connect(w.close)
-        t.start(100)
+        quite.later(0.01, w.close)
         w.exec()
         self.assertTrue(executed[0])
 
