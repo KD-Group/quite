@@ -4,6 +4,7 @@ from .. import *
 from PySide.QtUiTools import QUiLoader
 
 
+@st.make_cache
 def get_ui_content(filename):
     with codecs.open(filename, 'r', 'utf-8') as f:
         text = f.read()
