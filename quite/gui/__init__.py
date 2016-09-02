@@ -9,8 +9,7 @@ from .interfaces import StringPropertyInterface, IndexPropertyInterface, ItemsPr
 from .interfaces import IntegerPropertyInterface, DoublePropertyInterface
 from .interfaces import ContainerAbilityInterface
 
-# from .sf_layouts import *
-# from .extension_property import *
+from .layouts import SquareLayout
 
 from .widgets import Widget, Dialog
 from .widgets import MainWindow, GroupBox, DockWidget

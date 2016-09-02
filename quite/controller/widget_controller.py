@@ -8,7 +8,11 @@ class WidgetController:
         if isinstance(parent, WidgetController):
             parent = parent.w
 
-        self.w = constructor(parent)
+        self.w = self.__trick__(constructor, parent)
+
+    @staticmethod
+    def __trick__(constructor, parent) -> Widget:
+        return constructor(parent)
 
     # actions
     def close(self):

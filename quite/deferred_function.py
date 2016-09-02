@@ -6,7 +6,7 @@ def set_central_widget(self: Widget, widget):
     if isinstance(widget, WidgetController):
         widget = widget.w
     if not isinstance(widget, QWidget):
-        raise TypeError('Only Support Widget or Controller')
+        raise TypeError('Only Support Widget or WidgetController')
 
     if isinstance(self, QMainWindow):
         self.setCentralWidget(widget)
@@ -18,3 +18,35 @@ def set_central_widget(self: Widget, widget):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.addWidget(widget)
         self.setLayout(layout)
+
+
+@deferred_define
+def set_square_widget(self: Widget, widget: Widget, spacing=0):
+    if isinstance(widget, WidgetController):
+        widget = widget.w
+    if not isinstance(widget, QWidget):
+        raise TypeError('Only Support Widget or WidgetController')
+
+    layout = SquareLayout()
+    layout.setSpacing(spacing)
+    layout.addWidget(widget)
+    self.setLayout(layout)
+
+
+@deferred_define
+def export_to_pdf(self: Widget, filename: str):
+    p = QPicture()
+    painter = QPainter(p)
+    self.render(painter, QPoint(0, 0))
+    painter.end()
+
+    printer = QPrinter()
+    printer.setOutputFormat(QPrinter.PdfFormat)
+    printer.setOutputFileName(filename)
+
+    painter = QPainter()
+    ok = painter.begin(printer)
+    if ok:
+        painter.drawPicture(0, 0, p)
+        ok = painter.end()
+    return ok
