@@ -9,7 +9,7 @@ class MyTestCase(unittest.TestCase):
         ui_file_path = os.path.join(current_path, 'res', '3.widget.controller.ui')
 
         with quite.EventLoop(timeout=.10):
-            c = quite.WidgetController(None, ui_file_path)
+            c = quite.WidgetUiController(None, ui_file_path)
             c.show()
             self.assertTrue(isinstance(c.w, quite.Widget))
 

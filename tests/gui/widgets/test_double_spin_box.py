@@ -56,7 +56,7 @@ class MyTestCase(unittest.TestCase):
         current_path = os.path.dirname(__file__)
         ui_file_path = os.path.join(current_path, 'res', '1.double.spin.dialog.ui')
 
-        d = quite.load_ui(ui_file_path)
+        d = quite.load_ui(None, ui_file_path)
 
         def add_by_step():
             for i in range(200, 400 + 1):

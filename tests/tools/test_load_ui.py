@@ -10,7 +10,7 @@ class MyTestCase(unittest.TestCase):
 
         addresses = set()
         for i in range(3):
-            w = quite.load_ui(ui_file_path)
+            w = quite.load_ui(None, ui_file_path)
             addresses.add(w)
             self.assertTrue(isinstance(w, quite.Widget))
 

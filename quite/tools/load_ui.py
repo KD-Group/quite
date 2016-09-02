@@ -13,7 +13,9 @@ def get_ui_content(filename):
     return text
 
 
-def load_ui(filename, parent=None, widget_to_dialog=False) -> Widget:
+def load_ui(parent=None, filename=None, widget_to_dialog=False) -> Widget:
+    assert filename is not None
+
     ui_content = get_ui_content(filename)
     if widget_to_dialog is True:
         assert isinstance(ui_content, str)

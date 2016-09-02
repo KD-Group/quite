@@ -8,7 +8,7 @@ class MyTestCase(unittest.TestCase):
         current_path = os.path.dirname(__file__)
         ui_file_path = os.path.join(current_path, 'res', '4.dialog.controller.ui')
 
-        c = quite.DialogController(None, ui_file_path)
+        c = quite.DialogUiController(None, ui_file_path)
         self.assertTrue(isinstance(c.w, quite.Dialog))
         self.assertTrue(isinstance(c.button('quit'), quite.PushButton))
         quite.later(0.1, c.close)
@@ -18,7 +18,7 @@ class MyTestCase(unittest.TestCase):
         current_path = os.path.dirname(__file__)
         ui_file_path = os.path.join(current_path, 'res', '3.widget.controller.ui')
 
-        class WidgetDialogController(quite.DialogController):
+        class WidgetDialogController(quite.DialogUiController):
             def __init__(self, parent=None):
                 super().__init__(parent, ui_file_path)
 

@@ -1,2 +1,3 @@
 from .widget_controller import WidgetController
-from .dialog_controller import DialogController
+from .widget_ui_controller import WidgetUiController
+from .dialog_ui_controller import DialogUiController

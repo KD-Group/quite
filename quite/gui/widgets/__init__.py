@@ -1,5 +1,8 @@
 from .widget import Widget
 from .dialog import Dialog
+from .main_window import MainWindow
+from .group_box import GroupBox
+from .dock_widget import DockWidget
 
 from .label import Label
 from .line_edit import LineEdit

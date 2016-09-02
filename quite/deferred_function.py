@@ -4,7 +4,7 @@ from . import *
 @deferred_define
 def set_central_widget(self: Widget, widget):
     if isinstance(widget, WidgetController):
-        widget = self.w
+        widget = widget.w
     if not isinstance(widget, QWidget):
         raise TypeError('Only Support Widget or Controller')
 

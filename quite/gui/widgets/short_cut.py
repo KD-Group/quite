@@ -3,10 +3,12 @@ from .. import *
 
 @ui_extension
 class Shortcut(QShortcut, ExcitedSignalInterface):
-    def __init__(self, key, *args):
+    def __init__(self, key, parent):
         if isinstance(key, str):
             key = QKeySequence(key)
-        super().__init__(key, *args)
+        if not isinstance(parent, QWidget):
+            parent = parent.w
+        super().__init__(key, parent)
 
     def set_excited_signal_connection(self):
         # noinspection PyUnresolvedReferences
