@@ -11,3 +11,6 @@ class ContainerAbilityInterface(BaseInterface):
 
     def export_to_pdf(self, filename):
         return run_deferred_function('export_to_pdf', self, filename)
+
+    def export_to_image(self, filename):
+        return run_deferred_function('export_to_image', self, filename)

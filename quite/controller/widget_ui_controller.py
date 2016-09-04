@@ -25,7 +25,9 @@ class WidgetUiController(WidgetController):
     def combo(self, name=None) -> ComboBox:
         return self.__get_widget__('combo', name)
 
-    def container(self, name=None) -> ContainerAbilityInterface:
+    def container(self, name=None) -> Widget:
+        if name is None:
+            return self.w
         return self.__get_widget__('container', name)
 
     def dock(self, name=None) -> DockWidget:
@@ -39,10 +41,12 @@ class WidgetUiController(WidgetController):
         if getattr(obj, 'excited', None) is None:
             obj.excited = SignalSender()
             obj.triggered.connect(obj.excited.emit)
+            obj.set_enabled = st.partial_front(obj.setEnabled, True)
+            obj.set_disabled = st.partial_front(obj.setEnabled, False)
         return obj
 
-    def widget(self, name=None) -> Widget:
-        return self.__get_widget__('widget', name)
+    def widget(self) -> Widget:
+        return self.w.center_widget
 
     def __get_widget__(self, type_name, obj_name):
         return getattr(self.w, type_name + '_' + obj_name, None) or getattr(self.w, obj_name + '_' + type_name)

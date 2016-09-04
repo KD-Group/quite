@@ -18,6 +18,7 @@ def set_central_widget(self: Widget, widget):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.addWidget(widget)
         self.setLayout(layout)
+    self.center_widget = widget
 
 
 @deferred_define
@@ -31,6 +32,7 @@ def set_square_widget(self: Widget, widget: Widget, spacing=0):
     layout.setSpacing(spacing)
     layout.addWidget(widget)
     self.setLayout(layout)
+    self.center_widget = widget
 
 
 @deferred_define
@@ -50,3 +52,13 @@ def export_to_pdf(self: Widget, filename: str):
         painter.drawPicture(0, 0, p)
         ok = painter.end()
     return ok
+
+
+@deferred_define
+def export_to_image(self: Widget, filename: str):
+    p = QPixmap(self.size())
+    painter = QPainter(p)
+    self.render(painter, QPoint(0, 0))
+    painter.end()
+
+    return p.save(filename)
