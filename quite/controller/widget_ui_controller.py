@@ -36,6 +36,9 @@ class WidgetUiController(WidgetController):
     def group(self, name=None) -> GroupBox:
         return self.__get_widget__('group', name)
 
+    def double(self, name=None) -> DoubleSpinBox:
+        return self.__get_widget__('double', name)
+
     def action(self, name=None) -> Action:
         obj = self.__get_widget__('action', name)
         if getattr(obj, 'excited', None) is None:
@@ -45,8 +48,8 @@ class WidgetUiController(WidgetController):
             obj.set_disabled = st.partial_front(obj.setEnabled, False)
         return obj
 
-    def widget(self) -> Widget:
-        return self.w.center_widget
+    def widget(self, name=None) -> Widget:
+        return self.container(name).center_widget
 
     def __get_widget__(self, type_name, obj_name):
         return getattr(self.w, type_name + '_' + obj_name, None) or getattr(self.w, obj_name + '_' + type_name)

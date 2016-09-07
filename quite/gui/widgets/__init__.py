@@ -12,6 +12,8 @@ from .list_widget import ListWidget
 from .spin_box import SpinBox
 from .double_spin_box import DoubleSpinBox
 
+from .input_dialog import InputDialog
+
 from .action import Action
 from .short_cut import Shortcut
 from .push_button import PushButton

@@ -16,6 +16,7 @@ from .widgets import MainWindow, GroupBox, DockWidget
 from .widgets import Label, LineEdit
 from .widgets import ListWidget, ComboBox
 from .widgets import SpinBox, DoubleSpinBox
+from .widgets import InputDialog
 from .widgets import Action, Shortcut, PushButton
 
 from .paint import PointF, SizeF, Painter

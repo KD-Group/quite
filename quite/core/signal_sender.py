@@ -26,3 +26,7 @@ class SignalSender:
     @property
     def has_emitted(self):
         return self.last_emit is not None
+
+    @property
+    def last_value(self):
+        return None if self.last_emit is None else self.last_emit[0]
