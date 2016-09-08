@@ -11,7 +11,9 @@ class ListWidget(QListWidget, StringPropertyInterface, IndexPropertyInterface, I
     def set_string_value(self, value=None):
         texts = self.items.value
         assert isinstance(texts, list)
-        if value in texts:
+        if value is None:
+            self.index.value = 0
+        elif value in texts:
             self.setCurrentRow(texts.index(value))
         else:
             self.items.add(value)
@@ -26,6 +28,7 @@ class ListWidget(QListWidget, StringPropertyInterface, IndexPropertyInterface, I
         return self.currentRow()
 
     def set_index_value(self, value=None):
+        value = value or 0
         self.setCurrentRow(value)
 
     def set_index_changed_connection(self):

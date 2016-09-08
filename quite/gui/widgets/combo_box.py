@@ -11,7 +11,9 @@ class ComboBox(QComboBox, StringPropertyInterface, IndexPropertyInterface, Items
     def set_string_value(self, value=None):
         texts = self.items.value
         assert isinstance(texts, list)
-        if value in texts:
+        if value is None:
+            self.index.value = 0
+        elif value in texts:
             self.setCurrentIndex(texts.index(value))
         else:
             self.items.add(value)
@@ -26,6 +28,8 @@ class ComboBox(QComboBox, StringPropertyInterface, IndexPropertyInterface, Items
         return self.currentIndex()
 
     def set_index_value(self, value=None):
+        if value is None or value >= self.items.count:
+            value = 0
         self.setCurrentIndex(value)
 
     def set_index_changed_connection(self):
