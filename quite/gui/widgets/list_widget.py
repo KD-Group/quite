@@ -3,7 +3,12 @@ from .. import *
 
 
 @ui_extension
-class ListWidget(QListWidget, StringPropertyInterface, IndexPropertyInterface, ItemsPropertyInterface):
+class ListWidget(QListWidget, ExcitedSignalInterface,
+                 StringPropertyInterface, IndexPropertyInterface, ItemsPropertyInterface):
+    def set_excited_signal_connection(self):
+        # noinspection PyUnresolvedReferences
+        self.doubleClicked.connect(st.zero_para(self.excited.emit))
+
     # string property methods overriding
     def get_string_value(self):
         return self.currentItem().text()
