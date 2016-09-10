@@ -8,10 +8,10 @@ class BaseInterface:
         # noinspection PyUnresolvedReferences
         return self.setFocus()
 
-    def set_enabled(self):
+    def set_enabled(self, status=True):
         # noinspection PyUnresolvedReferences
-        return self.setEnable(True)
+        return self.setEnable(status)
 
-    def set_disabled(self):
+    def set_disabled(self, status=False):
         # noinspection PyUnresolvedReferences
-        return self.setEnable(False)
+        return self.setEnable(not status)

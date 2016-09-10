@@ -44,8 +44,15 @@ class WidgetUiController(WidgetController):
         if getattr(obj, 'excited', None) is None:
             obj.excited = SignalSender()
             obj.triggered.connect(obj.excited.emit)
-            obj.set_enabled = st.partial_front(obj.setEnabled, True)
-            obj.set_disabled = st.partial_front(obj.setEnabled, False)
+
+            def set_enabled(status=True):
+                obj.setEnabled(status)
+
+            def set_disabled(status=True):
+                obj.setEnabled(not status)
+
+            obj.set_enabled = set_enabled
+            obj.set_disabled = set_disabled
         return obj
 
     def widget(self, name=None) -> Widget:
