@@ -12,5 +12,5 @@ class DialogUiController(WidgetUiController):
         return self.w.exec()
 
     @classmethod
-    def class_exec(cls, *args):
-        return cls(*args).exec()
+    def class_exec(cls, *args, **kwargs):
+        return cls(*args, **kwargs).exec()
