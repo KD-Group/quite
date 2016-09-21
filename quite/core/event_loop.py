@@ -45,3 +45,15 @@ def later(second=0.01, func=None, *args, **kwargs):
     t.timeout.connect(del_current_timer, later_times_cnt)
 
     t.start(int(second * 1000))
+
+
+def run_until(func):
+    class Thread(QThread):
+        def run(self):
+            func()
+
+    with EventLoop() as loop:
+        thread = Thread()
+        # noinspection PyUnresolvedReferences
+        thread.finished.connect(loop.quit)
+        thread.start()
