@@ -51,6 +51,11 @@ class WidgetUiController(WidgetController):
             def set_disabled(status=True):
                 obj.setEnabled(not status)
 
+            def click():
+                if obj.isEnabled():
+                    obj.trigger()
+
+            obj.click = click
             obj.set_enabled = set_enabled
             obj.set_disabled = set_disabled
         return obj
