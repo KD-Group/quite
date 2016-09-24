@@ -9,7 +9,7 @@ class MyTestCase(unittest.TestCase):
             spin_box.show()
             times = []
 
-            @quite.connect_with(spin_box.integer.changed)
+            @quite.connect_with(spin_box.int.changed)
             def spin_box_integer_changed(value: int):
                 if len(times) == 0:
                     self.assertEqual(value, 1)
@@ -21,10 +21,10 @@ class MyTestCase(unittest.TestCase):
                     self.assertEqual(value, 0)
                 times.append(len(times))
 
-            spin_box.integer.value = 1
-            spin_box.integer.value = 10
-            spin_box.integer.value = 99
-            spin_box.integer.value = -1
+            spin_box.int.value = 1
+            spin_box.int.value = 10
+            spin_box.int.value = 99
+            spin_box.int.value = -1
             self.assertEqual(len(times), 4)
 
     def test_spin_box_string_property(self):

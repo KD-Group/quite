@@ -1,14 +1,15 @@
+import pretty
 from .. import *
 
 
 @ui_extension
-class Label(QLabel, StringPropertyInterface):
-    def get_string_value(self):
-        return self.text()
+class Label(QLabel, BaseInterface, pretty.WidgetStringInterface):
+    class StringItem(pretty.WidgetStringItem):
+        def __init__(self, parent: 'Label'):
+            self.parent = parent
 
-    def set_string_value(self, value=None):
-        self.setText(value or '')
-        self.string.changed.emit(self.string.value)
+        def get_value(self):
+            return self.parent.text()
 
-    def set_string_changed_connection(self):
-        pass
+        def set_value(self, value):
+            self.parent.setText(value or '')

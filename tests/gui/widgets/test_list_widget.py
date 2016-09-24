@@ -15,23 +15,23 @@ class MyTestCase(unittest.TestCase):
                 self.assertEqual(text, '1')
                 executed[0] = True
 
-            list_widget.items.value = st.foreach(str, range(10))
+            list_widget.string_list.value = st.foreach(str, range(10))
             list_widget.index.value = 1
             self.assertTrue(executed[0])
 
-    def test_list_widget_items(self):
+    def test_list_widget_string_list(self):
         with quite.EventLoop(0.1) as event:
             list_widget = quite.ListWidget()
             list_widget.show()
             executed = [False]
-            items = st.foreach(str, range(10))
+            string_list = st.foreach(str, range(10))
 
-            @quite.connect_with(list_widget.items.changed)
-            def items_changed(items_now):
-                self.assertEqual(items, items_now)
+            @quite.connect_with(list_widget.string_list.changed)
+            def string_list_changed(string_list_now):
+                self.assertEqual(string_list, string_list_now)
                 executed[0] = True
 
-            list_widget.items.value = items
+            list_widget.string_list.value = string_list
             self.assertTrue(executed[0])
 
     def test_list_widget_set_text(self):
@@ -56,7 +56,7 @@ class MyTestCase(unittest.TestCase):
             list_widget.string.set_value('second')
             list_widget.string.set_value('first')
             self.assertEqual(len(times), 3)
-            self.assertEqual(list_widget.items.count, 2)
+            self.assertEqual(list_widget.string_list.count, 2)
 
 
 if __name__ == '__main__':

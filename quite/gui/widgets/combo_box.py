@@ -1,56 +1,62 @@
 import st
+import pretty
 from .. import *
 
 
 @ui_extension
-class ComboBox(QComboBox, StringPropertyInterface, IndexPropertyInterface, ItemsPropertyInterface):
-    # string property methods overriding
-    def get_string_value(self):
-        return self.currentText()
+class ComboBox(QComboBox, BaseInterface,
+               pretty.WidgetStringInterface, pretty.WidgetIndexInterface, pretty.WidgetStringListInterface):
+    class ComboBoxItem:
+        def __init__(self, parent: 'ComboBox'):
+            self.parent = parent
 
-    def set_string_value(self, value=None):
-        texts = self.items.value
-        assert isinstance(texts, list)
-        if value is None:
-            self.index.value = 0
-        elif value in texts:
-            self.setCurrentIndex(texts.index(value))
-        else:
-            self.items.add(value)
-            self.setCurrentIndex(self.items.count - 1)
+        @property
+        def count(self):
+            return self.parent.count()
 
-    def set_string_changed_connection(self):
-        # noinspection PyUnresolvedReferences
-        self.currentIndexChanged[str].connect(self.string.changed.emit)
+        def add_strings(self, *text):
+            self.parent.addItems(text)
 
-    # index property methods overriding
-    def get_index_value(self):
-        return self.currentIndex()
+    class StringItem(ComboBoxItem, pretty.WidgetStringItem):
+        def get_value(self):
+            return self.parent.currentText()
 
-    def set_index_value(self, value=None):
-        if value is None or value >= self.items.count:
-            value = 0
-        self.setCurrentIndex(value)
+        def set_value(self, value=None):
+            texts = self.parent.string_list.value
+            assert isinstance(texts, list)
 
-    def set_index_changed_connection(self):
-        self.currentIndexChanged[int].connect(self.index.changed.emit)
+            if value is None:
+                self.parent.index.value = 0
+            elif value in texts:
+                self.parent.index.value = texts.index(value)
+            else:
+                self.add_strings(value)
+                self.parent.index.value = self.count - 1
 
-    def get_items_value(self):
-        return st.foreach(self.itemText, range(self.items.count))
+        def set_changed_connection(self):
+            # noinspection PyUnresolvedReferences
+            self.parent.currentIndexChanged[str].connect(self.check_change)
 
-    def set_items_value(self, value=None):
-        value = [] if value is None else value
+    class IndexItem(ComboBoxItem, pretty.IndexItem):
+        def get_value(self):
+            return self.parent.currentIndex()
 
-        self.clear()
-        self.addItems(value)
-        self.items.changed.emit(value)
+        def set_value(self, value):
+            if value is None or value >= self.count:
+                value = 0
+            self.parent.setCurrentIndex(value)
 
-    def get_items_count(self):
-        return self.count()
+        def set_changed_connection(self):
+            # noinspection PyUnresolvedReferences
+            self.parent.currentIndexChanged[int].connect(self.check_change)
 
-    def set_items_add(self, *items):
-        self.addItems(items)
-        self.items.changed.emit(self.items.value)
+    class StringsItem(ComboBoxItem, pretty.StringsItem):
+        def get_value(self):
+            return st.foreach(self.parent.itemText, range(self.count))
 
-    def set_items_changed_connection(self):
-        pass
+        def set_value(self, value):
+            value = value or []
+
+            self.parent.clear()
+            self.parent.addItems(value)
+            self.string_list.check_change()

@@ -1,14 +1,19 @@
 from .. import *
+import pretty
 
 
 @ui_extension
-class LineEdit(QLineEdit, StringPropertyInterface):
-    def get_string_value(self):
-        return self.text()
+class LineEdit(QLineEdit, BaseInterface, pretty.WidgetStringInterface):
+    class StringItem(pretty.WidgetStringItem):
+        def __init__(self, parent: 'LineEdit'):
+            self.parent = parent
 
-    def set_string_value(self, value=None):
-        self.setText(value or '')
+        def get_value(self):
+            return self.parent.text()
 
-    def set_string_changed_connection(self):
-        # noinspection PyUnresolvedReferences
-        self.textChanged.connect(self.string.changed.emit)
+        def set_value(self, value):
+            self.parent.setText(value or '')
+
+        def set_changed_connection(self):
+            # noinspection PyUnresolvedReferences
+            self.parent.textChanged.connect(self.string.check_change)

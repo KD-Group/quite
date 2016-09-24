@@ -10,7 +10,7 @@ class MyTestCase(unittest.TestCase):
             double_spin_box.show()
             times = []
 
-            @quite.connect_with(double_spin_box.double.changed)
+            @quite.connect_with(double_spin_box.float.changed)
             def double_spin_box_double_changed(value: float):
                 if len(times) == 0:
                     self.assertEqual(value, 1.1)
@@ -22,10 +22,10 @@ class MyTestCase(unittest.TestCase):
                     self.assertEqual(value, 0)
                 times.append(len(times))
 
-            double_spin_box.double.value = 1.1
-            double_spin_box.double.value = 10.2
-            double_spin_box.double.value = 99.3
-            double_spin_box.double.value = -1.4
+            double_spin_box.float.value = 1.1
+            double_spin_box.float.value = 10.2
+            double_spin_box.float.value = 99.3
+            double_spin_box.float.value = -1.4
             self.assertEqual(len(times), 4)
 
     def test_double_spin_box_string_property(self):
@@ -60,19 +60,19 @@ class MyTestCase(unittest.TestCase):
 
         def add_by_step():
             for i in range(200, 400 + 1):
-                d.number_double.double.value = i / 10.0
+                d.number_double.float.value = i / 10.0
             d.close()
 
         times = []
 
-        @quite.connect_with(d.number_double.double.changed)
+        @quite.connect_with(d.number_double.float.changed)
         def double_changed(value: float):
             self.assertEqual(min(len(times) / 10.0 + 20.0, 40.0), value)
             times.append(len(times))
 
         quite.later(0.1, add_by_step)
         d.exec()
-        self.assertEqual(len(times), 201 + 1)
+        self.assertEqual(len(times), 200 + 1)
 
 if __name__ == '__main__':
     unittest.main()

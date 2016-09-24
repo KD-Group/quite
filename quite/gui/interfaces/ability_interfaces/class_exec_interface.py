@@ -1,4 +1,4 @@
-from . import BaseInterface
+from .. import BaseInterface
 
 
 class ClassExecInterface(BaseInterface):

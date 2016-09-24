@@ -1,5 +1,5 @@
 from . import *
-from .. import *
+from .. import QPainter, QColor, QPen, QRectF, Qt
 
 
 class Painter(QPainter):

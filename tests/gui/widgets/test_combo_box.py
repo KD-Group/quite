@@ -18,24 +18,24 @@ class MyTestCase(unittest.TestCase):
                     self.assertEqual(text, '1')
                 times.append(len(times))
 
-            combo_box.items.value = st.foreach(str, range(10))
+            combo_box.string_list.value = st.foreach(str, range(10))
             combo_box.index.value = 1
             self.assertEqual(len(times), 2)
 
-    def test_combo_box_items(self):
+    def test_combo_box_string_list(self):
         with quite.EventLoop(0.1):
             combo_box = quite.ComboBox()
             combo_box.show()
             executed = [False]
 
-            items = st.foreach(str, range(10))
+            string_list = st.foreach(str, range(10))
 
-            @quite.connect_with(combo_box.items.changed)
-            def items_changed(items_now):
-                self.assertEqual(items, items_now)
+            @quite.connect_with(combo_box.string_list.changed)
+            def string_list_changed(string_list_now):
+                self.assertEqual(string_list, string_list_now)
                 executed[0] = True
 
-            combo_box.items.value = items
+            combo_box.string_list.value = string_list
             self.assertTrue(executed[0])
 
     def test_combo_box_set_text(self):
@@ -60,11 +60,11 @@ class MyTestCase(unittest.TestCase):
             combo_box.string.set_value('second')
             combo_box.string.set_value('first')
             self.assertEqual(len(times), 3)
-            self.assertEqual(combo_box.items.count, 2)
+            self.assertEqual(combo_box.string_list.count, 2)
 
-            combo_box.items.clear()
+            combo_box.clear()
             self.assertEqual(len(times), 4)
-            self.assertEqual(combo_box.items.count, 0)
+            self.assertEqual(combo_box.string_list.count, 0)
 
 
 if __name__ == '__main__':
