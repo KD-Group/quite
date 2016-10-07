@@ -1,7 +1,6 @@
 import unittest
 import os
 import quite
-import codecs
 
 
 class MyTestCase(unittest.TestCase):

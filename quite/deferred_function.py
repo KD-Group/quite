@@ -56,6 +56,9 @@ def export_to_pdf(self: Widget, filename: str):
 
 @deferred_define
 def export_to_image(self: Widget, filename: str):
+    if filename.endswith('pdf'):
+        return export_to_pdf(self, filename)
+
     p = QPixmap(self.size())
     painter = QPainter(p)
     self.render(painter, QPoint(0, 0))
