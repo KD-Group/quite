@@ -26,7 +26,9 @@ class ListWidget(QListWidget, ExcitedSignalInterface,
 
     class StringItem(ListWidgetItem, pretty.WidgetStringItem):
         def get_value(self):
-            return self.parent.currentItem().text()
+            if self.parent.index.value >= 0:
+                return self.parent.currentItem().text()
+            return None
 
         def set_value(self, value):
             texts = self.parent.string_list.value
