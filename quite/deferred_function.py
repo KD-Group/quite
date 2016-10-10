@@ -36,6 +36,14 @@ def set_square_widget(self: Widget, widget: Widget, spacing=0):
 
 
 @deferred_define
+def set_layout_spacing(self: Widget, spacing):
+    layout = self.layout()
+    assert isinstance(layout, SquareLayout)
+    layout.setSpacing(spacing)
+    layout.update()
+
+
+@deferred_define
 def export_to_pdf(self: Widget, filename: str):
     p = QPicture()
     painter = QPainter(p)

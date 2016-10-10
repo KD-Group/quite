@@ -18,14 +18,14 @@ Powerful Signal-Slot
     executed = [False]
 
     def slot(a: int, b: int, c: int):
-        self.assertEqual(a, 1)
-        self.assertEqual(b, 2)
-        self.assertEqual(c, 3)
+        assert a == 1
+        assert b == 2
+        assert c == 3
         executed[0] = True
-    signal.connect(slot)
 
+    signal.connect(slot)
     signal.emit(1, 2, 3)
-    self.assertTrue(executed[0])
+    assert executed[0]
 
 
 ============================

@@ -80,3 +80,6 @@ class SquareLayout(QLayout):
         if a.x() == b.x() and a.y() == b.y() and a.height() == b.height() and a.width() == b.width():
             return True
         return False
+
+    def update(self):
+        self.setGeometry(self.geometry())

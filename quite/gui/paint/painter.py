@@ -75,3 +75,13 @@ class Painter(QPainter):
         text_rect = text_size.to_rect(position - text_size.width_add(margin).height_set(-margin))
 
         self.draw_text(text_rect, text, color, background_color, background_color_round_size)
+
+    def draw_text_bottom_right(self, position: PointF, text: str,
+                               margin: int=3,
+                               color: QColor=None,
+                               background_color: QColor=None,
+                               background_color_round_size: int=2):
+        text_size = SizeF.text_size(text, self)
+        text_rect = text_size.to_rect(position.x_add(margin).y_add(margin))
+
+        self.draw_text(text_rect, text, color, background_color, background_color_round_size)
