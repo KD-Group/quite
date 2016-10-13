@@ -21,6 +21,10 @@ class Widget(QWidget, ClosedSignalInterface, ClassExecInterface, ContainerAbilit
         self.assign(value)
         self.update()
 
+    @property
+    def size(self) -> (int, int):
+        return self.width(), self.height()
+
     def paintEvent(self, *args, **kwargs):
         painter = Painter(self)
 
