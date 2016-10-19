@@ -3,6 +3,11 @@ from .. import *
 
 @ui_extension
 class Widget(QWidget, ClosedSignalInterface, ClassExecInterface, ContainerAbilityInterface):
+    def __init__(self, parent=None, *args):
+        if getattr(parent, 'w', None) is not None:
+            parent = parent.w
+        super().__init__(parent, *args)
+
     def closeEvent(self, event: QCloseEvent):
         self.closed.emit()
         event.accept()
