@@ -1,5 +1,5 @@
 from .qt_core import *
-from pretty import SignalSender, connect_with
+from prett import SignalSender, connect_with
 from .timer import Timer
 from .event_loop import EventLoop, wait, later, run_until
 assert SignalSender is SignalSender

@@ -1,10 +1,10 @@
 from .. import *
-import pretty
+import prett
 
 
 @ui_extension
-class LineEdit(QLineEdit, BaseInterface, pretty.WidgetStringInterface):
-    class StringItem(pretty.WidgetStringItem):
+class LineEdit(QLineEdit, BaseInterface, prett.WidgetStringInterface):
+    class StringItem(prett.WidgetStringItem):
         def __init__(self, parent: 'LineEdit'):
             self.parent = parent
 

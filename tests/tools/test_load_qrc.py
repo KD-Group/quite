@@ -1,10 +1,14 @@
 import unittest
 import os
+import sys
 import quite
 
 
 class MyTestCase(unittest.TestCase):
     def test_load_text_file_in_qrc(self):
+        if sys.platform != "win32":
+            return print('This Function Just Work in Windows')
+
         file_path = os.path.join(os.path.dirname(__file__), 'res/test.qrc')
         quite.load_qrc(file_path)
 

@@ -1,11 +1,11 @@
 import st
-import pretty
+import prett
 from .. import *
 
 
 @ui_extension
 class ComboBox(QComboBox, BaseInterface,
-               pretty.WidgetStringInterface, pretty.WidgetIndexInterface, pretty.WidgetStringListInterface):
+               prett.WidgetStringInterface, prett.WidgetIndexInterface, prett.WidgetStringListInterface):
     class ComboBoxItem:
         def __init__(self, parent: 'ComboBox'):
             self.parent = parent
@@ -17,7 +17,7 @@ class ComboBox(QComboBox, BaseInterface,
         def add_strings(self, *text):
             self.parent.addItems(text)
 
-    class StringItem(ComboBoxItem, pretty.WidgetStringItem):
+    class StringItem(ComboBoxItem, prett.WidgetStringItem):
         def get_value(self):
             return self.parent.currentText()
 
@@ -37,7 +37,7 @@ class ComboBox(QComboBox, BaseInterface,
             # noinspection PyUnresolvedReferences
             self.parent.currentIndexChanged[str].connect(self.check_change)
 
-    class IndexItem(ComboBoxItem, pretty.IndexItem):
+    class IndexItem(ComboBoxItem, prett.IndexItem):
         def get_value(self):
             return self.parent.currentIndex()
 
@@ -50,7 +50,7 @@ class ComboBox(QComboBox, BaseInterface,
             # noinspection PyUnresolvedReferences
             self.parent.currentIndexChanged[int].connect(self.check_change)
 
-    class StringsItem(ComboBoxItem, pretty.StringsItem):
+    class StringsItem(ComboBoxItem, prett.StringsItem):
         def get_value(self):
             return st.foreach(self.parent.itemText, range(self.count))
 

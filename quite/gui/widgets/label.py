@@ -1,10 +1,10 @@
-import pretty
+import prett
 from .. import *
 
 
 @ui_extension
-class Label(QLabel, BaseInterface, pretty.WidgetStringInterface):
-    class StringItem(pretty.WidgetStringItem):
+class Label(QLabel, BaseInterface, prett.WidgetStringInterface):
+    class StringItem(prett.WidgetStringItem):
         def __init__(self, parent: 'Label'):
             self.parent = parent
 

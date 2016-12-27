@@ -1,10 +1,10 @@
-import pretty
+import prett
 from .. import *
 
 
 @ui_extension
-class DoubleSpinBox(QDoubleSpinBox, BaseInterface, pretty.WidgetStringInterface):
-    class StringItem(pretty.WidgetStringItem):
+class DoubleSpinBox(QDoubleSpinBox, BaseInterface, prett.WidgetStringInterface):
+    class StringItem(prett.WidgetStringItem):
         def __init__(self, parent: 'DoubleSpinBox'):
             self.parent = parent
 

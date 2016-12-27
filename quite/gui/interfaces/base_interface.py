@@ -1,7 +1,7 @@
-import pretty
+import prett
 
 
-class BaseInterface(pretty.AttachAbility):
+class BaseInterface(prett.AttachAbility):
     @property
     def name(self) -> str:
         # noinspection PyUnresolvedReferences

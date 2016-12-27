@@ -1,14 +1,14 @@
-import pretty
+import prett
 from .. import *
 
 
 @ui_extension
-class PushButton(QPushButton, ExcitedSignalInterface, pretty.WidgetStringInterface):
+class PushButton(QPushButton, ExcitedSignalInterface, prett.WidgetStringInterface):
     def set_excited_signal_connection(self):
         # noinspection PyUnresolvedReferences
         self.clicked.connect(self.excited.emit)
 
-    class StringItem(pretty.WidgetStringItem):
+    class StringItem(prett.WidgetStringItem):
         def __init__(self, parent: 'PushButton'):
             self.parent = parent
 

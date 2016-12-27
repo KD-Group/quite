@@ -1,11 +1,11 @@
 import st
-import pretty
+import prett
 from .. import *
 
 
 @ui_extension
 class ListWidget(QListWidget, ExcitedSignalInterface,
-                 pretty.WidgetStringInterface, pretty.WidgetIndexInterface, pretty.WidgetStringListInterface):
+                 prett.WidgetStringInterface, prett.WidgetIndexInterface, prett.WidgetStringListInterface):
     def set_excited_signal_connection(self):
         # noinspection PyUnresolvedReferences
         self.doubleClicked.connect(st.zero_para(self.excited.emit))
@@ -24,7 +24,7 @@ class ListWidget(QListWidget, ExcitedSignalInterface,
         def add_text(self, *text):
             self.parent.addItems(text)
 
-    class StringItem(ListWidgetItem, pretty.WidgetStringItem):
+    class StringItem(ListWidgetItem, prett.WidgetStringItem):
         def get_value(self):
             if self.parent.index.value >= 0:
                 return self.parent.currentItem().text()
@@ -45,7 +45,7 @@ class ListWidget(QListWidget, ExcitedSignalInterface,
             # noinspection PyUnresolvedReferences
             self.parent.currentTextChanged.connect(self.check_change)
 
-    class IndexItem(ListWidgetItem, pretty.IndexItem):
+    class IndexItem(ListWidgetItem, prett.IndexItem):
         def get_value(self):
             return self.parent.currentRow()
 
@@ -57,7 +57,7 @@ class ListWidget(QListWidget, ExcitedSignalInterface,
             # noinspection PyUnresolvedReferences
             self.parent.currentRowChanged.connect(self.check_change)
 
-    class StringsItem(ListWidgetItem, pretty.StringsItem):
+    class StringsItem(ListWidgetItem, prett.StringsItem):
         def get_value(self):
             return st.foreach(self.item_text, range(self.count))
 
