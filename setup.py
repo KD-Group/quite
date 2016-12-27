@@ -14,7 +14,6 @@ setup(
     name='quite',
     version='0.0.1',
     description='QT UI Extension',
-
     url='https://github.com/sf-zhou/quite',
 
     author='SF-Zhou',
