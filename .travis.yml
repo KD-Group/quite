@@ -1,0 +1,16 @@
+language: python
+
+python:
+    - "3.4"
+
+install: 
+    - sudo apt-get install libqt4-dev
+    - pip install PySide --no-index --find-links https://parkin.github.io/python-wheelhouse/;
+    - python ~/virtualenv/python${TRAVIS_PYTHON_VERSION}/bin/pyside_postinstall.py -install
+    - pip install typing
+
+script:
+    - python -m pytest
+
+notifications:
+    email: false
