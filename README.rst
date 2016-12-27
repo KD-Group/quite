@@ -3,6 +3,8 @@ quite: QT UI Extension for Python3
 
 .. image:: https://travis-ci.org/SF-Zhou/quite.svg?branch=master
     :target: https://travis-ci.org/SF-Zhou/quite
+.. image:: https://app.wercker.com/status/36678b75b4b166a5a73b75de82bdbbd2/s/master
+    :target: https://app.wercker.com/project/byKey/36678b75b4b166a5a73b75de82bdbbd2
 
 A simple extension for PySide.
 
