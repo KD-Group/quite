@@ -12,7 +12,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='quite',
-    version='0.0.2',
+    version='0.0.3',
     description='QT UI Extension',
     url='https://github.com/sf-zhou/quite',
 
@@ -33,10 +33,10 @@ setup(
 
     keywords='qt ui',
     packages=find_packages(exclude=['docs', 'tests']),
-    data_files=[('pyside-rcc resources', [
+    package_data={ 'quite': [
         './quite/tools/bin/pyside-rcc.exe',
         './quite/tools/bin/QtCore4.dll',
         './quite/tools/bin/QtXml4.dll'
-    ])],
+    ]},
     install_requires=['st', 'prett']
 )
