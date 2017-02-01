@@ -36,6 +36,12 @@ class WidgetUiController(WidgetController):
     def group(self, name=None) -> GroupBox:
         return self.__get_widget__('group', name)
 
+    def spin(self, name=None) -> SpinBox:
+        return self.__get_widget__('spin', name)
+
+    def table(self, name=None) -> TableWidget:
+        return self.__get_widget__('table', name)
+
     def double(self, name=None) -> DoubleSpinBox:
         return self.__get_widget__('double', name)
 
