@@ -17,3 +17,5 @@ from .input_dialog import InputDialog
 from .action import Action
 from .short_cut import Shortcut
 from .push_button import PushButton
+
+from .table_widget import TableWidget
