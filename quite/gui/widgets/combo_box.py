@@ -57,6 +57,14 @@ class ComboBox(QComboBox, BaseInterface,
         def set_value(self, value):
             value = value or []
 
-            self.parent.clear()
-            self.parent.addItems(value)
+            old_count = self.count
+            new_count = len(value)
+            for i in range(min(old_count, new_count)):
+                self.parent.setItemText(i, value[i])
+            st.foreach(self.parent.removeItem, range(new_count, old_count))
+            self.parent.addItems(value[old_count:new_count])
+
+            self.parent.index.emit_changed()
+            self.parent.string.emit_changed()
+
             self.string_list.check_change()
