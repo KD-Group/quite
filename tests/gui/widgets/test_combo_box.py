@@ -8,19 +8,12 @@ class MyTestCase(unittest.TestCase):
         with quite.EventLoop(0.1):
             combo_box = quite.ComboBox()
             combo_box.show()
-            times = []
-
-            @quite.connect_with(combo_box.string.changed)
-            def text_changed(text):
-                if len(times) == 0:
-                    self.assertEqual(text, '0')
-                elif len(times) == 1:
-                    self.assertEqual(text, '1')
-                times.append(len(times))
 
             combo_box.string_list.value = st.foreach(str, range(10))
-            combo_box.index.value = 1
-            self.assertEqual(len(times), 2)
+            self.assertEqual(combo_box.string_list.value, st.foreach(str, range(10)))
+
+            combo_box.string_list.value = st.foreach(str, range(9))
+            self.assertEqual(combo_box.string_list.value, st.foreach(str, range(9)))
 
     def test_combo_box_string_list(self):
         with quite.EventLoop(0.1):
