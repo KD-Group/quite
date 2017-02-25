@@ -4,8 +4,12 @@ from .. import *
 @ui_extension
 class MainWindow(QMainWindow, ClosedSignalInterface, ClassExecInterface, ContainerAbilityInterface):
     def closeEvent(self, event: QCloseEvent):
-        self.closed.emit()
-        event.accept()
+        if self.can_close:
+            self.closed.emit()
+            event.accept()
+        else:
+            self.cannot_closed.emit()
+            event.ignore()
 
     def exec(self):
         with EventLoop() as event:
