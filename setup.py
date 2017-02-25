@@ -32,6 +32,6 @@ setup(
     ],
 
     keywords='qt ui',
-    packages=find_packages(exclude=['docs', 'tests']),
+    packages=find_packages(exclude=['docs', 'tests', 'examples']),
     install_requires=['st', 'prett']
 )
