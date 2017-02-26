@@ -8,7 +8,7 @@ from .interfaces import ChangedSignalInterface, ExcitedSignalInterface
 from .interfaces import ContainerAbilityInterface
 
 from .layouts import SquareLayout
-from .paint import scaling, PointF, SizeF, Painter
+from .paint import scaling, PointF, SizeF, Pen, Painter
 
 from .widgets import Widget, Dialog
 from .widgets import MainWindow, GroupBox, DockWidget

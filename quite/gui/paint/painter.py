@@ -32,7 +32,7 @@ class Painter(QPainter):
                       background_color: QColor=None,
                       background_color_round_size: int=2):
         text_size = SizeF.text_size(text, self)
-        text_rect = text_size.to_rect(position - text_size.half_width().height_add(margin))
+        text_rect = text_size.to_rect(position - text_size.half_width().height_add(margin * scaling.y))
 
         self.draw_text(text_rect, text, color, background_color, background_color_round_size)
 
@@ -42,7 +42,7 @@ class Painter(QPainter):
                          background_color: QColor=None,
                          background_color_round_size: int=2):
         text_size = SizeF.text_size(text, self)
-        text_rect = text_size.to_rect(position - text_size.half_width().height_set(-margin))
+        text_rect = text_size.to_rect(position - text_size.half_width().height_set(-margin * scaling.y))
 
         self.draw_text(text_rect, text, color, background_color, background_color_round_size)
 
@@ -52,7 +52,7 @@ class Painter(QPainter):
                        background_color: QColor=None,
                        background_color_round_size: int=2):
         text_size = SizeF.text_size(text, self)
-        text_rect = text_size.to_rect(position - text_size.half_height().width_add(margin))
+        text_rect = text_size.to_rect(position - text_size.half_height().width_add(margin * scaling.x))
 
         self.draw_text(text_rect, text, color, background_color, background_color_round_size)
 
@@ -62,7 +62,7 @@ class Painter(QPainter):
                         background_color: QColor=None,
                         background_color_round_size: int=2):
         text_size = SizeF.text_size(text, self)
-        text_rect = text_size.to_rect(position - text_size.half_height().width_set(-margin))
+        text_rect = text_size.to_rect(position - text_size.half_height().width_set(-margin * scaling.x))
 
         self.draw_text(text_rect, text, color, background_color, background_color_round_size)
 
@@ -72,7 +72,7 @@ class Painter(QPainter):
                               background_color: QColor=None,
                               background_color_round_size: int=2):
         text_size = SizeF.text_size(text, self)
-        text_rect = text_size.to_rect(position - text_size.width_add(margin).height_set(-margin))
+        text_rect = text_size.to_rect(position - text_size.width_add(margin).height_set(-margin * scaling.y))
 
         self.draw_text(text_rect, text, color, background_color, background_color_round_size)
 
@@ -82,6 +82,6 @@ class Painter(QPainter):
                                background_color: QColor=None,
                                background_color_round_size: int=2):
         text_size = SizeF.text_size(text, self)
-        text_rect = text_size.to_rect(position.x_add(margin).y_add(margin))
+        text_rect = text_size.to_rect(position.x_add(margin).y_add(margin * scaling.y))
 
         self.draw_text(text_rect, text, color, background_color, background_color_round_size)
