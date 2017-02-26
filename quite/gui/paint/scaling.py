@@ -36,5 +36,6 @@ def get_program_scale_factor():
 class Scaling:
     def __init__(self):
         self.x, self.y = get_program_scale_factor()
+        self.ratio = max(self.x, self.y)
 
 scaling = Scaling()
