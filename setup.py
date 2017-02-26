@@ -12,7 +12,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='quite',
-    version='0.0.9',
+    version='0.1.0',
     description='QT UI Extension',
     url='https://github.com/sf-zhou/quite',
 
@@ -33,5 +33,5 @@ setup(
 
     keywords='qt ui',
     packages=find_packages(exclude=['docs', 'tests', 'examples']),
-    install_requires=['st', 'prett']
+    install_requires=['st', 'prett', 'typing', 'pywin32']
 )

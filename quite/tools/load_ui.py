@@ -1,6 +1,7 @@
 import st
 import codecs
 from .. import *
+from xml.etree import ElementTree
 from PySide.QtUiTools import QUiLoader
 
 
@@ -11,6 +12,15 @@ def get_ui_content(filename):
     for cls in ext_classes:
         text = text.replace(cls.__bases__[0].__name__, cls.__name__)
     return text
+
+
+def process_scaling(ui_content: str) -> str:
+    tree = ElementTree.fromstring(ui_content)
+    for child in tree.iter('width'):
+        child.text = str(min(int(int(child.text) * scaling.x), 16777215))
+    for child in tree.iter('height'):
+        child.text = str(min(int(int(child.text) * scaling.y), 16777215))
+    return ElementTree.tostring(tree).decode()
 
 
 def load_ui(parent=None, filename=None, widget_to_dialog=False) -> Widget:
@@ -25,6 +35,8 @@ def load_ui(parent=None, filename=None, widget_to_dialog=False) -> Widget:
 
         if first_class == 'Widget':
             ui_content = ui_content.replace('class="Widget"', 'class="Dialog"', 1)
+    if scaling.x != 1.0 or scaling.y != 1.0:
+        ui_content = process_scaling(ui_content)
     return UiLoader().load(ui_content, parent)
 
 
