@@ -20,7 +20,7 @@
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
+   <item column="0" row="0">
     <widget class="QDoubleSpinBox" name="number_double">
      <property name="minimum">
       <double>20.000000000000000</double>
