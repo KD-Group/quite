@@ -3,6 +3,18 @@ from . import PointF
 
 
 class SizeF(QSizeF):
+    @property
+    def w(self):
+        return self.width()
+
+    @property
+    def h(self):
+        return self.height()
+
+    @property
+    def size(self):
+        return self.width(), self.height()
+
     def __add__(self, other):
         return super().__add__(other)
 
