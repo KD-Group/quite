@@ -12,7 +12,9 @@ class LineEdit(QLineEdit, BaseInterface, prett.WidgetStringInterface):
             return self.parent.text()
 
         def set_value(self, value):
-            self.parent.setText(value or '')
+            value = value or ''
+            if value != self.get_value():
+                self.parent.setText(value)
 
         def set_changed_connection(self):
             # noinspection PyUnresolvedReferences

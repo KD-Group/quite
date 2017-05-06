@@ -12,7 +12,8 @@ class SpinBox(QSpinBox, BaseInterface, prett.WidgetStringInterface):
             return str(self.parent.value())
 
         def set_value(self, value):
-            self.parent.setValue(int(value or 0))
+            if self.get_value() != value:
+                self.parent.setValue(int(value or 0))
 
         def set_changed_connection(self):
             # noinspection PyUnresolvedReferences

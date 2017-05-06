@@ -12,7 +12,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='quite',
-    version='0.1.3',
+    version='0.1.4',
     description='QT UI Extension',
     url='https://github.com/sf-zhou/quite',
 
