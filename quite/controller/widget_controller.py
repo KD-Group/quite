@@ -18,6 +18,10 @@ class WidgetController:
         # noinspection PyCallByClass
         QMessageBox.information(self.w, title, text)
 
+    def about(self, text, title='关于'):
+        # noinspection PyCallByClass
+        QMessageBox.about(self.w, title, text)
+
     def message(self, ok=True, ok_msg='成功', bad_msg='失败'):
         if ok:
             self.information(ok_msg)

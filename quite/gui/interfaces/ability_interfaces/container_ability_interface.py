@@ -12,8 +12,14 @@ class ContainerAbilityInterface(BaseInterface):
     def set_layout_spacing(self, spacing):
         return run_deferred_function('set_layout_spacing', self, spacing)
 
+    def export_to_image(self, filename: str):
+        if filename.lower().endswith('.pdf'):
+            return self.export_to_pdf(filename)
+        else:
+            return self.export_to_bitmap(filename)
+
     def export_to_pdf(self, filename):
         return run_deferred_function('export_to_pdf', self, filename)
 
-    def export_to_image(self, filename):
-        return run_deferred_function('export_to_image', self, filename)
+    def export_to_bitmap(self, filename):
+        return run_deferred_function('export_to_bitmap', self, filename)

@@ -9,3 +9,7 @@ class Dialog(QDialog, ClosedSignalInterface, ClassExecInterface, ContainerAbilit
 
     def exec(self, *args):
         super().exec_(*args)
+
+    @property
+    def size(self) -> (int, int):
+        return self.width(), self.height()

@@ -45,6 +45,12 @@ def set_layout_spacing(self: Widget, spacing):
 
 @deferred_define
 def export_to_pdf(self: Widget, filename: str):
+    w, h = self.size
+    if w > h:
+        self.resize(1060, 730)
+    else:
+        self.resize(730, 1060)
+
     p = QPicture()
     painter = QPainter(p)
     self.render(painter, QPoint(0, 0))
@@ -53,6 +59,8 @@ def export_to_pdf(self: Widget, filename: str):
     printer = QPrinter()
     printer.setOutputFormat(QPrinter.PdfFormat)
     printer.setOutputFileName(filename)
+    if w > h:
+        printer.setOrientation(QPrinter.Landscape)
 
     painter = QPainter()
     ok = painter.begin(printer)
@@ -63,7 +71,7 @@ def export_to_pdf(self: Widget, filename: str):
 
 
 @deferred_define
-def export_to_image(self: Widget, filename: str):
+def export_to_bitmap(self: Widget, filename: str):
     if filename.endswith('pdf'):
         return export_to_pdf(self, filename)
 
