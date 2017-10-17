@@ -10,6 +10,10 @@ class WidgetController:
 
         self.w = self.__trick__(constructor, parent)
 
+    def question(self, text, title='选择'):
+        # noinspection PyCallByClass
+        return QMessageBox.question(self.w, title, text, QMessageBox.Yes | QMessageBox.No) == QMessageBox.Yes
+
     def warning(self, text, title='警告'):
         # noinspection PyCallByClass
         QMessageBox.warning(self.w, title, text)
