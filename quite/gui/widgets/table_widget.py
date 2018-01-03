@@ -92,6 +92,10 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
                 self.parent.setItem(row, i, table_item)
             self.parent.index.value = row
 
+        def set_changed_connection(self):
+            # noinspection PyUnresolvedReferences
+            self.parent.currentItemChanged.connect(self.check_change)
+
     class IndexItem(TableWidgetItem, prett.IndexItem):
         """get/set current select row"""
 
@@ -103,6 +107,7 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
             self.parent.selectRow(value)
 
         def set_changed_connection(self):
+            # noinspection PyUnresolvedReferences
             self.parent.rowCountChanged(self.check_change)
 
     class StringsItem(TableWidgetItem, prett.StringsItem):
