@@ -1,5 +1,4 @@
 import prett
-import json
 from .. import *
 
 
@@ -45,7 +44,7 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
             return self.parent.columnCount()
 
         def item_text(self, row, col):
-            return self.parent.item(row, col).text()
+            return self.parent.item(row, col).text() if self.parent.item(row, col) is not None else ''
 
     class StringItem(TableWidgetItem, prett.WidgetStringItem):
         """get/set current table row text"""
@@ -54,54 +53,31 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
             if self.parent.index.value >=0 :
                 current_row = self.parent.currentRow()
                 col_count = self.parent.columnCount()
-                return json.dumps(list([self.parent.item(current_row, i).text() for i in range(col_count)]))
+                return ' '.join(list(self.item_text(current_row, i) for i in range(col_count)))
             return None
 
         def set_value(self, value):
             assert isinstance(value, str)
-            value = json.loads(value)
-            if len(value) is not self.col_count:
+            value_list = value.split(' ')
+            if len(value_list) is not self.col_count:
                 raise ValueError('Value length must equal to column count')
-            row = self.row_count
-            self.parent.setRowCount(row + 1)
-            for i in range(self.col_count):
-                if isinstance(value[i], int) or isinstance(value[i], float):
-                    table_item = QTableWidgetItem('{:.2f}'.format(value[i]))
-                elif isinstance(value[i], str):
-                    table_item = QTableWidgetItem(value[i])
-                else:
-                    raise ValueError('Unsupported type')
-                table_item.setTextAlignment(Qt.AlignCenter)
-                self.parent.setItem(row, i, table_item)
-            self.parent.index.value = row
 
-        def set_row_value(self, value, row=None):
-            assert isinstance(value, str)
-            value = json.loads(value)
-            if len(value) is not self.col_count:
-                raise ValueError('Value length must equal to column count')
-            if row is None:
-                self.set_value(json.dumps(value))
-                return
+            texts = self.parent.string_list.value
+            # 优先填充空白记录， 其次填充重复记录， 最后在末尾添加
+            if '' in texts:
+                self.parent.index.value = texts.index('')
+            elif value in texts:
+                self.parent.index.value = texts.index(value)
             else:
-                if row > self.row_count:
-                    raise ValueError('Insert row count larger than total row count')
-                if self.row_count == 0:
-                    self.parent.setRowCount(1)
+                self.parent.index.value = self.row_count
             for i in range(self.col_count):
-                if isinstance(value[i], int) or isinstance(value[i], float):
-                    table_item = QTableWidgetItem('{:.2f}'.format(value[i]))
-                elif isinstance(value[i], str):
-                    table_item = QTableWidgetItem(value[i])
-                else:
-                    raise ValueError('Unsupported type')
+                table_item = QTableWidgetItem(value_list[i])
                 table_item.setTextAlignment(Qt.AlignCenter)
-                self.parent.setItem(row, i, table_item)
-            self.parent.index.value = row
+                self.parent.setItem(self.parent.index.value, i, table_item)
 
         def set_changed_connection(self):
             # noinspection PyUnresolvedReferences
-            self.parent.currentItemChanged.connect(self.check_change)
+            self.parent.currentCellChanged.connect(self.check_change)
 
     class IndexItem(TableWidgetItem, prett.IndexItem):
         """get/set current select row"""
@@ -111,6 +87,8 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
 
         def set_value(self, value):
             value = value or 0
+            if value > self.row_count - 1:
+                self.parent.setRowCount(value + 1)
             self.parent.selectRow(value)
 
         def set_changed_connection(self):
@@ -121,4 +99,21 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
         """ get all tablewidget item text"""
 
         def get_value(self):
-             return list([self.item_text(row, col) for row in range(self.row_count) for col in range(self.col_count)])
+            table_texts = []
+            for row in range(self.row_count):
+                row_texts = ''
+                for col in range(self.col_count):
+                    row_texts += self.item_text(row, col) + ' '
+                table_texts.append(row_texts.strip())
+            return table_texts
+
+        def set_value(self, value):
+            value = value or []
+            assert isinstance(value, list)
+
+            self.parent.clearContents()
+            self.parent.setRowCount(len(value))
+            for row_string, i in zip(value, range(len(value))):
+                self.parent.setRowCount(i)
+                self.parent.string.value = row_string
+            self.check_change()
