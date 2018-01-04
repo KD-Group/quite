@@ -1,4 +1,5 @@
 import prett
+import json
 from .. import *
 
 
@@ -20,12 +21,16 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
         self.setColumnCount(len(headers))
         self.setHorizontalHeaderLabels(headers)
 
-    def resizeEvent(self, *args, **kwargs):
+    def auto_scaling_column(self):
+        self.resizeColumnsToContents()
         col_count = self.columnCount()
         col_width = sum(list([self.columnWidth(i) for i in range(col_count)]))
         total_col_width = self.width() - self.verticalScrollBar().width()
         for i in range(col_count):
             self.setColumnWidth(i, self.columnWidth(i) / col_width * total_col_width)
+
+    def resizeEvent(self, *args, **kwargs):
+        self.auto_scaling_column()
 
     class TableWidgetItem:
         def __init__(self, parent: 'TableWidget'):
@@ -49,17 +54,18 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
             if self.parent.index.value >=0 :
                 current_row = self.parent.currentRow()
                 col_count = self.parent.columnCount()
-                return list([self.parent.item(current_row, i).text() for i in range(col_count)])
+                return json.dumps(list([self.parent.item(current_row, i).text() for i in range(col_count)]))
             return None
 
         def set_value(self, value):
-            assert isinstance(value, list)
+            assert isinstance(value, str)
+            value = json.loads(value)
             if len(value) is not self.col_count:
                 raise ValueError('Value length must equal to column count')
             row = self.row_count
             self.parent.setRowCount(row + 1)
             for i in range(self.col_count):
-                if isinstance(value[i], int or float):
+                if isinstance(value[i], int) or isinstance(value[i], float):
                     table_item = QTableWidgetItem('{:.2f}'.format(value[i]))
                 elif isinstance(value[i], str):
                     table_item = QTableWidgetItem(value[i])
@@ -70,11 +76,12 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
             self.parent.index.value = row
 
         def set_row_value(self, value, row=None):
-            assert isinstance(value, list)
+            assert isinstance(value, str)
+            value = json.loads(value)
             if len(value) is not self.col_count:
                 raise ValueError('Value length must equal to column count')
             if row is None:
-                self.set_value(value)
+                self.set_value(json.dumps(value))
                 return
             else:
                 if row > self.row_count:
@@ -82,7 +89,7 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
                 if self.row_count == 0:
                     self.parent.setRowCount(1)
             for i in range(self.col_count):
-                if isinstance(value[i], int or float):
+                if isinstance(value[i], int) or isinstance(value[i], float):
                     table_item = QTableWidgetItem('{:.2f}'.format(value[i]))
                 elif isinstance(value[i], str):
                     table_item = QTableWidgetItem(value[i])
