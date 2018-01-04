@@ -44,7 +44,7 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
             return self.parent.columnCount()
 
         def item_text(self, row, col):
-            return self.parent.item(row, col).text() if self.parent.item(row, col) is not None else ''
+            return self.parent.item(row, col).text()
 
     class StringItem(TableWidgetItem, prett.WidgetStringItem):
         """get/set current table row text"""
@@ -63,17 +63,18 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
                 raise ValueError('Value length must equal to column count')
 
             texts = self.parent.string_list.value
-            # 优先填充空白记录， 其次填充重复记录， 最后在末尾添加
-            if '' in texts:
-                self.parent.index.value = texts.index('')
+            assert isinstance(texts, list)
+            if value is None:
+                self.parent.index.value = 0
             elif value in texts:
                 self.parent.index.value = texts.index(value)
             else:
-                self.parent.index.value = self.row_count
-            for i in range(self.col_count):
-                table_item = QTableWidgetItem(value_list[i])
-                table_item.setTextAlignment(Qt.AlignCenter)
-                self.parent.setItem(self.parent.index.value, i, table_item)
+                self.parent.setRowCount(self.row_count + 1)
+                for i in range(self.col_count):
+                    table_item = QTableWidgetItem(value_list[i])
+                    table_item.setTextAlignment(Qt.AlignCenter)
+                    self.parent.setItem(self.row_count - 1, i, table_item)
+                self.parent.index.value = self.row_count - 1
 
         def set_changed_connection(self):
             # noinspection PyUnresolvedReferences
@@ -87,13 +88,11 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
 
         def set_value(self, value):
             value = value or 0
-            if value > self.row_count - 1:
-                self.parent.setRowCount(value + 1)
             self.parent.selectRow(value)
 
         def set_changed_connection(self):
             # noinspection PyUnresolvedReferences
-            self.parent.rowCountChanged(self.check_change)
+            self.parent.currentCellChanged(self.check_change)
 
     class StringsItem(TableWidgetItem, prett.StringsItem):
         """ get all tablewidget item text"""
