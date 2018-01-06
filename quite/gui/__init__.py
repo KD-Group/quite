@@ -12,7 +12,7 @@ from .paint import scaling, PointF, SizeF, Pen, Painter
 
 from .widgets import Widget, Dialog
 from .widgets import MainWindow, GroupBox, DockWidget
-from .widgets import Label, LineEdit
+from .widgets import Label, LineEdit, DateEdit
 from .widgets import ListWidget, ComboBox
 from .widgets import SpinBox, DoubleSpinBox
 from .widgets import InputDialog

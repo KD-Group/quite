@@ -53,28 +53,39 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
             if self.parent.index.value >=0 :
                 current_row = self.parent.currentRow()
                 col_count = self.parent.columnCount()
-                return ' '.join(list(self.item_text(current_row, i) for i in range(col_count)))
+                value = dict()
+                for i in range(col_count):
+                    value[self.parent.horizontalHeaderItem(i).text()] = self.item_text(current_row, i)
+                return value
             return None
 
         def set_value(self, value):
-            assert isinstance(value, str)
-            value_list = value.split(' ')
-            if len(value_list) is not self.col_count:
+            assert isinstance(value, dict)
+            if len(value) is not self.col_count:
                 raise ValueError('Value length must equal to column count')
 
             texts = self.parent.string_list.value
             assert isinstance(texts, list)
             if value is None:
                 self.parent.index.value = 0
-            elif value in texts:
-                self.parent.index.value = texts.index(value)
             else:
-                self.parent.setRowCount(self.row_count + 1)
-                for i in range(self.col_count):
-                    table_item = QTableWidgetItem(value_list[i])
-                    table_item.setTextAlignment(Qt.AlignCenter)
-                    self.parent.setItem(self.row_count - 1, i, table_item)
-                self.parent.index.value = self.row_count - 1
+                for key, v in value.items():
+                    value[key] = str(v)
+                if value in texts:
+                    self.parent.index.value = texts.index(value)
+                else:
+                    header_labels = list(self.parent.horizontalHeaderItem(i).text() for i in range(self.col_count))
+                    self.parent.setRowCount(self.row_count + 1)
+                    for i in range(self.col_count):
+                        item_text = value[header_labels[i]]
+                        if item_text is None:
+                            raise ValueError("key value doesn't match header label")
+                        table_item = QTableWidgetItem(item_text)
+                        table_item.setTextAlignment(Qt.AlignCenter)
+                        self.parent.setItem(self.row_count - 1, i, table_item)
+                    self.parent.index.value = self.row_count - 1
+
+
 
         def set_changed_connection(self):
             # noinspection PyUnresolvedReferences
@@ -100,19 +111,18 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
         def get_value(self):
             table_texts = []
             for row in range(self.row_count):
-                row_texts = ''
+                row_dict = dict()
                 for col in range(self.col_count):
-                    row_texts += self.item_text(row, col) + ' '
-                table_texts.append(row_texts.strip())
+                    row_dict[self.parent.horizontalHeaderItem(col).text()] = self.item_text(row, col)
+                table_texts.append(row_dict)
             return table_texts
 
-        def set_value(self, value):
+        def set_value(self, value: list):
             value = value or []
             assert isinstance(value, list)
 
-            self.parent.clearContents()
-            self.parent.setRowCount(len(value))
-            for row_string, i in zip(value, range(len(value))):
-                self.parent.setRowCount(i)
-                self.parent.string.value = row_string
+            for i in range(self.col_count):
+                self.parent.removeRow(0)
+            for row_dict in value:
+                self.parent.string.value = row_dict
             self.check_change()
