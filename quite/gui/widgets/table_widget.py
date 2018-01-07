@@ -85,8 +85,6 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
                         self.parent.setItem(self.row_count - 1, i, table_item)
                     self.parent.index.value = self.row_count - 1
 
-
-
         def set_changed_connection(self):
             # noinspection PyUnresolvedReferences
             self.parent.currentCellChanged.connect(self.check_change)
@@ -121,7 +119,7 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
             value = value or []
             assert isinstance(value, list)
 
-            for i in range(self.col_count):
+            for i in range(self.row_count):
                 self.parent.removeRow(0)
             for row_dict in value:
                 self.parent.string.value = row_dict
