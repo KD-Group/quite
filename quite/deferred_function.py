@@ -44,13 +44,16 @@ def set_layout_spacing(self: Widget, spacing):
 
 
 @deferred_define
-def export_to_pdf(self: Widget, filename: str):
+def export_to_pdf(self: Widget, filename: str, export_size=QSize(1060, 730)):
+    assert isinstance(export_size, QSize)
     w, h = self.size
     if w > h:
-        self.resize(1060, 730)
+        self.resize(export_size.width(), export_size.height())
     else:
-        self.resize(730, 1060)
+        self.resize(export_size.height(), export_size.width())
 
+    self.show()
+    self.hide()
     p = QPicture()
     painter = QPainter(p)
     self.render(painter, QPoint(0, 0))
@@ -61,6 +64,9 @@ def export_to_pdf(self: Widget, filename: str):
     printer.setOutputFileName(filename)
     if w > h:
         printer.setOrientation(QPrinter.Landscape)
+    if export_size.width() != 1060 or export_size.height() != 730:
+        printer.setPageSize(QPrinter.Custom)
+        printer.setPaperSize(QSizeF(self.size[1] * 0.8 + 20, self.size[0] * 0.8 + 20), QPrinter.Point)
 
     painter = QPainter()
     ok = painter.begin(printer)
