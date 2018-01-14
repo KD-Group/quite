@@ -4,7 +4,7 @@ from .. import *
 
 @ui_extension
 class TableWidget(QTableWidget, ExcitedSignalInterface,
-                  prett.WidgetStringInterface, prett.WidgetIndexInterface, prett.WidgetStringListInterface):
+                  prett.WidgetDictInterface, prett.WidgetIndexInterface, prett.WidgetDictListInterface):
     def set_excited_signal_connection(self):
         # noinspection PyUnresolvedReferences
         self.doubleClicked.connect(st.zero_para(self.excited.emit))
@@ -46,11 +46,11 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
         def item_text(self, row, col):
             return self.parent.item(row, col).text()
 
-    class StringItem(TableWidgetItem, prett.WidgetStringItem):
+    class DictItem(TableWidgetItem, prett.WidgetDictItem):
         """get/set current table row text"""
 
         def get_value(self):
-            if self.parent.index.value >=0 :
+            if self.parent.index.value >= 0:
                 current_row = self.parent.currentRow()
                 col_count = self.parent.columnCount()
                 value = dict()
@@ -64,7 +64,7 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
             if len(value) is not self.col_count:
                 raise ValueError('Value length must equal to column count')
 
-            texts = self.parent.string_list.value
+            texts = self.parent.dict_list.value
             assert isinstance(texts, list)
             if value is None:
                 self.parent.index.value = 0
@@ -103,8 +103,8 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
             # noinspection PyUnresolvedReferences
             self.parent.currentCellChanged(self.check_change)
 
-    class StringsItem(TableWidgetItem, prett.StringsItem):
-        """ get all tablewidget item text"""
+    class DictListItem(TableWidgetItem, prett.DictListItem):
+        """ get all table_widget item text"""
 
         def get_value(self):
             table_texts = []
@@ -122,5 +122,5 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
             for i in range(self.row_count):
                 self.parent.removeRow(0)
             for row_dict in value:
-                self.parent.string.value = row_dict
+                self.parent.dict.value = row_dict
             self.check_change()
