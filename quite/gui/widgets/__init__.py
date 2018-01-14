@@ -6,6 +6,7 @@ from .dock_widget import DockWidget
 
 from .label import Label
 from .line_edit import LineEdit
+from .date_edit import DateEdit
 from .combo_box import ComboBox
 from .list_widget import ListWidget
 

@@ -19,6 +19,9 @@ class WidgetUiController(WidgetController):
     def edit(self, name=None) -> LineEdit:
         return self.__get_widget__('edit', name)
 
+    def date_edit(self, name=None) -> DateEdit:
+        return self.__get_widget__('date_edit', name)
+
     def list(self, name=None) -> ListWidget:
         return self.__get_widget__('list', name)
 
