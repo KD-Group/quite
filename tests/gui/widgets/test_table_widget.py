@@ -18,11 +18,11 @@ class MyTestCase(unittest.TestCase):
             @quite.connect_with(self.table_widget.dict.changed)
             def test_changed(text):
                 excuted[0] = True
-                times.append(len(times))
                 if len(times) == 0:
                     self.assertEqual(text, {'字符串': 'first', '整形': '1', '浮点型': '1.1'})
                 elif len(times) == 1:
                     self.assertEqual(text, {'字符串': 'second', '整形': '2', '浮点型': '2.2'})
+                times.append(len(times))
 
             self.table_widget.dict_list.value = [{'字符串': 'first', '整形': 1, '浮点型': 1.1},
                                                    {'字符串': 'second', '整形': 2, '浮点型': 2.2}]
