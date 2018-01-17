@@ -51,5 +51,6 @@ class MyTestCase(unittest.TestCase):
             spin_box.string.value = '-1'
             self.assertEqual(len(times), 4)
 
+
 if __name__ == '__main__':
     unittest.main()

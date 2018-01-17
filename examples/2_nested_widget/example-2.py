@@ -7,6 +7,7 @@ class CustomWidget(quite.Widget):
         painter.draw_text_bottom_right(quite.PointF(0, 0), "Custom Widget")
         painter.end()
 
+
 main_window = quite.MainWindow()
 custom_widget = CustomWidget(parent=main_window)
 main_window.set_central_widget(custom_widget)

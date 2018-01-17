@@ -7,9 +7,10 @@ install:
     - sudo apt-get install libqt4-dev
     - pip install PySide --no-index --find-links https://parkin.github.io/python-wheelhouse/;
     - python ~/virtualenv/python${TRAVIS_PYTHON_VERSION}/bin/pyside_postinstall.py -install
-    - pip install typing st prett
+    - pip install typing st prett pycodestyle
 
 script:
+    - pycodestyle . --max-line-length=120
     - "export DISPLAY=:99.0"
     - "sh -e /etc/init.d/xvfb start"
     - sleep 3

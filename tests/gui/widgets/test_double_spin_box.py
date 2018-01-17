@@ -74,5 +74,6 @@ class MyTestCase(unittest.TestCase):
         d.exec()
         self.assertEqual(len(times), 200 + 1)
 
+
 if __name__ == '__main__':
     unittest.main()

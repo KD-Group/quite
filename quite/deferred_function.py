@@ -86,7 +86,7 @@ def export_to_bitmap(self: Widget, filename: str, export_size=QSize(1060, 730)):
         self.resize(export_size.width(), export_size.height())
     else:
         self.resize(export_size.height(), export_size.width())
-        
+
     self.show()
     self.hide()
     p = QPixmap(*self.size)

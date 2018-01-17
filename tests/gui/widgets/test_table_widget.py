@@ -11,13 +11,13 @@ class MyTestCase(unittest.TestCase):
     def test_table_widget_row(self):
         with quite.EventLoop(0.1):
             self.table_widget.show()
-            excuted = [False]
+            executed = [False]
 
             times = []
 
             @quite.connect_with(self.table_widget.dict.changed)
             def test_changed(text):
-                excuted[0] = True
+                executed[0] = True
                 if len(times) == 0:
                     self.assertEqual(text, {'字符串': 'first', '整形': '1', '浮点型': '1.1'})
                 elif len(times) == 1:
@@ -25,15 +25,15 @@ class MyTestCase(unittest.TestCase):
                 times.append(len(times))
 
             self.table_widget.dict_list.value = [{'字符串': 'first', '整形': 1, '浮点型': 1.1},
-                                                   {'字符串': 'second', '整形': 2, '浮点型': 2.2}]
-            self.assertTrue(excuted[0])
+                                                 {'字符串': 'second', '整形': 2, '浮点型': 2.2}]
+            self.assertTrue(executed[0])
 
     def test_table_widget_dict_list(self):
         with quite.EventLoop(0.1):
             self.table_widget.show()
             executed = [False]
             dict_list = [{'字符串': 'first', '整形': 1, '浮点型': 1.1},
-                           {'字符串': 'second', '整形': 2, '浮点型': 2.2}]
+                         {'字符串': 'second', '整形': 2, '浮点型': 2.2}]
 
             @quite.connect_with(self.table_widget.dict_list.changed)
             def string_list_changed(dict_list_now):

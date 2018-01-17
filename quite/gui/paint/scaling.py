@@ -8,4 +8,5 @@ class Scaling:
         width = SizeF.text_size('Q', QFont('Courier New', 1000)).w
         self.ratio = width / base
 
+
 scaling = Scaling()
