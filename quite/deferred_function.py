@@ -25,6 +25,7 @@ def set_central_widget(self: Widget, widget):
         layout.addWidget(widget)
         self.setLayout(layout)
     self.center_widget = widget
+    
 
 @deferred_define
 def set_square_widget(self: Widget, widget: Widget, spacing=0):
