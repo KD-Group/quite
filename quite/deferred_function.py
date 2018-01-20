@@ -8,10 +8,16 @@ def set_central_widget(self: Widget, widget):
     if not isinstance(widget, QWidget):
         raise TypeError('Only Support Widget or WidgetController')
 
+    if hasattr(self, "center_widget"):
+        self.layout().removeWidget(self.center_widget)
+        self.center_widget.deleteLater()
+
     if isinstance(self, QMainWindow):
         self.setCentralWidget(widget)
     elif isinstance(self, QDockWidget):
         self.setWidget(widget)
+    elif hasattr(self, "center_widget"):
+        self.layout().addWidget(widget)
     else:
         layout = QHBoxLayout()
         layout.setSpacing(0)

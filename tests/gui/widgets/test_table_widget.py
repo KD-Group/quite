@@ -49,15 +49,15 @@ class MyTestCase(unittest.TestCase):
             times = []
 
             @quite.connect_with(self.table_widget.dict.changed)
-            def text_changed(dict):
+            def text_changed(table_dict):
                 if len(times) == 0:
-                    self.assertEqual(dict, {'字符串': 'first', '整形': '1', '浮点型': '1.1'})
+                    self.assertEqual(table_dict, {'字符串': 'first', '整形': '1', '浮点型': '1.1'})
                 elif len(times) == 1:
-                    self.assertEqual(dict, {'字符串': 'second', '整形': '2', '浮点型': '2.2'})
+                    self.assertEqual(table_dict, {'字符串': 'second', '整形': '2', '浮点型': '2.2'})
                 elif len(times) == 2:
-                    self.assertEqual(dict, {'字符串': 'first', '整形': '1', '浮点型': '1.1'})
+                    self.assertEqual(table_dict, {'字符串': 'first', '整形': '1', '浮点型': '1.1'})
                 elif len(times) == 3:
-                    self.assertEqual(dict, '')
+                    self.assertEqual(table_dict, '')
                 times.append(len(times))
 
             self.table_widget.dict.set_value({'字符串': 'first', '整形': 1, '浮点型': 1.1})
