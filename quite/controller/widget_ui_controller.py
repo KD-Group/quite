@@ -5,10 +5,10 @@ from .. import load_ui
 
 
 class WidgetUiController(WidgetController):
-    def __init__(self, parent=None, ui_file: str=None, widget_to_dialog=False):
+    def __init__(self, parent=None, ui_file: str=None):
         assert ui_file is not None
 
-        super().__init__(parent, st.partial_back(load_ui, ui_file, widget_to_dialog))
+        super().__init__(parent, st.partial_back(load_ui, ui_file))
 
     def label(self, name=None) -> Label:
         return self.__get_widget__('label', name)
