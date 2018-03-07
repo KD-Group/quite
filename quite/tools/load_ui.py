@@ -33,7 +33,7 @@ def process_scaling(ui_content: str, ratio: float) -> str:
     return '<?xml version="1.0" encoding="UTF-8"?>\n' + ui_content + '\n'
 
 
-def load_ui(parent=None, filename=None, widget_to_dialog=False) -> Widget:
+def load_ui(parent=None, filename=None) -> Widget:
     assert isinstance(filename, str)
     if scaling.ratio != 1.0:
         scaling_filename = '{}@{:.1f}.ui'.format(filename[:-3], scaling.ratio)
@@ -68,12 +68,6 @@ def load_ui(parent=None, filename=None, widget_to_dialog=False) -> Widget:
                     file.write(process_scaling(scaling_file.read(), 1.0 / scaling.ratio))
 
     ui_content = get_ui_content(filename)
-    if widget_to_dialog is True:
-        tree = ElementTree.fromstring(ui_content)
-        first_widget = tree.find('widget')
-        if first_widget.attrib.get('class') == 'Widget':
-            first_widget.attrib['class'] = 'Dialog'
-        ui_content = ElementTree.tostring(tree).decode()
     if scaling.ratio != 1.0:
         ui_content = process_scaling(ui_content, scaling.ratio)
     return UiLoader().load(ui_content, parent)
