@@ -35,6 +35,16 @@ def process_scaling(ui_content: str, ratio: float) -> str:
 
 def load_ui(parent=None, filename=None, widget_to_dialog=False) -> Widget:
     assert isinstance(filename, str)
+    if widget_to_dialog is True:
+        with codecs.open(filename, 'r', 'utf-8') as f:
+            tree = ElementTree.fromstring(f.read())
+            first_widget = tree.find('widget')
+            if first_widget.attrib.get('class') == 'QWidget':
+                first_widget.attrib['class'] = 'QDialog'
+            ui_content = ElementTree.tostring(tree).decode()
+        with codecs.open(filename, 'w', 'utf-8') as f:
+            f.write(ui_content)
+
     if scaling.ratio != 1.0:
         scaling_filename = '{}@{:.1f}.ui'.format(filename[:-3], scaling.ratio)
         file_exists = os.path.exists(filename)
@@ -68,12 +78,6 @@ def load_ui(parent=None, filename=None, widget_to_dialog=False) -> Widget:
                     file.write(process_scaling(scaling_file.read(), 1.0 / scaling.ratio))
 
     ui_content = get_ui_content(filename)
-    if widget_to_dialog is True:
-        tree = ElementTree.fromstring(ui_content)
-        first_widget = tree.find('widget')
-        if first_widget.attrib.get('class') == 'Widget':
-            first_widget.attrib['class'] = 'Dialog'
-        ui_content = ElementTree.tostring(tree).decode()
     if scaling.ratio != 1.0:
         ui_content = process_scaling(ui_content, scaling.ratio)
     return UiLoader().load(ui_content, parent)
