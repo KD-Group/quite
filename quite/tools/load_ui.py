@@ -73,6 +73,18 @@ def load_ui(parent=None, filename=None) -> Widget:
     return UiLoader().load(ui_content, parent)
 
 
+def auto_generate_cache(dir_path: str) -> list:
+    assert isinstance(dir_path, str)
+    if not os.path.isdir(dir_path):
+        raise ValueError('Only Support Dir Path')
+    if not os.path.isabs(dir_path):
+        dir_path = os.path.abspath(dir_path)
+    for root, dir, files in os.walk(dir_path):
+        for file in files:
+            if os.path.splitext(file)[1] == '.ui':
+                load_ui(None, os.path.join(root, file))
+
+
 @st.singleton
 class UiLoader:
     def __init__(self):
