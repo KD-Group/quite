@@ -11,6 +11,8 @@ class MyTestCase(unittest.TestCase):
         quite.auto_generate_cache(self.root_path)
         ui_files = self.find_format_files('.ui')
         cache_files = self.find_format_files('.cache')
+        print(ui_files)
+        print(cache_files)
         for ui_file in ui_files:
             self.assertTrue(ui_file in cache_files)
 
