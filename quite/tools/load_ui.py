@@ -73,7 +73,7 @@ def load_ui(parent=None, filename=None) -> Widget:
     return UiLoader().load(ui_content, parent)
 
 
-def auto_generate_cache(dir_path:str):
+def auto_generate_cache(dir_path: str):
     assert isinstance(dir_path, str)
     if not os.path.isdir(dir_path):
         raise ValueError('Paramter Must be Dir Path')

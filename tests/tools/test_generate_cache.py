@@ -37,5 +37,6 @@ class MyTestCase(unittest.TestCase):
                 os.remove(os.path.join(self.old_caches, cached_file))
             os.rmdir(os.path.join(self.root_path, 'cache'))
 
+
 if __name__ == '__main__':
     unittest.main()
