@@ -11,14 +11,11 @@ class MyTestCase(unittest.TestCase):
         quite.auto_generate_cache(self.root_path)
         ui_files = self.find_format_files('.ui')
         cache_files = self.find_format_files('.cache')
-        print(ui_files)
-        print(cache_files)
         for ui_file in ui_files:
             self.assertTrue(ui_file in cache_files)
 
     def tearDown(self):
         self.delete_caches()
-        os.rmdir(os.path.join(self.root_path, 'cache'))
 
     def find_format_files(self, file_format: str = None) -> list:
         assert isinstance(file_format, str)
@@ -26,7 +23,7 @@ class MyTestCase(unittest.TestCase):
         for root_dir, _, files in os.walk(self.root_path):
             for file in files:
                 if os.path.splitext(file)[1] == file_format:
-                    found_file_name.append(os.path.splitext(file)[0])
+                    found_file_name.append(os.path.splitext(file)[0].split('@')[0])
         return found_file_name
 
     def delete_caches(self):
@@ -35,8 +32,10 @@ class MyTestCase(unittest.TestCase):
         for i in range(2):
             self.root_path = os.path.dirname(self.root_path)
         self.old_caches = os.path.join(self.root_path, 'cache')
-        for cached_file in os.listdir(self.old_caches):
-            os.remove(os.path.join(self.old_caches, cached_file))
+        if os.path.exists(self.old_caches):
+            for cached_file in os.listdir(self.old_caches):
+                os.remove(os.path.join(self.old_caches, cached_file))
+            os.rmdir(os.path.join(self.root_path, 'cache'))
 
 if __name__ == '__main__':
     unittest.main()
