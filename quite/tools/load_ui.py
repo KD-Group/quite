@@ -2,6 +2,7 @@ import st
 import os
 import codecs
 from .. import *
+from . import load_qrc
 from xml.etree import ElementTree
 from PySide.QtUiTools import QUiLoader
 
@@ -81,6 +82,8 @@ def auto_generate_cache(dir_path: str):
         for file in files:
             if os.path.splitext(file)[1] == '.ui':
                 load_ui(None, os.path.join(root_dir, file))
+            if os.path.splitext(file)[1] == '.qrc':
+                load_qrc(os.path.join(root_dir, file))
 
 
 @st.singleton

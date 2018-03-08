@@ -11,8 +11,11 @@ class MyTestCase(unittest.TestCase):
         quite.auto_generate_cache(self.root_path)
         ui_files = self.find_format_files('.ui')
         cache_files = self.find_format_files('.cache')
+        qrc_files = self.find_format_files('.qrc')
         for ui_file in ui_files:
             self.assertTrue(ui_file in cache_files)
+        for qrc_file in qrc_files:
+            self.assertTrue(qrc_file in cache_files)
 
     def tearDown(self):
         self.delete_caches()
