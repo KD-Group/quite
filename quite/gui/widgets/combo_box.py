@@ -1,14 +1,23 @@
 import st
 import prett
+import PySide
 from .. import *
 
 
 @ui_extension
 class ComboBox(QComboBox, BaseInterface,
                prett.WidgetStringInterface, prett.WidgetIndexInterface, prett.WidgetStringListInterface):
+
+    def setValidatorReg(self):
+        pass
+
     class ComboBoxItem:
-        def __init__(self, parent: 'ComboBox'):
+        def __init__(self, parent):
             self.parent = parent
+            if parent.isEditable():
+                re = PySide.QtCore.QRegExp(self.parent.setValidatorReg())
+                validator = PySide.QtGui.QRegExpValidator(re)
+                self.parent.setValidator(validator)
 
         @property
         def count(self):
@@ -18,6 +27,7 @@ class ComboBox(QComboBox, BaseInterface,
             self.parent.addItems(text)
 
     class StringItem(ComboBoxItem, prett.WidgetStringItem):
+
         def get_value(self):
             return self.parent.currentText()
 
@@ -34,8 +44,8 @@ class ComboBox(QComboBox, BaseInterface,
                 self.parent.index.value = self.count - 1
 
         def set_changed_connection(self):
-            # noinspection PyUnresolvedReferences
             self.parent.currentIndexChanged[str].connect(self.check_change)
+            self.parent.activated[int].connect(self.check_change)
 
     class IndexItem(ComboBoxItem, prett.IndexItem):
         def get_value(self):
