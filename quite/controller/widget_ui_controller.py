@@ -25,8 +25,10 @@ class WidgetUiController(WidgetController):
     def list(self, name=None) -> ListWidget:
         return self.__get_widget__('list', name)
 
-    def combo(self, name=None) -> ComboBox:
-        return self.__get_widget__('combo', name)
+    def combo(self, name=None, class_type=ComboBox):
+        widget = self.__get_widget__('combo', name)
+        widget.__class__ = class_type
+        return widget
 
     def container(self, name=None) -> Widget:
         if name is None:
