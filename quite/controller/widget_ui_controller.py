@@ -5,7 +5,7 @@ from .. import load_ui
 
 
 class WidgetUiController(WidgetController):
-    def __init__(self, parent=None, ui_file: str=None):
+    def __init__(self, parent=None, ui_file: str = None, widget_to_dialog=False):
         assert ui_file is not None
 
         super().__init__(parent, st.partial_back(load_ui, ui_file))
@@ -25,8 +25,10 @@ class WidgetUiController(WidgetController):
     def list(self, name=None) -> ListWidget:
         return self.__get_widget__('list', name)
 
-    def combo(self, name=None) -> ComboBox:
-        return self.__get_widget__('combo', name)
+    def combo(self, name=None, class_type=ComboBox):
+        widget = self.__get_widget__('combo', name)
+        widget.__class__ = class_type
+        return widget
 
     def container(self, name=None) -> Widget:
         if name is None:
