@@ -1,5 +1,6 @@
 import st
 import prett
+import typing
 from .. import *
 
 
@@ -33,7 +34,7 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
         self.select_rows_num = len(self.selectedIndexes()) / self.columnCount()
         self.select_row_index = self.currentRow()
 
-    def get_selected_list(self):
+    def get_selected_list(self) -> typing.List[dict]:
         selected_ids = list(map(lambda x: x.row(), self.selectedIndexes()))
         selected_ids = list(set(selected_ids))
         selected_list = list(filter(lambda x: self.dict_list.value.index(x) in selected_ids, self.dict_list.value))
