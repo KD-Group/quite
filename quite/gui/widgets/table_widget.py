@@ -17,6 +17,28 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
         self.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.setSelectionBehavior(QAbstractItemView.SelectRows)
 
+    def set_select_rows_mode(self):
+        self.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.setStyleSheet("selection-background-color: lightBlue;selection-color: black;")
+        self.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        self.selectAll()
+        self.itemClicked.connect(self.cancel_current_select)
+
+    def cancel_current_select(self):
+        self.select_row_index = getattr(self, "select_row_index", 0)
+        self.select_rows_num = getattr(self, "select_rows_num", 1)
+        if self.currentRow() == self.select_row_index and len(
+                self.selectedItems()) / self.columnCount() == self.select_rows_num:
+            self.clearSelection()
+        self.select_rows_num = len(self.selectedIndexes()) / self.columnCount()
+        self.select_row_index = self.currentRow()
+
+    def get_selected_list(self):
+        selected_ids = list(map(lambda x: x.row(), self.selectedIndexes()))
+        selected_ids = list(set(selected_ids))
+        selected_list = list(filter(lambda x: self.dict_list.value.index(x) in selected_ids, self.dict_list.value))
+        return selected_list
+
     def set_headers(self, headers: list):
         self.setColumnCount(len(headers))
         self.setHorizontalHeaderLabels(headers)
