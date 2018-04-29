@@ -1,4 +1,5 @@
-from .. import *
+from .. import QInputDialog
+from .. import ui_extension
 
 
 @ui_extension
@@ -10,8 +11,8 @@ class InputDialog(QInputDialog):
         input_dialog.setInputMode(InputDialog.DoubleInput)
         input_dialog.setWindowTitle(title)
         input_dialog.setLabelText(label)
-        input_dialog.setOkButtonText("确定")
-        input_dialog.setCancelButtonText("取消")
+        input_dialog.setOkButtonText('确定')
+        input_dialog.setCancelButtonText('取消')
         input_dialog.setDoubleDecimals(decimals)
         input_dialog.setDoubleRange(minimum, maximum)
         input_dialog.setDoubleValue(default_value or minimum)
@@ -26,8 +27,8 @@ class InputDialog(QInputDialog):
         input_dialog.setInputMode(InputDialog.IntInput)
         input_dialog.setWindowTitle(title)
         input_dialog.setLabelText(label)
-        input_dialog.setOkButtonText("确定")
-        input_dialog.setCancelButtonText("取消")
+        input_dialog.setOkButtonText('确定')
+        input_dialog.setCancelButtonText('取消')
         input_dialog.setIntRange(minimum, maximum)
         input_dialog.setIntValue(default_value or minimum)
         input_dialog.setFont(parent.font())

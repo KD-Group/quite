@@ -1,4 +1,4 @@
-from .. import *
+from .. import QPointF, QSizeF
 
 
 class PointF(QPointF):

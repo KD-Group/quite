@@ -1,5 +1,7 @@
-from .. import *
 from . import PointF
+from .. import QPainter
+from .. import QSizeF, QRectF
+from .. import QFont, QFontMetrics
 
 
 class SizeF(QSizeF):
@@ -46,7 +48,7 @@ class SizeF(QSizeF):
         return QRectF(p, self)
 
     @staticmethod
-    def text_size(text, font: QFont=None):
+    def text_size(text, font: QFont = None):
         if isinstance(font, QPainter):
             font = font.font()
         font_metrics = QFontMetrics(font)

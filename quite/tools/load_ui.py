@@ -1,8 +1,10 @@
 import st
 import os
 import codecs
-from .. import *
 from . import load_qrc
+from .. import ext_classes
+from .. import Widget, scaling
+from .. import QByteArray, QBuffer, QIODevice
 from xml.etree import ElementTree
 from PySide.QtUiTools import QUiLoader
 
@@ -24,7 +26,7 @@ def process_scaling(ui_content: str, ratio: float) -> str:
     for child in tree.iter('height'):
         if child.text != '16777215':
             child.text = str(int(int(child.text) * ratio))
-    for child in tree.iter("property"):
+    for child in tree.iter('property'):
         name = child.attrib.get('name', None)
         if name == 'spacing' or name[-6:] == 'Margin' and len(child):
             number = child[0]

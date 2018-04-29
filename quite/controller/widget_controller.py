@@ -1,4 +1,5 @@
-from .. import *
+from .. import Widget
+from .. import QMessageBox
 
 
 class WidgetController:

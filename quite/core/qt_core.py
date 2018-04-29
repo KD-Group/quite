@@ -1,4 +1,2 @@
-from PySide.QtCore import *
-from PySide.QtXml import *
-assert Signal == Signal
-assert QXmlReader == QXmlReader
+from PySide.QtCore import *  # noqa: F403
+from PySide.QtXml import *  # noqa: F403

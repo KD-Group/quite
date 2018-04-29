@@ -1,6 +1,8 @@
 import st
 import prett
-from .. import *
+from .. import QComboBox
+from .. import ui_extension
+from .. import BaseInterface
 
 
 @ui_extension
