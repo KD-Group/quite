@@ -28,8 +28,8 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
     def cancel_current_select(self):
         self.select_row_index = getattr(self, "select_row_index", 0)
         self.select_rows_num = getattr(self, "select_rows_num", 1)
-        if self.currentRow() == self.select_row_index and len(
-                self.selectedItems()) / self.columnCount() == self.select_rows_num:
+        if self.currentRow() == self.select_row_index and \
+                len(self.selectedItems()) == self.select_rows_num * self.columnCount():
             self.clearSelection()
         self.select_rows_num = len(self.selectedIndexes()) / self.columnCount()
         self.select_row_index = self.currentRow()
