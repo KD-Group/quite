@@ -5,7 +5,7 @@ import quite
 
 
 class MyTestCase(unittest.TestCase):
-    @unittest.skipIf(condition=(sys.platform != "win32"), reason="RCC Just For Windows")
+    @unittest.skipIf(condition=(sys.platform != 'win32'), reason='RCC Just For Windows')
     def test_load_text_file_in_qrc(self):
         file_path = os.path.join(os.path.dirname(__file__), 'res/test.qrc')
         quite.load_qrc(file_path)

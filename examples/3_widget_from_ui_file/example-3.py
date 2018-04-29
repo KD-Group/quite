@@ -5,9 +5,9 @@ from quite import *
 class CustomWidget(Widget):
     def paint(self, painter: Painter):
         w, _ = self.size
-        painter.setFont(QFont("Courier New", 14.0))
-        painter.draw_text_bottom_right(PointF(0, 0), "So Cool!")
-        painter.draw_text_bottom_left(PointF(w, 0), "From Custom Widget")
+        painter.setFont(QFont('Courier New', 14.0))
+        painter.draw_text_bottom_right(PointF(0, 0), 'So Cool!')
+        painter.draw_text_bottom_left(PointF(w, 0), 'From Custom Widget')
         painter.end()
 
 

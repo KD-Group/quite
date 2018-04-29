@@ -24,7 +24,7 @@ def process_scaling(ui_content: str, ratio: float) -> str:
     for child in tree.iter('height'):
         if child.text != '16777215':
             child.text = str(int(int(child.text) * ratio))
-    for child in tree.iter("property"):
+    for child in tree.iter('property'):
         name = child.attrib.get('name', None)
         if name == 'spacing' or name[-6:] == 'Margin' and len(child):
             number = child[0]

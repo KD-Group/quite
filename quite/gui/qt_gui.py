@@ -9,5 +9,5 @@ if not QApplication.instance():
         QApplication.addLibraryPath(QDir.currentPath())
 
     # noinspection PyTypeChecker,PyCallByClass
-    QApplication.setStyle("cleanlooks")
+    QApplication.setStyle('cleanlooks')
     QApplication([])
