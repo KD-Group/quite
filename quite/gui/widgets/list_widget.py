@@ -1,6 +1,8 @@
 import st
 import prett
-from .. import *
+from .. import QListWidget
+from .. import ui_extension
+from .. import ExcitedSignalInterface
 
 
 @ui_extension

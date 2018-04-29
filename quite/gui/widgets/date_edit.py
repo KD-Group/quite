@@ -1,5 +1,8 @@
-from .. import *
 import prett
+from .. import QDate
+from .. import QDateEdit
+from .. import ui_extension
+from .. import BaseInterface
 
 
 @ui_extension
@@ -16,7 +19,7 @@ class DateEdit(QDateEdit, BaseInterface, prett.WidgetStringInterface):
             if value != self.get_value():
                 date = value.split('-')
                 if len(date) is not 3:
-                    raise ValueError("Date format is invalid")
+                    raise ValueError('Date format is invalid')
                 self.parent.setDate(QDate(int(date[0]), int(date[1]), int(date[2])))
 
         def set_changed_connection(self):

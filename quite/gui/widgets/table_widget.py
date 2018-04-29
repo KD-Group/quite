@@ -1,7 +1,10 @@
 import st
 import prett
 import typing
-from .. import *
+from .. import QTableWidget
+from .. import ui_extension
+from .. import ExcitedSignalInterface
+from .. import Qt, QHeaderView, QAbstractItemView, QTableWidgetItem
 
 
 @ui_extension

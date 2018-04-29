@@ -1,0 +1,4 @@
+st
+prett
+PySide
+typing

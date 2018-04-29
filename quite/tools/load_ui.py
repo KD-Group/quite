@@ -1,8 +1,10 @@
 import st
 import os
 import codecs
-from .. import *
 from . import load_qrc
+from .. import ext_classes
+from .. import Widget, scaling
+from .. import QByteArray, QBuffer, QIODevice
 from xml.etree import ElementTree
 from PySide.QtUiTools import QUiLoader
 
@@ -24,7 +26,7 @@ def process_scaling(ui_content: str, ratio: float) -> str:
     for child in tree.iter('height'):
         if child.text != '16777215':
             child.text = str(int(int(child.text) * ratio))
-    for child in tree.iter("property"):
+    for child in tree.iter('property'):
         name = child.attrib.get('name', None)
         if name == 'spacing' or name[-6:] == 'Margin' and len(child):
             number = child[0]
@@ -36,37 +38,6 @@ def process_scaling(ui_content: str, ratio: float) -> str:
 
 def load_ui(parent=None, filename=None) -> Widget:
     assert isinstance(filename, str)
-    if scaling.ratio != 1.0:
-        scaling_filename = '{}@{:.1f}.ui'.format(filename[:-3], scaling.ratio)
-        file_exists = os.path.exists(filename)
-        scaling_file_exists = os.path.exists(scaling_filename)
-        if file_exists and scaling_file_exists:
-            file_time = os.stat(filename).st_mtime
-            scaling_file_time = os.stat(scaling_filename).st_mtime
-
-            with codecs.open(filename, 'r', 'utf-8') as file:
-                file_content = file.read()
-            with codecs.open(scaling_filename, 'r', 'utf-8') as scaling_file:
-                scaling_file_content = scaling_file.read()
-
-            if file_time > scaling_file_time:
-                processed_content = process_scaling(file_content, scaling.ratio)
-                if processed_content != scaling_file_content:
-                    with codecs.open(scaling_filename, 'w', 'utf-8') as scaling_file:
-                        scaling_file.write(processed_content)
-            else:
-                processed_scaling_content = process_scaling(scaling_file_content, 1.0 / scaling.ratio)
-                if processed_scaling_content != file_content:
-                    with codecs.open(filename, 'w', 'utf-8') as file:
-                        file.write(processed_scaling_content)
-        elif file_exists:
-            with codecs.open(filename, 'r', 'utf-8') as file:
-                with codecs.open(scaling_filename, 'w', 'utf-8') as scaling_file:
-                    scaling_file.write(process_scaling(file.read(), scaling.ratio))
-        elif scaling_file_exists:
-            with codecs.open(scaling_filename, 'r', 'utf-8') as scaling_file:
-                with codecs.open(filename, 'w', 'utf-8') as file:
-                    file.write(process_scaling(scaling_file.read(), 1.0 / scaling.ratio))
 
     ui_content = get_ui_content(filename)
     if scaling.ratio != 1.0:

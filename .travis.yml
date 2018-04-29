@@ -3,18 +3,28 @@ language: python
 python:
     - "3.4"
 
-install: 
+install:
     - sudo apt-get install libqt4-dev
     - pip install PySide --no-index --find-links https://parkin.github.io/python-wheelhouse/;
     - python ~/virtualenv/python${TRAVIS_PYTHON_VERSION}/bin/pyside_postinstall.py -install
-    - pip install typing st prett pycodestyle
+    - pip install -r requirements.txt
+    - pip install flake8
 
 script:
-    - pycodestyle . --max-line-length=120
+    - flake8
     - "export DISPLAY=:99.0"
     - "sh -e /etc/init.d/xvfb start"
     - sleep 3
     - python -m pytest
+
+deploy:
+  provider: pypi
+  user: sfzhou
+  on:
+    tags: true
+    branch: master
+  password:
+    secure: Bll3y4I5vlV63bdAQDLD8j0fp38J+kyGauymVRrLSz0Mhlk1MNofpUzUngKywEtRLn6kS7o/r0kd9pdfdaSySSvEn/OX4Wu3HT7AocIs4u4s5XMgBA6MVJchnFpJ8m6kxMXPgTpONm4j55thMqv1oBzc2Immr+99UEhx/xuB0eAIwR77lbqXPNkmFT5ftt+KS/Q4T/qpjR7g4Jc8Ovfh5S1lKNwiInP8HlE7Cnr2dUJQxpAkv1f79UaZwZg1VNwpx4PAaGCXiAi7/8+9s5k94jl++4bDd6lURgEPH71u+duR48SV+0A8mvcL84Pt5944Zb4lqGLa+2DNcPajmYPWxrQD4RXEA+CQV8SAGU6Hzi56JzcnO7kAY+26C7nkM4j0g9AGuPw4TTkjGC7q/ur3JTqPPaRIO6Sb+h+TKHsUCVdB+8jfkehWEpObCfzPxqOjCathJIW2Tdfu67SY0MAAZEa6KwK/EUGhigq1A75NRPtaufeI48LNXK3fZx6+FMXJoLjseCl7/KFhEupfSizfX7G2HUuyDr9lVs7Lw4yEZsCUEHIAhSwrBzRAQEti1Ms6J5EM/JAnWoVI2Rsb8m0BwVOuy5DuyRzppCFXBFt5QMsHD07eV18zdTa+F/bdij03uQf4DlbUamZYEhIspyo+EPOJkS15sgFFdira8PoK0Us=
 
 notifications:
     email: false

@@ -1,4 +1,7 @@
-from .. import *
+from .. import QDialog
+from .. import QCloseEvent
+from .. import ui_extension
+from .. import ClosedSignalInterface, ClassExecInterface, ContainerAbilityInterface
 
 
 @ui_extension

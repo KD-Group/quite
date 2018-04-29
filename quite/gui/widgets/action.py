@@ -1,4 +1,6 @@
-from .. import *
+from .. import QAction
+from .. import ui_extension
+from .. import ExcitedSignalInterface
 
 
 @ui_extension

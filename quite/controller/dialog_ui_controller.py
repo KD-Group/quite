@@ -1,5 +1,5 @@
-from . import *
-from ..gui import *
+from . import WidgetUiController
+from ..gui import Shortcut
 
 
 class DialogUiController(WidgetUiController):

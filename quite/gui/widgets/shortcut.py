@@ -1,4 +1,7 @@
-from .. import *
+from .. import QShortcut
+from .. import ui_extension
+from .. import QWidget, QKeySequence
+from .. import ExcitedSignalInterface
 
 
 @ui_extension

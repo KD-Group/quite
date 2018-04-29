@@ -5,7 +5,7 @@ import quite
 
 class MyTestCase(unittest.TestCase):
     def test_list_widget_row(self):
-        with quite.EventLoop(0.1) as event:
+        with quite.EventLoop(0.1):
             list_widget = quite.ListWidget()
             list_widget.show()
             executed = [False]
@@ -20,7 +20,7 @@ class MyTestCase(unittest.TestCase):
             self.assertTrue(executed[0])
 
     def test_list_widget_string_list(self):
-        with quite.EventLoop(0.1) as event:
+        with quite.EventLoop(0.1):
             list_widget = quite.ListWidget()
             list_widget.show()
             executed = [False]

@@ -1,4 +1,11 @@
-from . import *
+from . import deferred_define
+from . import Widget, QWidget
+from . import QMainWindow, QDockWidget
+from . import QHBoxLayout, SquareLayout
+from . import WidgetController
+from . import QSize, QSizeF, QPoint
+from . import QPicture, QPixmap
+from . import QPrinter, QPainter
 
 
 @deferred_define
@@ -8,7 +15,7 @@ def set_central_widget(self: Widget, widget):
     if not isinstance(widget, QWidget):
         raise TypeError('Only Support Widget or WidgetController')
 
-    if hasattr(self, "center_widget"):
+    if hasattr(self, 'center_widget'):
         self.layout().removeWidget(self.center_widget)
         self.center_widget.deleteLater()
 
@@ -16,7 +23,7 @@ def set_central_widget(self: Widget, widget):
         self.setCentralWidget(widget)
     elif isinstance(self, QDockWidget):
         self.setWidget(widget)
-    elif hasattr(self, "center_widget"):
+    elif hasattr(self, 'center_widget'):
         self.layout().addWidget(widget)
     else:
         layout = QHBoxLayout()

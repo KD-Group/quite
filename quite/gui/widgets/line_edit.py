@@ -1,5 +1,7 @@
-from .. import *
 import prett
+from .. import QLineEdit
+from .. import ui_extension
+from .. import BaseInterface
 
 
 @ui_extension

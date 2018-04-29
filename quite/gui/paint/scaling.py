@@ -1,4 +1,4 @@
-from . import *
+from . import SizeF
 from .. import QFont
 
 

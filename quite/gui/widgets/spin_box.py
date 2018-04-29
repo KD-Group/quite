@@ -1,5 +1,7 @@
 import prett
-from .. import *
+from .. import QSpinBox
+from .. import ui_extension
+from .. import BaseInterface
 
 
 @ui_extension
