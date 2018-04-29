@@ -1,4 +1,4 @@
-from . import *
+from . import PointF, SizeF, scaling
 from .. import QPainter, QColor, QPen, QRectF, Qt
 
 

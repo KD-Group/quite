@@ -1,4 +1,6 @@
-from .. import *
+from .. import QLayout, QLayoutItem
+from .. import QWidget, QWidgetItem
+from .. import Qt, QSize, QPoint, QRect
 
 
 class SquareLayout(QLayout):

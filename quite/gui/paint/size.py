@@ -1,5 +1,7 @@
-from .. import *
 from . import PointF
+from .. import QPainter
+from .. import QSizeF, QRectF
+from .. import QFont, QFontMetrics
 
 
 class SizeF(QSizeF):

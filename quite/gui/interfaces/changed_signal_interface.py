@@ -1,5 +1,5 @@
-from .. import *
 from . import BaseInterface
+from .. import SignalSender
 
 
 class ChangedSignalInterface(BaseInterface):

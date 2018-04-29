@@ -1,5 +1,7 @@
 import prett
-from .. import *
+from .. import QPushButton
+from .. import ui_extension
+from .. import ExcitedSignalInterface
 
 
 @ui_extension

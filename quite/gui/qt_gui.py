@@ -1,13 +1,15 @@
 import sys
-from ..core import *
-from PySide.QtGui import *
+from . import QDir
+from PySide import QtGui
+from PySide.QtGui import *  # noqa: F403
+
 
 # noinspection PyArgumentList
-if not QApplication.instance():
+if not QtGui.QApplication.instance():
     if getattr(sys, 'frozen', None):
         # noinspection PyArgumentList
-        QApplication.addLibraryPath(QDir.currentPath())
+        QtGui.QApplication.addLibraryPath(QDir.currentPath())
 
     # noinspection PyTypeChecker,PyCallByClass
-    QApplication.setStyle('cleanlooks')
-    QApplication([])
+    QtGui.QApplication.setStyle('cleanlooks')
+    QtGui.QApplication([])

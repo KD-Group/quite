@@ -1,4 +1,8 @@
-from .. import *
+from .. import QWidget
+from .. import Painter
+from .. import ui_extension
+from .. import QCloseEvent, EventLoop
+from .. import ClosedSignalInterface, ClassExecInterface, ContainerAbilityInterface
 
 
 @ui_extension

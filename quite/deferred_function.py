@@ -1,4 +1,11 @@
-from . import *
+from . import deferred_define
+from . import Widget, QWidget
+from . import QMainWindow, QDockWidget
+from . import QHBoxLayout, SquareLayout
+from . import WidgetController
+from . import QSize, QSizeF, QPoint
+from . import QPicture, QPixmap
+from . import QPrinter, QPainter
 
 
 @deferred_define

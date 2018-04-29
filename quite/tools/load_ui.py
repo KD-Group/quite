@@ -1,8 +1,10 @@
 import st
 import os
 import codecs
-from .. import *
 from . import load_qrc
+from .. import ext_classes
+from .. import Widget, scaling
+from .. import QByteArray, QBuffer, QIODevice
 from xml.etree import ElementTree
 from PySide.QtUiTools import QUiLoader
 

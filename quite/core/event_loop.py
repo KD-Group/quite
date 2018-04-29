@@ -1,4 +1,6 @@
-from . import *
+from . import Timer
+from . import QThread
+from . import QEventLoop
 
 
 class EventLoop:

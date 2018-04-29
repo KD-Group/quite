@@ -1,5 +1,8 @@
-from .. import *
 import prett
+from .. import QDate
+from .. import QDateEdit
+from .. import ui_extension
+from .. import BaseInterface
 
 
 @ui_extension

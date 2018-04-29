@@ -1,4 +1,5 @@
-from .. import *
+from .. import QInputDialog
+from .. import ui_extension
 
 
 @ui_extension

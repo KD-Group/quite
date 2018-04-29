@@ -1,4 +1,5 @@
-from .qt_gui import *
+from ..core import *  # noqa: F403
+from .qt_gui import *  # noqa: F403
 from .ui_extension import ext_classes, ui_extension
 from .ui_extension import deferred_define, run_deferred_function
 
