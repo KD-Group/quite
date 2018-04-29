@@ -6,9 +6,9 @@ class Painter(QPainter):
     default_background_color = QColor(222, 222, 222, 196)
 
     def draw_text(self, text_rect: QRectF, text: str,
-                  color: QColor=None,
-                  background_color: QColor=None,
-                  background_round_size: int=2):
+                  color: QColor = None,
+                  background_color: QColor = None,
+                  background_round_size: int = 2):
         current_pen = self.pen()
 
         self.setPen(Qt.transparent)
@@ -27,70 +27,70 @@ class Painter(QPainter):
             self.setPen(current_pen)
 
     def draw_text_top(self, position: PointF, text: str,
-                      margin: int=3,
-                      color: QColor=None,
-                      background_color: QColor=None,
-                      background_color_round_size: int=2):
+                      margin: int = 3,
+                      color: QColor = None,
+                      background_color: QColor = None,
+                      background_color_round_size: int = 2):
         text_size = SizeF.text_size(text, self)
         text_rect = text_size.to_rect(position - text_size.half_width().height_add(margin * scaling.ratio))
 
         self.draw_text(text_rect, text, color, background_color, background_color_round_size)
 
     def draw_text_top_left(self, position: PointF, text: str,
-                           margin: int=3,
-                           color: QColor=None,
-                           background_color: QColor=None,
-                           background_color_round_size: int=2):
+                           margin: int = 3,
+                           color: QColor = None,
+                           background_color: QColor = None,
+                           background_color_round_size: int = 2):
         text_size = SizeF.text_size(text, self)
         text_rect = text_size.to_rect(position - text_size.width_add(margin).height_add(margin * scaling.ratio))
 
         self.draw_text(text_rect, text, color, background_color, background_color_round_size)
 
     def draw_text_bottom(self, position: PointF, text: str,
-                         margin: int=3,
-                         color: QColor=None,
-                         background_color: QColor=None,
-                         background_color_round_size: int=2):
+                         margin: int = 3,
+                         color: QColor = None,
+                         background_color: QColor = None,
+                         background_color_round_size: int = 2):
         text_size = SizeF.text_size(text, self)
         text_rect = text_size.to_rect(position - text_size.half_width().height_set(-margin * scaling.ratio))
 
         self.draw_text(text_rect, text, color, background_color, background_color_round_size)
 
     def draw_text_left(self, position: PointF, text: str,
-                       margin: int=3,
-                       color: QColor=None,
-                       background_color: QColor=None,
-                       background_color_round_size: int=2):
+                       margin: int = 3,
+                       color: QColor = None,
+                       background_color: QColor = None,
+                       background_color_round_size: int = 2):
         text_size = SizeF.text_size(text, self)
         text_rect = text_size.to_rect(position - text_size.half_height().width_add(margin * scaling.ratio))
 
         self.draw_text(text_rect, text, color, background_color, background_color_round_size)
 
     def draw_text_right(self, position: PointF, text: str,
-                        margin: int=3,
-                        color: QColor=None,
-                        background_color: QColor=None,
-                        background_color_round_size: int=2):
+                        margin: int = 3,
+                        color: QColor = None,
+                        background_color: QColor = None,
+                        background_color_round_size: int = 2):
         text_size = SizeF.text_size(text, self)
         text_rect = text_size.to_rect(position - text_size.half_height().width_set(-margin * scaling.ratio))
 
         self.draw_text(text_rect, text, color, background_color, background_color_round_size)
 
     def draw_text_bottom_left(self, position: PointF, text: str,
-                              margin: int=3,
-                              color: QColor=None,
-                              background_color: QColor=None,
-                              background_color_round_size: int=2):
+                              margin: int = 3,
+                              color: QColor = None,
+                              background_color: QColor = None,
+                              background_color_round_size: int = 2):
         text_size = SizeF.text_size(text, self)
         text_rect = text_size.to_rect(position - text_size.width_add(margin).height_set(-margin * scaling.ratio))
 
         self.draw_text(text_rect, text, color, background_color, background_color_round_size)
 
     def draw_text_bottom_right(self, position: PointF, text: str,
-                               margin: int=3,
-                               color: QColor=None,
-                               background_color: QColor=None,
-                               background_color_round_size: int=2):
+                               margin: int = 3,
+                               color: QColor = None,
+                               background_color: QColor = None,
+                               background_color_round_size: int = 2):
         text_size = SizeF.text_size(text, self)
         text_rect = text_size.to_rect(position.x_add(margin).y_add(margin * scaling.ratio))
 

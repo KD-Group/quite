@@ -5,9 +5,7 @@ from .. import load_ui
 
 
 class WidgetUiController(WidgetController):
-    def __init__(self, parent=None, ui_file: str=None):
-        assert ui_file is not None
-
+    def __init__(self, parent=None, ui_file: str):
         super().__init__(parent, st.partial_back(load_ui, ui_file))
 
     def label(self, name=None) -> Label:
