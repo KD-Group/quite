@@ -23,7 +23,6 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
 
     def set_select_rows_mode(self):
         self.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.setStyleSheet("selection-background-color: lightBlue;selection-color: black;")
         self.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.selectAll()
         self.itemClicked.connect(self.cancel_current_select)
