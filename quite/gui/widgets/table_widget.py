@@ -3,13 +3,23 @@ import prett
 import typing
 from .. import QTableWidget
 from .. import ui_extension
-from .. import ExcitedSignalInterface
+from .. import ExcitedSignalInterface, ClickOtherRowSignalInterface
 from .. import Qt, QHeaderView, QAbstractItemView, QTableWidgetItem
 
 
 @ui_extension
 class TableWidget(QTableWidget, ExcitedSignalInterface,
-                  prett.WidgetDictInterface, prett.WidgetIndexInterface, prett.WidgetDictListInterface):
+                  prett.WidgetDictInterface, prett.WidgetIndexInterface, prett.WidgetDictListInterface,
+                  ClickOtherRowSignalInterface):
+    def set_click_other_row_signal_connection(self):
+        def click_other_row_signal():
+            self.last_click_row_num = getattr(self, "last_click_row_num", None)
+            if self.currentRow() != self.last_click_row_num:
+                self.last_click_row_num = self.currentRow()
+                self.click_other_row.emit(self.currentRow())
+
+        self.itemClicked.connect(click_other_row_signal)
+
     def set_excited_signal_connection(self):
         # noinspection PyUnresolvedReferences
         self.doubleClicked.connect(st.zero_para(self.excited.emit))

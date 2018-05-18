@@ -6,6 +6,7 @@ from .ui_extension import deferred_define, run_deferred_function
 from .interfaces import BaseInterface, ClassExecInterface
 from .interfaces import ClosedSignalInterface, ShowedSignalInterface
 from .interfaces import ChangedSignalInterface, ExcitedSignalInterface
+from .interfaces import ClickOtherRowSignalInterface
 from .interfaces import ContainerAbilityInterface
 
 from .layouts import SquareLayout
