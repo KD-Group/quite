@@ -1,24 +1,22 @@
-import st
-import prett
 import typing
+
+import prett
+import st
+from .. import ExcitedSignalInterface, RowChangedSignalInterface
 from .. import QTableWidget
-from .. import ui_extension
-from .. import ExcitedSignalInterface, ClickOtherRowSignalInterface
 from .. import Qt, QHeaderView, QAbstractItemView, QTableWidgetItem
+from .. import ui_extension
 
 
 @ui_extension
 class TableWidget(QTableWidget, ExcitedSignalInterface,
                   prett.WidgetDictInterface, prett.WidgetIndexInterface, prett.WidgetDictListInterface,
-                  ClickOtherRowSignalInterface):
-    def set_click_other_row_signal_connection(self):
-        def click_other_row_signal():
-            self.last_click_row_num = getattr(self, "last_click_row_num", None)
-            if self.currentRow() != self.last_click_row_num:
-                self.last_click_row_num = self.currentRow()
-                self.click_other_row.emit(self.currentRow())
+                  RowChangedSignalInterface):
+    def set_row_changed_signal_connection(self):
+        self.itemClicked.connect(self.row_changed_signal)
 
-        self.itemClicked.connect(click_other_row_signal)
+    def row_changed_signal(self):
+        self.row_changed.emit_if_changed(self.currentRow())
 
     def set_excited_signal_connection(self):
         # noinspection PyUnresolvedReferences

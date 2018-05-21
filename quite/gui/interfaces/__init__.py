@@ -3,5 +3,5 @@ from .closed_signal_interface import ClosedSignalInterface
 from .showed_signal_interface import ShowedSignalInterface
 from .changed_signal_interface import ChangedSignalInterface
 from .excited_signal_interface import ExcitedSignalInterface
-from .click_other_row_signal_interface import ClickOtherRowSignalInterface
+from .row_changed_signal_interface import RowChangedSignalInterface
 from .ability_interfaces import ContainerAbilityInterface, ClassExecInterface
