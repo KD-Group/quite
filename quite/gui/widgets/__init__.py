@@ -20,3 +20,4 @@ from .shortcut import Shortcut
 from .push_button import PushButton
 
 from .table_widget import TableWidget
+from .plot_widget import PlotWidget

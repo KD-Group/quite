@@ -14,7 +14,11 @@ def get_ui_content(filename):
     with codecs.open(filename, 'r', 'utf-8') as f:
         text = f.read()
     for cls in ext_classes:
-        text = text.replace(cls.__bases__[0].__name__, cls.__name__)
+        # use name identity to solve diamond inheritance problem
+        if cls.__bases__[0].__name__ == 'PlotWidget':
+            text = text.replace('QGraphicsView', cls.__name__)
+        else:
+            text = text.replace(cls.__bases__[0].__name__, cls.__name__)
     return text
 
 
