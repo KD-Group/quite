@@ -2,3 +2,4 @@ st
 prett
 PySide
 typing
+pyqtgraph

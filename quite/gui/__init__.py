@@ -20,3 +20,4 @@ from .widgets import SpinBox, DoubleSpinBox
 from .widgets import InputDialog
 from .widgets import Action, Shortcut, PushButton
 from .widgets import TableWidget
+from .widgets import PlotWidget

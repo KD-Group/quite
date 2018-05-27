@@ -3,7 +3,7 @@ from . import WidgetController
 from ..gui import Label, PushButton
 from ..gui import LineEdit, DateEdit
 from ..gui import ListWidget, ComboBox
-from ..gui import Widget, DockWidget
+from ..gui import Widget, DockWidget, PlotWidget
 from ..gui import GroupBox, SpinBox
 from ..gui import DoubleSpinBox, TableWidget
 from ..gui import Action, SignalSender
@@ -27,6 +27,9 @@ class WidgetUiController(WidgetController):
 
     def date_edit(self, name=None) -> DateEdit:
         return self.__get_widget__('date_edit', name)
+
+    def plot_widget(self, name=None) -> PlotWidget:
+        return self.__get_widget__('plot_widget', name)
 
     def list(self, name=None) -> ListWidget:
         return self.__get_widget__('list', name)
