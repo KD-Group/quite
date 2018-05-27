@@ -1,3 +1,4 @@
+import os
 import quite
 import unittest
 import numpy as np
@@ -54,6 +55,17 @@ class TestPlotCase(unittest.TestCase):
             self.assertRaises(ValueError, self.plot_widget.set_labels, in_valid_labels)
             in_valid_units = ['x']
             self.assertRaises(ValueError, self.plot_widget.set_labels, valid_labels, in_valid_units)
+
+    def test_load_plot_widget(self):
+        current_path = os.path.dirname(__file__)
+        ui_file_path = os.path.join(current_path, 'res', '2.plot_widget.ui')
+
+        plot_widget_controller = quite.DialogUiController(parent=None, ui_file=ui_file_path)
+        plot_widget_controller.plot_widget('test').plot(x=np.random.random(10), y=np.random.random(10))
+        timer = quite.Timer()
+        timer.timeout.connect(plot_widget_controller.close)
+        timer.start(3000)
+        plot_widget_controller.exec()
 
 
 if __name__ == '__main__':
