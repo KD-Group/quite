@@ -1,14 +1,19 @@
-from .. import QDialog
+from .. import ClosedSignalInterface, ContainerAbilityInterface
 from .. import QCloseEvent
+from .. import QDialog
 from .. import ui_extension
-from .. import ClosedSignalInterface, ClassExecInterface, ContainerAbilityInterface
 
 
 @ui_extension
-class Dialog(QDialog, ClosedSignalInterface, ClassExecInterface, ContainerAbilityInterface):
+class Dialog(QDialog, ClosedSignalInterface, ContainerAbilityInterface):
+
     def closeEvent(self, event: QCloseEvent):
-        self.closed.emit()
-        event.accept()
+        if self.can_close:
+            self.closed.emit()
+            event.accept()
+        else:
+            self.cannot_closed.emit()
+            event.ignore()
 
     def exec(self, *args):
         super().exec_(*args)
