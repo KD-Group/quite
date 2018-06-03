@@ -15,6 +15,9 @@ class Dialog(QDialog, ClosedSignalInterface, ContainerAbilityInterface):
             self.cannot_closed.emit()
             event.ignore()
 
+    def exec(self, *args):
+        super().exec_(*args)
+
     @property
     def size(self) -> (int, int):
         return self.width(), self.height()
