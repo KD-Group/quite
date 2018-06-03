@@ -1,12 +1,11 @@
-from .. import ClosedSignalInterface, ClassExecInterface, ContainerAbilityInterface
-from .. import EventLoop
+from .. import ClosedSignalInterface, ContainerAbilityInterface
 from .. import QCloseEvent
 from .. import QDialog
 from .. import ui_extension
 
 
 @ui_extension
-class Dialog(QDialog, ClosedSignalInterface, ClassExecInterface, ContainerAbilityInterface):
+class Dialog(QDialog, ClosedSignalInterface, ContainerAbilityInterface):
 
     def closeEvent(self, event: QCloseEvent):
         if self.can_close:
@@ -15,11 +14,6 @@ class Dialog(QDialog, ClosedSignalInterface, ClassExecInterface, ContainerAbilit
         else:
             self.cannot_closed.emit()
             event.ignore()
-
-    def exec(self):
-        with EventLoop() as event:
-            self.show()
-            self.closed.connect(event.quit)
 
     @property
     def size(self) -> (int, int):
