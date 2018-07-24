@@ -4,7 +4,7 @@ import prett
 import st
 from .. import ExcitedSignalInterface, RowChangedSignalInterface
 from .. import QTableWidget
-from .. import Qt, QHeaderView, QAbstractItemView, QTableWidgetItem
+from .. import Qt, QAbstractItemView, QTableWidgetItem
 from .. import ui_extension
 
 
@@ -13,9 +13,11 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
                   prett.WidgetDictInterface, prett.WidgetIndexInterface, prett.WidgetDictListInterface,
                   RowChangedSignalInterface):
     def set_row_changed_signal_connection(self):
+        # noinspection PyUnresolvedReferences
         self.itemClicked.connect(self.row_changed_signal)
 
     def row_changed_signal(self):
+        # noinspection PyUnresolvedReferences
         self.row_changed.emit_if_changed(self.currentRow())
 
     def set_excited_signal_connection(self):
@@ -23,9 +25,9 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
         self.doubleClicked.connect(st.zero_para(self.excited.emit))
 
     def set_just_show_mode(self):
+        self.auto_resize = True
         self.verticalHeader().hide()
         self.resizeColumnsToContents()
-        self.horizontalHeader().setResizeMode(QHeaderView.Stretch)
         self.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.setSelectionBehavior(QAbstractItemView.SelectRows)
 
@@ -34,6 +36,7 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
         self.setStyleSheet("selection-background-color: lightBlue;selection-color: black;")
         self.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.selectAll()
+        # noinspection PyUnresolvedReferences
         self.itemClicked.connect(self.cancel_current_select)
 
     def cancel_current_select(self):
@@ -55,16 +58,26 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
         self.setColumnCount(len(headers))
         self.setHorizontalHeaderLabels(headers)
 
-    def auto_scaling_column(self):
-        self.resizeColumnsToContents()
-        col_count = self.columnCount()
-        col_width = sum(list([self.columnWidth(i) for i in range(col_count)]))
-        total_col_width = self.width() - self.verticalScrollBar().width()
-        for i in range(col_count):
-            self.setColumnWidth(i, self.columnWidth(i) / col_width * total_col_width)
+    @property
+    def auto_resize(self):
+        return getattr(self, 'resize', False)
 
-    def resizeEvent(self, *args, **kwargs):
-        self.auto_scaling_column()
+    @auto_resize.setter
+    def auto_resize(self, value: bool):
+        setattr(self, 'resize', value)
+
+    def auto_resize_column_width(self):
+        if self.auto_resize:
+            self.resizeColumnsToContents()
+            col_count = self.columnCount()
+            col_width = sum(list([self.columnWidth(i) for i in range(col_count)]))
+            if col_width < self.width():
+                for i in range(col_count):
+                    self.setColumnWidth(i, self.columnWidth(i) / col_width * self.width())
+
+    def resizeEvent(self, event):
+        super(TableWidget, self).resizeEvent(event)
+        self.auto_resize_column_width()
 
     class TableWidgetItem:
         def __init__(self, parent: 'TableWidget'):
@@ -119,6 +132,7 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
                         table_item.setTextAlignment(Qt.AlignCenter)
                         self.parent.setItem(self.row_count - 1, i, table_item)
                     self.parent.index.value = self.row_count - 1
+                    self.parent.auto_resize_column_width()
 
         def set_changed_connection(self):
             # noinspection PyUnresolvedReferences
