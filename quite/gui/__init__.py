@@ -21,3 +21,4 @@ from .widgets import InputDialog
 from .widgets import Action, Shortcut, PushButton
 from .widgets import TableWidget
 from .widgets import PlotWidget
+from .widgets import Layout

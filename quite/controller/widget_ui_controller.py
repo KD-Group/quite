@@ -1,13 +1,14 @@
 import st
 from . import WidgetController
+from .. import load_ui
+from ..gui import Action, SignalSender
+from ..gui import DoubleSpinBox, TableWidget
+from ..gui import GroupBox, SpinBox
 from ..gui import Label, PushButton
 from ..gui import LineEdit, DateEdit
 from ..gui import ListWidget, ComboBox
 from ..gui import Widget, DockWidget, PlotWidget
-from ..gui import GroupBox, SpinBox
-from ..gui import DoubleSpinBox, TableWidget
-from ..gui import Action, SignalSender
-from .. import load_ui
+from ..gui import Layout
 
 
 class WidgetUiController(WidgetController):
@@ -80,6 +81,9 @@ class WidgetUiController(WidgetController):
 
     def widget(self, name=None) -> Widget:
         return self.container(name).center_widget
+
+    def layout(self, name=None) -> Layout:
+        return self.__get_widget__('layout', name)
 
     def __get_widget__(self, type_name, obj_name):
         return getattr(self.w, type_name + '_' + obj_name, None) or getattr(self.w, obj_name + '_' + type_name)
