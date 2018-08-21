@@ -1,5 +1,6 @@
 from . import WidgetUiController
 from ..gui import Shortcut
+from PySide.QtCore import Qt
 
 
 class DialogUiController(WidgetUiController):
@@ -10,6 +11,9 @@ class DialogUiController(WidgetUiController):
 
     def exec(self):
         return self.w.exec()
+
+    def setWindowMinimizeButtonHint(self):
+        self.w.setWindowFlags(Qt.WindowMinimizeButtonHint | Qt.WindowMaximizeButtonHint)
 
     @classmethod
     def class_exec(cls, *args, **kwargs):
