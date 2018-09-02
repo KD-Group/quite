@@ -4,11 +4,11 @@ from .. import load_ui
 from ..gui import Action, SignalSender
 from ..gui import DoubleSpinBox, TableWidget
 from ..gui import GroupBox, SpinBox
-from ..gui import Label, PushButton
-from ..gui import LineEdit, DateEdit
+from ..gui import Label, PushButton, RatioButton
+from ..gui import Layout
+from ..gui import LineEdit, DateEdit, TextEdit
 from ..gui import ListWidget, ComboBox
 from ..gui import Widget, DockWidget, PlotWidget
-from ..gui import Layout
 
 
 class WidgetUiController(WidgetController):
@@ -23,11 +23,17 @@ class WidgetUiController(WidgetController):
     def button(self, name=None) -> PushButton:
         return self.__get_widget__('button', name)
 
+    def radio_button(self, name=None) -> RatioButton:
+        return self.__get_widget__('radio_button', name)
+
     def edit(self, name=None) -> LineEdit:
         return self.__get_widget__('edit', name)
 
     def date_edit(self, name=None) -> DateEdit:
         return self.__get_widget__('date_edit', name)
+
+    def text_edit(self, name=None) -> TextEdit:
+        return self.__get_widget__('text_edit', name)
 
     def plot_widget(self, name=None) -> PlotWidget:
         return self.__get_widget__('plot_widget', name)

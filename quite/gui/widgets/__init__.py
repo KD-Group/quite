@@ -18,3 +18,5 @@ from .shortcut import Shortcut
 from .spin_box import SpinBox
 from .table_widget import TableWidget
 from .widget import Widget
+from .radio_button import RatioButton
+from .text_edit import TextEdit
