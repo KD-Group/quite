@@ -1,6 +1,6 @@
 # quite: QT UI Extension for Python3
 
-[![Travis-CI](https://travis-ci.org/SF-Zhou/quite.svg?branch=master)](https://travis-ci.org/SF-Zhou/quite)
+[![Build Status](https://travis-ci.com/KD-Group/quite.svg?branch=master)](https://travis-ci.com/KD-Group/quite)
 
 ## Features
 
