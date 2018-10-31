@@ -10,7 +10,6 @@ class WidgetController:
             parent = parent.w
 
         self.w = self.__trick__(constructor, parent)
-        self.w.closed.connect(self.w.deleteLater)
 
     def question(self, text, title='选择'):
         # noinspection PyCallByClass

@@ -1,7 +1,7 @@
+import st
 import typing
 
 import prett
-import st
 from .. import ExcitedSignalInterface, RowChangedSignalInterface
 from .. import QTableWidget
 from .. import Qt, QAbstractItemView, QTableWidgetItem
@@ -38,6 +38,18 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
         self.selectAll()
         # noinspection PyUnresolvedReferences
         self.itemClicked.connect(self.cancel_current_select)
+
+    def set_column_hidden(self, header_name):
+        header_labels = list(self.horizontalHeaderItem(i).text() for i in range(self.columnCount()))
+        if header_name not in header_labels:
+            raise ValueError("header_name doesn't match header label")
+        self.hideColumn(header_labels.index(header_name))
+
+    def set_column_show(self, header_name):
+        header_labels = list(self.horizontalHeaderItem(i).text() for i in range(self.columnCount()))
+        if header_name not in header_labels:
+            raise ValueError("header_name doesn't match header label")
+        self.showColumn(header_labels.index(header_name))
 
     def cancel_current_select(self):
         self.select_row_index = getattr(self, "select_row_index", 0)
