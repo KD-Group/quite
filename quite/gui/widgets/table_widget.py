@@ -1,7 +1,7 @@
+import prett
 import st
 import typing
 
-import prett
 from .. import ExcitedSignalInterface, RowChangedSignalInterface
 from .. import QTableWidget
 from .. import Qt, QAbstractItemView, QTableWidgetItem
@@ -64,6 +64,21 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
         selected_ids = list(map(lambda x: x.row(), self.selectedIndexes()))
         selected_ids = list(set(selected_ids))
         selected_list = list(filter(lambda x: self.dict_list.value.index(x) in selected_ids, self.dict_list.value))
+        return selected_list
+
+    def get_selected_list_without_hidden_col(self) -> typing.List[dict]:
+        selected_list = self.get_selected_list()
+        header_labels = list(self.horizontalHeaderItem(i).text() for i in range(self.columnCount()))
+        # if header_name not in header_labels:
+        #     raise ValueError("header_name doesn't match header label")
+        # self.hideColumn(header_labels.index(header_name))
+        hidden_columns = []
+        for column_name in header_labels:
+            if self.isColumnHidden(header_labels.index(column_name)):
+                hidden_columns.append(column_name)
+        for row in selected_list:
+            for hidden_col in hidden_columns:
+                del row[hidden_col]
         return selected_list
 
     def set_headers(self, headers: list):
