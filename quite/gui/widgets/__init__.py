@@ -20,3 +20,4 @@ from .table_widget import TableWidget
 from .widget import Widget
 from .radio_button import RatioButton
 from .text_edit import TextEdit
+from .time_edit import TimeEdit

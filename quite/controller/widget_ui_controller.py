@@ -6,7 +6,7 @@ from ..gui import DoubleSpinBox, TableWidget
 from ..gui import GroupBox, SpinBox
 from ..gui import Label, PushButton, RatioButton
 from ..gui import Layout
-from ..gui import LineEdit, DateEdit, TextEdit
+from ..gui import LineEdit, DateEdit, TextEdit,TimeEdit
 from ..gui import ListWidget, ComboBox
 from ..gui import Widget, DockWidget, PlotWidget
 
@@ -31,6 +31,8 @@ class WidgetUiController(WidgetController):
 
     def date_edit(self, name=None) -> DateEdit:
         return self.__get_widget__('date_edit', name)
+    def time_edit(self, name=None) -> TimeEdit:
+        return self.__get_widget__('time',name)
 
     def text_edit(self, name=None) -> TextEdit:
         return self.__get_widget__('text_edit', name)
