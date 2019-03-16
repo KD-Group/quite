@@ -198,5 +198,6 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
             for i in range(self.row_count):
                 self.parent.removeRow(0)
             for row_dict in value:
+                print(row_dict)
                 self.parent.dict.value = row_dict
             self.check_change()

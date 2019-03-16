@@ -9,7 +9,7 @@ from . import QPrinter, QPainter
 
 
 @deferred_define
-def set_central_widget(self: Widget, widget):
+def set_central_widget(self: Widget, widget, del_pre_widget=True):
     if isinstance(widget, WidgetController):
         widget = widget.w
     if not isinstance(widget, QWidget):
@@ -17,7 +17,8 @@ def set_central_widget(self: Widget, widget):
 
     if hasattr(self, 'center_widget'):
         self.layout().removeWidget(self.center_widget)
-        self.center_widget.deleteLater()
+        if del_pre_widget:
+            self.center_widget.deleteLater()
 
     if isinstance(self, QMainWindow):
         self.setCentralWidget(widget)

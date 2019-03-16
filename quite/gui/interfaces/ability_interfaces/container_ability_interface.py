@@ -4,8 +4,8 @@ from PySide.QtCore import QSize
 
 
 class ContainerAbilityInterface(BaseInterface):
-    def set_central_widget(self, w):
-        return run_deferred_function('set_central_widget', self, w)
+    def set_central_widget(self, w, **kwargs):
+        return run_deferred_function('set_central_widget', self, w, **kwargs)
 
     def set_square_widget(self, w, spacing=0):
         return run_deferred_function('set_square_widget', self, w, spacing)
