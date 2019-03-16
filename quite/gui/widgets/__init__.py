@@ -21,3 +21,4 @@ from .widget import Widget
 from .radio_button import RatioButton
 from .text_edit import TextEdit
 from .time_edit import TimeEdit
+from .table_view import TableView

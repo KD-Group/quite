@@ -42,13 +42,13 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
     def set_column_hidden(self, header_name):
         header_labels = list(self.horizontalHeaderItem(i).text() for i in range(self.columnCount()))
         if header_name not in header_labels:
-            raise ValueError("header_name doesn't match header label")
+            raise ValueError("header_name doesn't match headers label")
         self.hideColumn(header_labels.index(header_name))
 
     def set_column_show(self, header_name):
         header_labels = list(self.horizontalHeaderItem(i).text() for i in range(self.columnCount()))
         if header_name not in header_labels:
-            raise ValueError("header_name doesn't match header label")
+            raise ValueError("header_name doesn't match headers label")
         self.showColumn(header_labels.index(header_name))
 
     def cancel_current_select(self):
@@ -70,7 +70,7 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
         selected_list = self.get_selected_list()
         header_labels = list(self.horizontalHeaderItem(i).text() for i in range(self.columnCount()))
         # if header_name not in header_labels:
-        #     raise ValueError("header_name doesn't match header label")
+        #     raise ValueError("header_name doesn't match headers label")
         # self.hideColumn(header_labels.index(header_name))
         hidden_columns = []
         for column_name in header_labels:
@@ -154,7 +154,7 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
                     for i in range(self.col_count):
                         item_text = value[header_labels[i]]
                         if item_text is None:
-                            raise ValueError("key value doesn't match header label")
+                            raise ValueError("key value doesn't match headers label")
                         table_item = QTableWidgetItem(item_text)
                         table_item.setTextAlignment(Qt.AlignCenter)
                         self.parent.setItem(self.row_count - 1, i, table_item)
@@ -198,6 +198,5 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
             for i in range(self.row_count):
                 self.parent.removeRow(0)
             for row_dict in value:
-                print(row_dict)
                 self.parent.dict.value = row_dict
             self.check_change()

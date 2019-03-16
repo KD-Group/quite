@@ -2,7 +2,7 @@ import st
 from . import WidgetController
 from .. import load_ui
 from ..gui import Action, SignalSender
-from ..gui import DoubleSpinBox, TableWidget
+from ..gui import DoubleSpinBox, TableWidget,TableView
 from ..gui import GroupBox, SpinBox
 from ..gui import Label, PushButton, RatioButton
 from ..gui import Layout
@@ -62,6 +62,10 @@ class WidgetUiController(WidgetController):
 
     def table(self, name=None) -> TableWidget:
         return self.__get_widget__('table', name)
+
+    def table_view(self, name=None) -> TableView:
+        return self.__get_widget__('table_view', name)
+
 
     def double(self, name=None) -> DoubleSpinBox:
         return self.__get_widget__('double', name)
