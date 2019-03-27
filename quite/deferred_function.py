@@ -65,8 +65,6 @@ def export_to_pdf(self: Widget, filename: str, export_size=QSize(1060, 730)):
     else:
         self.resize(export_size.height(), export_size.width())
 
-    self.show()
-    self.hide()
     p = QPicture()
     painter = QPainter(p)
     self.render(painter, QPoint(0, 0))
@@ -86,6 +84,7 @@ def export_to_pdf(self: Widget, filename: str, export_size=QSize(1060, 730)):
     if ok:
         painter.drawPicture(0, 0, p)
         ok = painter.end()
+    self.resize(w, h)
     return ok
 
 
@@ -100,11 +99,11 @@ def export_to_bitmap(self: Widget, filename: str, export_size=QSize(1060, 730)):
     else:
         self.resize(export_size.height(), export_size.width())
 
-    self.show()
-    self.hide()
     p = QPixmap(*self.size)
     painter = QPainter(p)
     self.render(painter, QPoint(0, 0))
     painter.end()
+    ok = p.save(filename)
 
-    return p.save(filename)
+    self.resize(w, h)
+    return ok
