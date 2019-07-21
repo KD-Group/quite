@@ -1,13 +1,14 @@
 import st
 from . import WidgetController
-from ..gui import Label, PushButton
-from ..gui import LineEdit, DateEdit
+from .. import load_ui
+from ..gui import Action, SignalSender
+from ..gui import DoubleSpinBox, TableWidget, TableView
+from ..gui import GroupBox, SpinBox
+from ..gui import Label, PushButton, RatioButton
+from ..gui import Layout
+from ..gui import LineEdit, DateEdit, TextEdit, TimeEdit
 from ..gui import ListWidget, ComboBox
 from ..gui import Widget, DockWidget, PlotWidget
-from ..gui import GroupBox, SpinBox
-from ..gui import DoubleSpinBox, TableWidget
-from ..gui import Action, SignalSender
-from .. import load_ui
 
 
 class WidgetUiController(WidgetController):
@@ -22,11 +23,20 @@ class WidgetUiController(WidgetController):
     def button(self, name=None) -> PushButton:
         return self.__get_widget__('button', name)
 
+    def radio_button(self, name=None) -> RatioButton:
+        return self.__get_widget__('radio_button', name)
+
     def edit(self, name=None) -> LineEdit:
         return self.__get_widget__('edit', name)
 
     def date_edit(self, name=None) -> DateEdit:
         return self.__get_widget__('date_edit', name)
+
+    def time_edit(self, name=None) -> TimeEdit:
+        return self.__get_widget__('time', name)
+
+    def text_edit(self, name=None) -> TextEdit:
+        return self.__get_widget__('text_edit', name)
 
     def plot_widget(self, name=None) -> PlotWidget:
         return self.__get_widget__('plot_widget', name)
@@ -54,6 +64,9 @@ class WidgetUiController(WidgetController):
     def table(self, name=None) -> TableWidget:
         return self.__get_widget__('table', name)
 
+    def table_view(self, name=None) -> TableView:
+        return self.__get_widget__('table_view', name)
+
     def double(self, name=None) -> DoubleSpinBox:
         return self.__get_widget__('double', name)
 
@@ -80,6 +93,9 @@ class WidgetUiController(WidgetController):
 
     def widget(self, name=None) -> Widget:
         return self.container(name).center_widget
+
+    def layout(self, name=None) -> Layout:
+        return self.__get_widget__('layout', name)
 
     def __get_widget__(self, type_name, obj_name):
         return getattr(self.w, type_name + '_' + obj_name, None) or getattr(self.w, obj_name + '_' + type_name)

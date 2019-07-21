@@ -1,7 +1,7 @@
-import typing
-
 import prett
 import st
+import typing
+
 from .. import ExcitedSignalInterface, RowChangedSignalInterface
 from .. import QTableWidget
 from .. import Qt, QAbstractItemView, QTableWidgetItem
@@ -39,6 +39,18 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
         # noinspection PyUnresolvedReferences
         self.itemClicked.connect(self.cancel_current_select)
 
+    def set_column_hidden(self, header_name):
+        header_labels = list(self.horizontalHeaderItem(i).text() for i in range(self.columnCount()))
+        if header_name not in header_labels:
+            raise ValueError("header_name doesn't match headers label")
+        self.hideColumn(header_labels.index(header_name))
+
+    def set_column_show(self, header_name):
+        header_labels = list(self.horizontalHeaderItem(i).text() for i in range(self.columnCount()))
+        if header_name not in header_labels:
+            raise ValueError("header_name doesn't match headers label")
+        self.showColumn(header_labels.index(header_name))
+
     def cancel_current_select(self):
         self.select_row_index = getattr(self, "select_row_index", 0)
         self.select_rows_num = getattr(self, "select_rows_num", 1)
@@ -52,6 +64,21 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
         selected_ids = list(map(lambda x: x.row(), self.selectedIndexes()))
         selected_ids = list(set(selected_ids))
         selected_list = list(filter(lambda x: self.dict_list.value.index(x) in selected_ids, self.dict_list.value))
+        return selected_list
+
+    def get_selected_list_without_hidden_col(self) -> typing.List[dict]:
+        selected_list = self.get_selected_list()
+        header_labels = list(self.horizontalHeaderItem(i).text() for i in range(self.columnCount()))
+        # if header_name not in header_labels:
+        #     raise ValueError("header_name doesn't match headers label")
+        # self.hideColumn(header_labels.index(header_name))
+        hidden_columns = []
+        for column_name in header_labels:
+            if self.isColumnHidden(header_labels.index(column_name)):
+                hidden_columns.append(column_name)
+        for row in selected_list:
+            for hidden_col in hidden_columns:
+                del row[hidden_col]
         return selected_list
 
     def set_headers(self, headers: list):
@@ -127,7 +154,7 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
                     for i in range(self.col_count):
                         item_text = value[header_labels[i]]
                         if item_text is None:
-                            raise ValueError("key value doesn't match header label")
+                            raise ValueError("key value doesn't match headers label")
                         table_item = QTableWidgetItem(item_text)
                         table_item.setTextAlignment(Qt.AlignCenter)
                         self.parent.setItem(self.row_count - 1, i, table_item)
