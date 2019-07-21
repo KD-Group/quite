@@ -8,7 +8,6 @@ from .group_box import GroupBox
 from .input_dialog import InputDialog
 from .label import Label
 from .layout import Layout
-from .layout import Layout
 from .line_edit import LineEdit
 from .list_widget import ListWidget
 from .main_window import MainWindow
