@@ -5,7 +5,7 @@ from .. import FocusInSignalInterface, FocusOutSignalInterface
 
 
 @ui_extension
-class LineEdit(QLineEdit, prett.WidgetStringInterface, FocusInSignalInterface,FocusOutSignalInterface):
+class LineEdit(QLineEdit, prett.WidgetStringInterface, FocusInSignalInterface, FocusOutSignalInterface):
     class StringItem(prett.WidgetStringItem):
         def __init__(self, parent: 'LineEdit'):
             self.parent = parent
@@ -29,4 +29,3 @@ class LineEdit(QLineEdit, prett.WidgetStringInterface, FocusInSignalInterface,Fo
     def focusOutEvent(self, e):
         super().focusOutEvent(e)
         self.focus_out.emit(self.string.value)
-

@@ -2,11 +2,11 @@ import st
 from . import WidgetController
 from .. import load_ui
 from ..gui import Action, SignalSender
-from ..gui import DoubleSpinBox, TableWidget,TableView
+from ..gui import DoubleSpinBox, TableWidget, TableView
 from ..gui import GroupBox, SpinBox
 from ..gui import Label, PushButton, RatioButton
 from ..gui import Layout
-from ..gui import LineEdit, DateEdit, TextEdit,TimeEdit
+from ..gui import LineEdit, DateEdit, TextEdit, TimeEdit
 from ..gui import ListWidget, ComboBox
 from ..gui import Widget, DockWidget, PlotWidget
 
@@ -31,8 +31,9 @@ class WidgetUiController(WidgetController):
 
     def date_edit(self, name=None) -> DateEdit:
         return self.__get_widget__('date_edit', name)
+
     def time_edit(self, name=None) -> TimeEdit:
-        return self.__get_widget__('time',name)
+        return self.__get_widget__('time', name)
 
     def text_edit(self, name=None) -> TextEdit:
         return self.__get_widget__('text_edit', name)
@@ -65,7 +66,6 @@ class WidgetUiController(WidgetController):
 
     def table_view(self, name=None) -> TableView:
         return self.__get_widget__('table_view', name)
-
 
     def double(self, name=None) -> DoubleSpinBox:
         return self.__get_widget__('double', name)
