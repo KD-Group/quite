@@ -8,6 +8,8 @@ from .interfaces import ClosedSignalInterface, ShowedSignalInterface
 from .interfaces import ChangedSignalInterface, ExcitedSignalInterface
 from .interfaces import RowChangedSignalInterface
 from .interfaces import ContainerAbilityInterface
+from .interfaces import FocusInSignalInterface
+from .interfaces import FocusOutSignalInterface
 
 from .layouts import SquareLayout
 from .paint import scaling, PointF, SizeF, Pen, Painter

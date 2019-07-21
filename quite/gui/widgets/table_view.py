@@ -109,7 +109,8 @@ class TableView(QTableView, ExcitedSignalInterface,
                 hidden_columns.append(column_name)
         for row in selected_list:
             for hidden_col in hidden_columns:
-                del row[hidden_col]
+                if hidden_col in row.keys():
+                    del row[hidden_col]
         return selected_list
 
     @property
