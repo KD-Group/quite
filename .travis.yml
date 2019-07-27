@@ -19,6 +19,7 @@ script:
 deploy:
   provider: pypi
   user: sfzhou
+  skip_cleanup: true
   on:
     tags: true
   password:
