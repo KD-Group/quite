@@ -1,28 +1,24 @@
 language: python
 dist: trusty
 python:
-    - "3.4"
-
+- '3.4'
 install:
-    - pip install PySide --no-index --find-links https://parkin.github.io/python-wheelhouse/;
-    - python ~/virtualenv/python${TRAVIS_PYTHON_VERSION}/bin/pyside_postinstall.py -install
-    - pip install -r requirements.txt
-    - pip install flake8
-
+- pip install PySide --no-index --find-links https://parkin.github.io/python-wheelhouse/;
+- python ~/virtualenv/python${TRAVIS_PYTHON_VERSION}/bin/pyside_postinstall.py -install
+- pip install -r requirements.txt
+- pip install flake8
 script:
-    - flake8
-    - "export DISPLAY=:99.0"
-    - "sh -e /etc/init.d/xvfb start"
-    - sleep 3
-    - python -m pytest
-
+- flake8
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- sleep 3
+- python -m pytest
 deploy:
-    provider: pypi
-    user: Jefung
-    password:
-        secure: dfEjJ/wAxilOaxRDIwbG0E5LRk76PkRBo6UCPZltIxbdwhVaCJbaJPcKB1nWHm8uqKLTap1xAzTNYwkXh8H4J2sIbAHUg2YeLQy5bQgPhLxQZqPqRx9tkfFYKabILknXITjRa1InpLOdmBd8ttT8AFUDAmIOgaXbYUs/RUROQYjJypUxcIR7Thup2lxbBGsqRBIexvFBqRXtcom4lTLiH4Xt8wTxSI3v2vsKXe+Zlg/ry5U5krTo7fQl94U9dXWLH7hM6dwtMsboG/W/buxQCC6xUUeCa6qy5crqfMcmwOrBfl7cHksn0lVufEEWFd6LxYf48Qb43lYftuhqwipTx4scJvwZ8iP6cU7pvBINjWT9aY7T2aDtHK1A1Kmv8roFOHEKEB4Voa4rvk0F3C1ULzbRtYYnofJov9wxXfuEHOF2PmTs0fqB3VroyTLLsW/BrNVGM/JnTL3a8T65S8ah8Y3uSEq083KTx6iYG/q3cDFfUOlJMWiFAByxID2ZKGb0nOusx4CqTyLmJevUKzQm4J8f5qhuteSjAA8ydMEXF05TYtOjO8R/Jh+7f7tG7ZTlvPW8Pe87QzKLAtCfqGD8qpMBYT/F7ld6jlqOFckduwpUMbmBv3VNxH+xNlAwPuFk0G/qrZCTfJYK2287tw81sITq50Qt9EMmhMqvPsJ/R18=
-    on:
-        tags: true
-        
-notifications:
-    email: false
+  provider: pypi
+  user: 'Jefung'
+  password:
+    secure: D04ZZNQejPwXM74bGwp2xZv/y6k0HWRWx3Wcnw9Rri0y0H9Xb82uAk59BI+/PE8Zee9i9jsoHV15XVLvke89G2DZKyU88YCcWx8+DjwQIfzdHSGhsFkOeCSXhk29wICInANiVwRuIo1e5knPjY6g6OjVdQ/PxBbctTQTSbAR2UnVC0Dz2USS8i87ypXTLBskRmvJgTKxaNkyfs1p0mLxWxfSQP7Su5LSK+xLF3a2uSPAeOmyXv7/nYfixcYUjlTFCCTDVFyEohZ5mnBkA3QoiHbHFA9s5AdrCD1MPOPeob6CervjhgC9q7BJtYvbSb6FtXF/+eZAAhzS0CltXFEVskNMUqJO7dwFS1QOYnHKKWeY5q0PtEEFkriRQALQQPNZQ7gqmbryJHSrOC6657fuEVsjxQiYYhSk525lr3a9kV8/kA1gFkUC7/+ox0UciUQF0vLiO3wHBBLUMs74RhxMoNKqP8EnkE15cYSAeRqqZsyTd2PSCmaNdlDM6zZHtNO8q1Qsvn2tsfV87poZmwc/s0EUwmYZYpr/GmvJy+DTiO40YfGWbury62QiHck5LHvGTs0B315FtS1NqBb/glggSYbFimSTQhSlSGhsFIgfulzwF90KxtAiVgZfMgAaWhIVG2zWhLhL5EuLusXPWD1UwwvDO08qlGKshQHsGoJZVL4=
+  on:
+    tags: true
+    distributions: sdist bdist_wheel
+    repo: KD-Group/quite
