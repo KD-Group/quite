@@ -1,9 +1,9 @@
 import prett
 import typing
-
+import functools
 from .. import ExcitedSignalInterface, RowChangedSignalInterface
 from .. import QTableView, QAbstractTableModel
-from .. import Qt, QAbstractItemView, QTableWidgetItem
+from .. import Qt, QAbstractItemView, QtGui
 from .. import ui_extension
 
 
@@ -11,12 +11,30 @@ from .. import ui_extension
 class TableView(QTableView, ExcitedSignalInterface,
                 prett.WidgetDictInterface, prett.WidgetIndexInterface, prett.WidgetDictListInterface,
                 RowChangedSignalInterface):
+    menuItems = []
+
+    def addMenuItem(self, name, func):
+        self.menuItems.append((name, func))
+
+    def contextMenuEvent(self, event):
+        if len(self.menuItems) != 0:
+            menu = QtGui.QMenu(self)
+            for item in self.menuItems:
+                name = item[0]
+                func = item[1]
+                action = QtGui.QAction(name, self)
+                pos = event.pos()
+                # use lambda will lead to always exec finally func bug, use is ok
+                action.triggered.connect(functools.partial(func, pos))
+                menu.addAction(action)
+            menu.exec_(QtGui.QCursor.pos())
 
     def set_row_changed_signal_connection(self):
         self.clicked.connect(self.row_changed_signal)
 
     def row_changed_signal(self):
-        self.row_changed.emit_if_changed(self.selectedIndexes()[0].row())
+        if len(self.selectedIndexes()) != 0:
+            self.row_changed.emit_if_changed(self.selectedIndexes()[0].row())
 
     @property
     def model(self):
@@ -31,7 +49,7 @@ class TableView(QTableView, ExcitedSignalInterface,
             self.mylist = []
             self.headers = []
 
-        def rowCount(self, parent):
+        def rowCount(self, parent=None):
             return len(self.mylist)
 
         def columnCount(self, parent=None):
@@ -62,12 +80,19 @@ class TableView(QTableView, ExcitedSignalInterface,
                 res.append(self.mylist[index])
             return res
 
+        def get_data(self, row, col):
+            return self.mylist[row][self.headers[col]]
+
     def set_headers(self, headers):
         self.model.set_headers(headers)
 
     def set_data(self, data):
         self.model.set_data(data)
         self.model.reset()
+
+    def get_data(self, row, col):
+        data = self.model.get_data(row, col)
+        return data
 
     def set_column_hidden(self, header):
         self.set_column_visible(header, False)
@@ -116,3 +141,21 @@ class TableView(QTableView, ExcitedSignalInterface,
     @property
     def col_count(self):
         return self.model.columnCount()
+
+    @property
+    def row_count(self):
+        return self.model.rowCount()
+
+    def select_rows(self, rows):
+        self.setSelectionMode(QAbstractItemView.MultiSelection)
+        selected_row = list(map(lambda x: x.row(), self.selectedIndexes()))
+        for row in rows:
+            if row not in selected_row:
+                self.selectRow(row)
+
+    def unselect_rows(self, rows):
+        self.setSelectionMode(QAbstractItemView.MultiSelection)
+        selected_row = list(map(lambda x: x.row(), self.selectedIndexes()))
+        for row in rows:
+            if row in selected_row:
+                self.selectRow(row)
