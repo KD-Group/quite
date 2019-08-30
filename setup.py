@@ -31,6 +31,9 @@ def get_git_latest_tag():
     try:
         out = _minimal_ext_cmd("git describe --abbrev=0 --tags")
         git_tag = out.strip().decode('ascii')
+        # 去除tag中的v/V
+        if str(git_tag).startswith("v") or str(git_tag).startswith("V"):
+            git_tag = str(git_tag)[1:]
     except OSError:
         git_tag = None
 
