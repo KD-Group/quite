@@ -34,7 +34,7 @@ def get_git_latest_tag():
             git_tag = str(git_tag)[1:]
         if git_tag == "":
             git_tag = None
-    except:
+    except Exception:
         git_tag = None
 
     return git_tag
@@ -52,7 +52,7 @@ def read_release_version():
                 return version
         finally:
             f.close()
-    except:
+    except Exception:
         return None
 
 
