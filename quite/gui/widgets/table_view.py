@@ -89,6 +89,9 @@ class TableView(QTableView, ExcitedSignalInterface,
     def set_data(self, data):
         self.model.set_data(data)
         self.model.reset()
+        # fix column from hide to show, but not show in view
+        # because origin column size is 0
+        self.auto_resize_column_width()
 
     def get_data(self, row, col):
         data = self.model.get_data(row, col)
@@ -108,7 +111,14 @@ class TableView(QTableView, ExcitedSignalInterface,
         else:
             self.hideColumn(self.model.headers.index(header))
 
+    def column_count(self):
+        return self.model.columnCount()
+
+    def row_count(self):
+        return self.model.rowCount()
+
     def set_just_show_mode(self):
+        self.auto_resize = True
         self.verticalHeader().hide()
         self.resizeColumnsToContents()
         self.setEditTriggers(QAbstractItemView.NoEditTriggers)
@@ -137,6 +147,27 @@ class TableView(QTableView, ExcitedSignalInterface,
                 if hidden_col in row.keys():
                     del row[hidden_col]
         return selected_list
+
+    @property
+    def auto_resize(self):
+        return getattr(self, 'resize', False)
+
+    @auto_resize.setter
+    def auto_resize(self, value: bool):
+        setattr(self, 'resize', value)
+
+    def auto_resize_column_width(self):
+        if self.auto_resize:
+            self.resizeColumnsToContents()
+            col_count = self.column_count()
+            col_width = sum(list([self.columnWidth(i) for i in range(col_count)]))
+            if col_width < self.width():
+                for i in range(col_count):
+                    self.setColumnWidth(i, self.columnWidth(i) / col_width * self.width())
+
+    def resizeEvent(self, event):
+        super(QTableView, self).resizeEvent(event)
+        self.auto_resize_column_width()
 
     @property
     def col_count(self):
