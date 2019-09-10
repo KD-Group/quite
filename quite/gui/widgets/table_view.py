@@ -111,7 +111,6 @@ class TableView(QTableView, ExcitedSignalInterface,
         else:
             self.hideColumn(self.model.headers.index(header))
 
-
     def set_just_show_mode(self):
         self.auto_resize = True
         self.verticalHeader().hide()
