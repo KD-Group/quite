@@ -111,11 +111,6 @@ class TableView(QTableView, ExcitedSignalInterface,
         else:
             self.hideColumn(self.model.headers.index(header))
 
-    def column_count(self):
-        return self.model.columnCount()
-
-    def row_count(self):
-        return self.model.rowCount()
 
     def set_just_show_mode(self):
         self.auto_resize = True
@@ -159,7 +154,7 @@ class TableView(QTableView, ExcitedSignalInterface,
     def auto_resize_column_width(self):
         if self.auto_resize:
             self.resizeColumnsToContents()
-            col_count = self.column_count()
+            col_count = self.col_count
             col_width = sum(list([self.columnWidth(i) for i in range(col_count)]))
             if col_width < self.width():
                 for i in range(col_count):
