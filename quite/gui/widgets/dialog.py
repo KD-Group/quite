@@ -6,6 +6,11 @@ from .. import ui_extension
 
 @ui_extension
 class Dialog(QDialog, ClosedSignalInterface, ContainerAbilityInterface):
+    keyPressFunc = None
+
+    def keyPressEvent(self, event):
+        self.keyPressFunc(event)
+        event.ignore()
 
     def closeEvent(self, event: QCloseEvent):
         if self.can_close:

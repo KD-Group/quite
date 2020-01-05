@@ -12,6 +12,13 @@ from .. import ui_extension
 class TableWidget(QTableWidget, ExcitedSignalInterface,
                   prett.WidgetDictInterface, prett.WidgetIndexInterface, prett.WidgetDictListInterface,
                   RowChangedSignalInterface):
+    keyPressFunc = None
+
+    def keyPressEvent(self, event):
+        if self.keyPressFunc is not None:
+            self.keyPressFunc(event)
+        event.ignore()
+
     def set_row_changed_signal_connection(self):
         # noinspection PyUnresolvedReferences
         self.itemClicked.connect(self.row_changed_signal)
