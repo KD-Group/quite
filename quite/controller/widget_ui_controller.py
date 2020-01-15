@@ -1,4 +1,6 @@
 import st
+
+from quite.gui.widgets import DateTimeEdit
 from . import WidgetController
 from .. import load_ui
 from ..gui import Action, SignalSender
@@ -31,6 +33,9 @@ class WidgetUiController(WidgetController):
 
     def date_edit(self, name=None) -> DateEdit:
         return self.__get_widget__('date_edit', name)
+
+    def date_time_edit(self, name=None) -> DateTimeEdit:
+        return self.__get_widget__('date_time_edit', name)
 
     def time_edit(self, name=None) -> TimeEdit:
         return self.__get_widget__('time', name)

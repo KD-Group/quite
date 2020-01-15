@@ -1,3 +1,5 @@
+from .. import QInputDialog, Qt
+
 from .. import Widget
 from .. import QMessageBox
 
@@ -32,6 +34,11 @@ class WidgetController:
             self.information(ok_msg)
         else:
             self.warning(bad_msg)
+
+    def input(self, title, label):
+        dialog = QInputDialog()
+        (text, bool) = dialog.getText(self.w, title, label)
+        return text, bool
 
     @staticmethod
     def __trick__(constructor, parent) -> Widget:
