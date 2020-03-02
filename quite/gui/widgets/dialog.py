@@ -9,7 +9,8 @@ class Dialog(QDialog, ClosedSignalInterface, ContainerAbilityInterface):
     keyPressFunc = None
 
     def keyPressEvent(self, event):
-        self.keyPressFunc(event)
+        if self.keyPressFunc is not None:
+            self.keyPressFunc(event)
         event.ignore()
 
     def closeEvent(self, event: QCloseEvent):
