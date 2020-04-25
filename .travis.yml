@@ -6,7 +6,6 @@ virtualenv:
   system_site_packages: true
 install:
   - pip install PySide --no-index --find-links https://parkin.github.io/python-wheelhouse/;
-  - python ~/virtualenv/python${TRAVIS_PYTHON_VERSION}/bin/pyside_postinstall.py -install
   - pip install -r requirements.txt
   - pip install flake8
 script:
