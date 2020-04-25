@@ -100,6 +100,24 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
     def auto_resize(self, value: bool):
         setattr(self, 'resize', value)
 
+    def get_item_style(self, x, y):
+        style_dict = getattr(self, 'item_style', {})
+        for xy in [(x, y), (None, y), (x, None), (None, None)]:
+            if xy in style_dict.keys():
+                return style_dict[xy]
+        return None
+
+    # add item style handle func
+    def set_item_style(self, x, y, item_func):
+        """
+        :param x: row num, if it's None, will match all row.
+        :param y: col num, if it's None, will match all col.
+        :param item_func: func(item: QTableWidgetItem)
+        """
+        style_dict = getattr(self, 'item_style', {})
+        style_dict[(x, y)] = item_func
+        setattr(self, 'item_style', style_dict)
+
     def auto_resize_column_width(self):
         if self.auto_resize:
             self.resizeColumnsToContents()
@@ -164,6 +182,9 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
                             raise ValueError("key value doesn't match headers label")
                         table_item = QTableWidgetItem(item_text)
                         table_item.setTextAlignment(Qt.AlignCenter)
+                        item_handle = self.parent.get_item_style(self.row_count - 1, i)
+                        if item_handle != None:
+                            item_handle(table_item)
                         self.parent.setItem(self.row_count - 1, i, table_item)
                     self.parent.index.value = self.row_count - 1
                     self.parent.auto_resize_column_width()

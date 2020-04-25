@@ -1,5 +1,5 @@
 import prett
-from .. import QLabel
+from .. import QLabel, Qt
 from .. import ui_extension
 from .. import BaseInterface
 
@@ -15,3 +15,8 @@ class Label(QLabel, BaseInterface, prett.WidgetStringInterface):
 
         def set_value(self, value):
             self.parent.setText(value or '')
+
+    def set_clickable_text(self, show_text, call_data, call_func):
+        self.setText("<a href=\"{}\">{}</a>".format(call_data, show_text))
+        self.setTextFormat(Qt.RichText)
+        self.linkActivated.connect(call_func)

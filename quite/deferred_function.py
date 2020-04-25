@@ -14,9 +14,11 @@ def set_central_widget(self: Widget, widget, del_pre_widget=True):
         widget = widget.w
     if not isinstance(widget, QWidget):
         raise TypeError('Only Support Widget or WidgetController')
+    widget.setVisible(True)  # ensure widget is visible
 
     if hasattr(self, 'center_widget'):
         self.layout().removeWidget(self.center_widget)
+        self.center_widget.setVisible(False)  # hide pre widget, and widget can reuse
         if del_pre_widget:
             self.center_widget.deleteLater()
 
