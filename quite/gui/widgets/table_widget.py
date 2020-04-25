@@ -9,9 +9,8 @@ from .. import ui_extension
 
 
 @ui_extension
-class TableWidget(QTableWidget, ExcitedSignalInterface,
-                  prett.WidgetDictInterface, prett.WidgetIndexInterface, prett.WidgetDictListInterface,
-                  RowChangedSignalInterface):
+class TableWidget(QTableWidget, ExcitedSignalInterface, prett.WidgetDictInterface, prett.WidgetIndexInterface,
+                  prett.WidgetDictListInterface, RowChangedSignalInterface):
     keyPressFunc = None
 
     def keyPressEvent(self, event):
@@ -183,7 +182,7 @@ class TableWidget(QTableWidget, ExcitedSignalInterface,
                         table_item = QTableWidgetItem(item_text)
                         table_item.setTextAlignment(Qt.AlignCenter)
                         item_handle = self.parent.get_item_style(self.row_count - 1, i)
-                        if item_handle != None:
+                        if item_handle is not None:
                             item_handle(table_item)
                         self.parent.setItem(self.row_count - 1, i, table_item)
                     self.parent.index.value = self.row_count - 1

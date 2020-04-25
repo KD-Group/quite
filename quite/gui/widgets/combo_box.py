@@ -6,8 +6,8 @@ from .. import BaseInterface
 
 
 @ui_extension
-class ComboBox(QComboBox, BaseInterface,
-               prett.WidgetStringInterface, prett.WidgetIndexInterface, prett.WidgetStringListInterface):
+class ComboBox(QComboBox, BaseInterface, prett.WidgetStringInterface, prett.WidgetIndexInterface,
+               prett.WidgetStringListInterface):
     class ComboBoxItem:
         def __init__(self, parent: 'ComboBox'):
             self.parent = parent

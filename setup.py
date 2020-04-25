@@ -38,22 +38,17 @@ setup(
     long_description=readme(),
     long_description_content_type='text/markdown',
     url='https://github.com/KD-Group/quite',
-
     author='SF-Zhou',
     author_email='sfzhou.scut@gmail.com',
-
     license='MIT',
     classifiers=[
         'Development Status :: 3 - Alpha',
-
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
-
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
     ],
-
     keywords='qt ui',
     packages=find_packages(exclude=['docs', 'tests', 'examples']),
     include_package_data=True,

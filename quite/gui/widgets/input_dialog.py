@@ -5,8 +5,13 @@ from .. import ui_extension
 @ui_extension
 class InputDialog(QInputDialog):
     @staticmethod
-    def get_double(parent=None, title='Input Double Value', label='Value:',
-                   default_value=None, decimals=1, minimum=1, maximum=1e9):
+    def get_double(parent=None,
+                   title='Input Double Value',
+                   label='Value:',
+                   default_value=None,
+                   decimals=1,
+                   minimum=1,
+                   maximum=1e9):
         input_dialog = QInputDialog(parent)
         input_dialog.setInputMode(InputDialog.DoubleInput)
         input_dialog.setWindowTitle(title)
@@ -21,8 +26,7 @@ class InputDialog(QInputDialog):
         return default_value if not input_dialog.exec_() else input_dialog.doubleValue()
 
     @staticmethod
-    def get_int(parent=None, title='Input Int Value', label='Value:',
-                default_value=None, minimum=1, maximum=100):
+    def get_int(parent=None, title='Input Int Value', label='Value:', default_value=None, minimum=1, maximum=100):
         input_dialog = QInputDialog(parent)
         input_dialog.setInputMode(InputDialog.IntInput)
         input_dialog.setWindowTitle(title)

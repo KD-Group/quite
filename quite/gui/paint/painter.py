@@ -5,7 +5,9 @@ from .. import QPainter, QColor, QPen, QRectF, Qt
 class Painter(QPainter):
     default_background_color = QColor(222, 222, 222, 196)
 
-    def draw_text(self, text_rect: QRectF, text: str,
+    def draw_text(self,
+                  text_rect: QRectF,
+                  text: str,
                   color: QColor = None,
                   background_color: QColor = None,
                   background_round_size: int = 2):
@@ -26,7 +28,9 @@ class Painter(QPainter):
         if color:
             self.setPen(current_pen)
 
-    def draw_text_top(self, position: PointF, text: str,
+    def draw_text_top(self,
+                      position: PointF,
+                      text: str,
                       margin: int = 3,
                       color: QColor = None,
                       background_color: QColor = None,
@@ -36,7 +40,9 @@ class Painter(QPainter):
 
         self.draw_text(text_rect, text, color, background_color, background_color_round_size)
 
-    def draw_text_top_left(self, position: PointF, text: str,
+    def draw_text_top_left(self,
+                           position: PointF,
+                           text: str,
                            margin: int = 3,
                            color: QColor = None,
                            background_color: QColor = None,
@@ -46,7 +52,9 @@ class Painter(QPainter):
 
         self.draw_text(text_rect, text, color, background_color, background_color_round_size)
 
-    def draw_text_bottom(self, position: PointF, text: str,
+    def draw_text_bottom(self,
+                         position: PointF,
+                         text: str,
                          margin: int = 3,
                          color: QColor = None,
                          background_color: QColor = None,
@@ -56,7 +64,9 @@ class Painter(QPainter):
 
         self.draw_text(text_rect, text, color, background_color, background_color_round_size)
 
-    def draw_text_left(self, position: PointF, text: str,
+    def draw_text_left(self,
+                       position: PointF,
+                       text: str,
                        margin: int = 3,
                        color: QColor = None,
                        background_color: QColor = None,
@@ -66,7 +76,9 @@ class Painter(QPainter):
 
         self.draw_text(text_rect, text, color, background_color, background_color_round_size)
 
-    def draw_text_right(self, position: PointF, text: str,
+    def draw_text_right(self,
+                        position: PointF,
+                        text: str,
                         margin: int = 3,
                         color: QColor = None,
                         background_color: QColor = None,
@@ -76,7 +88,9 @@ class Painter(QPainter):
 
         self.draw_text(text_rect, text, color, background_color, background_color_round_size)
 
-    def draw_text_bottom_left(self, position: PointF, text: str,
+    def draw_text_bottom_left(self,
+                              position: PointF,
+                              text: str,
                               margin: int = 3,
                               color: QColor = None,
                               background_color: QColor = None,
@@ -86,7 +100,9 @@ class Painter(QPainter):
 
         self.draw_text(text_rect, text, color, background_color, background_color_round_size)
 
-    def draw_text_bottom_right(self, position: PointF, text: str,
+    def draw_text_bottom_right(self,
+                               position: PointF,
+                               text: str,
                                margin: int = 3,
                                color: QColor = None,
                                background_color: QColor = None,

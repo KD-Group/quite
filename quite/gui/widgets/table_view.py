@@ -8,9 +8,8 @@ from .. import ui_extension
 
 
 @ui_extension
-class TableView(QTableView, ExcitedSignalInterface,
-                prett.WidgetDictInterface, prett.WidgetIndexInterface, prett.WidgetDictListInterface,
-                RowChangedSignalInterface):
+class TableView(QTableView, ExcitedSignalInterface, prett.WidgetDictInterface, prett.WidgetIndexInterface,
+                prett.WidgetDictListInterface, RowChangedSignalInterface):
     menuItems = []
 
     def addMenuItem(self, name, func):

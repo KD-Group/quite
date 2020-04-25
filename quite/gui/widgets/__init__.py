@@ -21,4 +21,4 @@ from .radio_button import RatioButton
 from .text_edit import TextEdit
 from .time_edit import TimeEdit
 from .table_view import TableView
-from .date_time_edit import  DateTimeEdit
+from .date_time_edit import DateTimeEdit

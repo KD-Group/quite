@@ -10,6 +10,7 @@ class MyTestCase(unittest.TestCase):
         def slot():
             self.assertEqual(True, True)
             executed[0] = True
+
         signal.connect(slot)
 
         signal.emit()
@@ -24,6 +25,7 @@ class MyTestCase(unittest.TestCase):
             self.assertEqual(b, 2)
             self.assertEqual(c, 3)
             executed[0] = True
+
         signal.connect(slot)
 
         signal.emit(1, 2, 3)

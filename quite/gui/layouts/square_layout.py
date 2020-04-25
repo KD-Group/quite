@@ -4,8 +4,7 @@ from .. import Qt, QSize, QPoint, QRect
 
 
 class SquareLayout(QLayout):
-    def __init__(self, parent: QWidget = None,
-                 default_item: QWidget = None):
+    def __init__(self, parent: QWidget = None, default_item: QWidget = None):
         super().__init__(parent)
 
         self.item = default_item

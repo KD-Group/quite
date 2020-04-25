@@ -6,8 +6,8 @@ from .. import ExcitedSignalInterface
 
 
 @ui_extension
-class ListWidget(QListWidget, ExcitedSignalInterface,
-                 prett.WidgetStringInterface, prett.WidgetIndexInterface, prett.WidgetStringListInterface):
+class ListWidget(QListWidget, ExcitedSignalInterface, prett.WidgetStringInterface, prett.WidgetIndexInterface,
+                 prett.WidgetStringListInterface):
     def set_excited_signal_connection(self):
         # noinspection PyUnresolvedReferences
         self.doubleClicked.connect(st.zero_para(self.excited.emit))

@@ -3,7 +3,6 @@ from . import QDir
 from PySide import QtGui
 from PySide.QtGui import *  # noqa: F403
 
-
 # noinspection PyArgumentList
 if not QtGui.QApplication.instance():
     if getattr(sys, 'frozen', None):

@@ -45,6 +45,7 @@ def later(second=0.01, func=None, *args, **kwargs):
 
     def del_current_timer(cnt):
         del later_times[cnt]
+
     t.timeout.connect(del_current_timer, later_times_cnt)
 
     t.start(int(second * 1000))

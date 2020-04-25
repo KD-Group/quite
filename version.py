@@ -4,7 +4,6 @@
 #   include RELEASE-VERSION
 #   include version.py
 
-
 __all__ = ("get_git_version")
 
 import subprocess
