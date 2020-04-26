@@ -36,7 +36,6 @@ setup(
     version=get_git_version(),
     description='QT UI Extension',
     long_description=readme_rst(),
-    long_description_content_type='text/x-rst',
     url='https://github.com/KD-Group/quite',
     author='SF-Zhou',
     author_email='sfzhou.scut@gmail.com',

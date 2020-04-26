@@ -54,6 +54,7 @@ Container Widget
    :alt: Simple Widget
 
    Simple Widget
+
 *Example 2*: `nested widget <./examples/2_nested_widget/example-2.py>`__
 
 .. code:: python
@@ -76,6 +77,7 @@ Container Widget
    :alt: Nested Widget
 
    Nested Widget
+
 *Example 3*: `widget from ui
 file <./examples/3_widget_from_ui_file/example-3.py>`__
 
