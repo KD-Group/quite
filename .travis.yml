@@ -1,14 +1,13 @@
 language: python
 dist: trusty
 python:
-  - '3.4_with_system_site_packages'
+  - '3.4'
 
 install:
   - pip install PySide --no-index --find-links https://parkin.github.io/python-wheelhouse/;
   - python ~/virtualenv/python${TRAVIS_PYTHON_VERSION}/bin/pyside_postinstall.py -install
   - pip install -r requirements.txt
   - pip install flake8
-  - pip install twine
 script:
   - flake8
   - export DISPLAY=:99.0
