@@ -8,6 +8,7 @@ install:
   - python ~/virtualenv/python${TRAVIS_PYTHON_VERSION}/bin/pyside_postinstall.py -install
   - pip install -r requirements.txt
   - pip install flake8
+  - pip install twine
 script:
   - flake8
   - export DISPLAY=:99.0
