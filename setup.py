@@ -24,7 +24,7 @@ else:
 
 def readme_rst():
     """读取README.rst"""
-    with open('readme.rst', encoding="utf-8") as f:
+    with open('README.rst', encoding="utf-8") as f:
         return f.read()
 
 
