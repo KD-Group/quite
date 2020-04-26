@@ -22,9 +22,9 @@ else:
     req_list = []
 
 
-def readme():
-    """读取README.md文件"""
-    with open('readme.md', encoding="utf-8") as f:
+def readme_rst():
+    """读取README.rst"""
+    with open('readme.rst', encoding="utf-8") as f:
         return f.read()
 
 
@@ -35,8 +35,8 @@ setup(
     name='quite',
     version=get_git_version(),
     description='QT UI Extension',
-    long_description=readme(),
-    long_description_content_type='text/markdown',
+    long_description=readme_rst(),
+    long_description_content_type='text/x-rst',
     url='https://github.com/KD-Group/quite',
     author='SF-Zhou',
     author_email='sfzhou.scut@gmail.com',
