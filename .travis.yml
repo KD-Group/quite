@@ -22,5 +22,4 @@ deploy:
   on:
     tags: true
     repo: KD-Group/quite
-  edge:
-    branch: v1.8.45
+  edge: true
